@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
+//ProgressBar
 public class ProgressView extends AppCompatActivity implements View.OnClickListener {
 
     public Button btn_startQuiz;
