@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.ColorRes;
@@ -18,6 +19,11 @@ import androidx.appcompat.app.AppCompatActivity;
     Loads User data and select level
      */
 public class LevelSelection extends AppCompatActivity implements View.OnClickListener{
+
+    // Identification of areas (Fachbereichen)
+    private int areaID = -1; // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
+    private final String SELECTED_AREA = "selectedArea";
+
     /*
     User data Keys
     */
@@ -66,6 +72,9 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_gui5_level_selection);
         this.setTitle("Levelstufe wählen");
 
+        this.areaID = getIntent().getIntExtra(SELECTED_AREA, -1);
+        setAreaName();
+
         btn_level1 = (Button) findViewById(R.id.button_level1);
         btn_level1.setText("Level 1");
         btn_level1.setBackgroundResource(button_bg_round);
@@ -86,6 +95,16 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
         btn_newArea.setOnClickListener(this);
 
         loadAllUserData();
+    }
+
+    public void setAreaName(){
+        // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
+        TextView tv = (TextView) findViewById(R.id.textView_Area);
+        if(this.areaID == 0) tv.setText("Gravitationsphysik");
+        else if(this.areaID == 1) tv.setText("Wirtschaftswissenschaft");
+        else if(this.areaID == 2) tv.setText("Software Engineering");
+        else if(this.areaID == 3) tv.setText("Elektrotechnik");
+        else if(this.areaID == 4) tv.setText("Soziologie");
     }
 
     public void loadAllUserData(){

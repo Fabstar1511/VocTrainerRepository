@@ -8,33 +8,32 @@
     tools:context=".GeoMap">
 
     <TextView
-        android:id="@+id/textView_GeoMap_H1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:id="@+id/textView_GeoMap_H"
+        android:layout_width="0dp"
+        android:layout_height="97dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="20dp"
         android:text="Begib dich in einen blauen Radius eines der angezeigten Fachgebiete!"
         android:textAlignment="center"
         android:textColor="#0051C3"
-        android:textSize="34sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView_geomap"
-        android:layout_width="352dp"
-        android:layout_height="360dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:scaleType="centerInside"
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_GeoMap_H1"
-        app:srcCompat="@drawable/image_geomap" />
+        tools:context=".MapsActivity" />
 
     <Button
         android:id="@+id/button_DEBUG_in_Radius"
@@ -44,13 +43,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_myLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="50dp"
-        android:text="Button"
-        app:layout_constraintEnd_toStartOf="@+id/button_DEBUG_in_Radius"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

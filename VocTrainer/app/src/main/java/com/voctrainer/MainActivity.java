@@ -15,7 +15,6 @@ import java.util.logging.Level;
 // Dies ist der Einstiegspunkt
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    // Test Today new repo
     public Button btn_start;
     public Button btn_help;
 
@@ -35,15 +34,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void onClick(View v) {
         if (v.getId() == R.id.button_start) {
-            //Toast.makeText(getApplicationContext(),
-            //        "Test", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(MainActivity.this, LevelSelection.class);
+            Intent intent = new Intent(MainActivity.this, MovingCounter.class);
             startActivity(intent);
             //this.finish();
         } else if (v.getId() == R.id.button_help) {
-            //Toast.makeText(getApplicationContext(),
-            //        "Test", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+            Intent intent = new Intent(MainActivity.this, Help.class);
             intent.putExtra("activity_id", 0); //MainActivity is ID = 0
             startActivity(intent);
             //this.finish();

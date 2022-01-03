@@ -11,27 +11,28 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="5dp"
         android:text="Fachgebiet: "
         android:textColor="#103895"
         android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textView_Area"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="35dp"
-        android:text="Elektrotechnik"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:text="No Are found"
         android:textColor="#121315"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
         android:id="@+id/button_newArea"
@@ -43,64 +44,62 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/level3" />
+        app:layout_constraintTop_toBottomOf="@+id/button_level3" />
 
 
     <ImageView
         android:id="@+id/unlock"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="5dp"
         android:src="@drawable/locko"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lock"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_Area" />
 
     <ImageView
         android:id="@+id/unlock2"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="5dp"
         android:src="@drawable/locko"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/lock2"
         app:layout_constraintTop_toBottomOf="@+id/unlock" />
 
     <ImageView
         android:id="@+id/unlock3"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="5dp"
         android:src="@drawable/locko"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/lock3"
         app:layout_constraintTop_toBottomOf="@+id/unlock2" />
 
     <ImageView
         android:id="@+id/lock"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="5dp"
         android:src="@drawable/lockc"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/unlock"
         app:layout_constraintStart_toEndOf="@+id/button_level1"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_Area" />
 
     <ImageView
         android:id="@+id/lock2"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="5dp"
@@ -112,8 +111,8 @@
 
     <ImageView
         android:id="@+id/lock3"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="5dp"
@@ -125,21 +124,21 @@
 
     <ImageView
         android:id="@+id/level1"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="5dp"
         android:src="@drawable/level1"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/button_level1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_Area" />
 
     <ImageView
         android:id="@+id/level2"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="5dp"
@@ -151,8 +150,8 @@
 
     <ImageView
         android:id="@+id/level3"
-        android:layout_width="61dp"
-        android:layout_height="66dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="5dp"
@@ -166,30 +165,26 @@
         android:id="@+id/button_level1"
         android:layout_width="130dp"
         android:layout_height="50dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="20dp"
         android:background="@drawable/button_bg_round_unclickable"
         android:text="level 1"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/button_level2"
         app:layout_constraintEnd_toStartOf="@+id/lock"
         app:layout_constraintStart_toEndOf="@+id/level1"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_Area" />
 
     <Button
         android:id="@+id/button_level2"
         android:layout_width="130dp"
         android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="20dp"
         android:background="@drawable/button_bg_round_unclickable"
         android:text="Level 2"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/button_level3"
         app:layout_constraintEnd_toStartOf="@+id/lock2"
         app:layout_constraintStart_toEndOf="@+id/level2"
         app:layout_constraintTop_toBottomOf="@+id/button_level1" />
@@ -198,8 +193,8 @@
         android:id="@+id/button_level3"
         android:layout_width="130dp"
         android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="5dp"
         android:background="@drawable/button_bg_round_unclickable"
         android:text="Level 3"
