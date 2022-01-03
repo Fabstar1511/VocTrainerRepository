@@ -13,6 +13,16 @@ import android.widget.TextView;
 
 public class Quiz extends AppCompatActivity implements View.OnClickListener{
 
+    private final String SELECTED_AREA = "selectedArea";
+    private final String SELECTED_LEVEL = "selectedLevel";
+    private final String LEVEL_PROGRESS = "levelProgress";
+    private final String CURRENT_QUIZ_RESULT = "currentQuizProgress";
+
+    private int areaID;
+    private int level;
+    private int progress;
+    private int quizResult;
+
     public RadioGroup radioGroup;
     public RadioButton radioButton;
     public Button btn_DEBUG_skip;
@@ -23,6 +33,10 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_gui10_quiz);
         this.setTitle("Quiz - Level 1");
         radioGroup = findViewById(R.id.radioGroup);
+
+        this.areaID = getIntent().getIntExtra(SELECTED_AREA, 0);
+        this.level = getIntent().getIntExtra(SELECTED_LEVEL, 0);
+        this.progress = getIntent().getIntExtra(LEVEL_PROGRESS, 0);
 
         btn_DEBUG_skip = (Button) findViewById(R.id.button_DEBUG_SkipResult);
         btn_DEBUG_skip.setText("To result");
@@ -67,6 +81,10 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View v) {
         if (v.getId() == R.id.button_DEBUG_SkipResult) {
             Intent intent = new Intent(Quiz.this, Result.class);
+            intent.putExtra(SELECTED_AREA, areaID);
+            intent.putExtra(SELECTED_LEVEL, level);
+            intent.putExtra(LEVEL_PROGRESS, progress);
+            intent.putExtra(CURRENT_QUIZ_RESULT, quizResult);
             startActivity(intent);
             this.finish();
         }

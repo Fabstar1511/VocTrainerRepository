@@ -48,7 +48,7 @@
 
 
     <ImageView
-        android:id="@+id/unlock"
+        android:id="@+id/unlock1"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
@@ -56,7 +56,7 @@
         android:src="@drawable/locko"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/lock"
+        app:layout_constraintStart_toEndOf="@+id/lock1"
         app:layout_constraintTop_toBottomOf="@+id/textView_Area" />
 
     <ImageView
@@ -69,7 +69,7 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lock2"
-        app:layout_constraintTop_toBottomOf="@+id/unlock" />
+        app:layout_constraintTop_toBottomOf="@+id/unlock1" />
 
     <ImageView
         android:id="@+id/unlock3"
@@ -84,15 +84,15 @@
         app:layout_constraintTop_toBottomOf="@+id/unlock2" />
 
     <ImageView
-        android:id="@+id/lock"
+        android:id="@+id/lock1"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="5dp"
         android:src="@drawable/lockc"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/unlock"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/unlock1"
         app:layout_constraintStart_toEndOf="@+id/button_level1"
         app:layout_constraintTop_toBottomOf="@+id/textView_Area" />
 
@@ -107,7 +107,7 @@
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/unlock2"
         app:layout_constraintStart_toEndOf="@+id/button_level2"
-        app:layout_constraintTop_toBottomOf="@+id/lock" />
+        app:layout_constraintTop_toBottomOf="@+id/lock1" />
 
     <ImageView
         android:id="@+id/lock3"
@@ -171,7 +171,7 @@
         android:background="@drawable/button_bg_round_unclickable"
         android:text="level 1"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/lock"
+        app:layout_constraintEnd_toStartOf="@+id/lock1"
         app:layout_constraintStart_toEndOf="@+id/level1"
         app:layout_constraintTop_toBottomOf="@+id/textView_Area" />
 

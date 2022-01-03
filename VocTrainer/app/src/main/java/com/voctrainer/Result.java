@@ -12,6 +12,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Result extends AppCompatActivity implements View.OnClickListener{
 
+    private final String SELECTED_AREA = "selectedArea";
+    private final String SELECTED_LEVEL = "selectedLevel";
+    private final String LEVEL_PROGRESS = "levelProgress";
+    private final String CURRENT_QUIZ_RESULT = "currentQuizProgress";
+
+    private int areaID;
+    private int level;
+    private int progress;
+    private int quizResult;
+
     public Button btn_continue;
 
     @Override
@@ -20,11 +30,17 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_gui13_result);
         this.setTitle("Dein Ergebnis");
 
+        this.areaID = getIntent().getIntExtra(SELECTED_AREA, 0);
+        this.level = getIntent().getIntExtra(SELECTED_LEVEL, 0);
+        this.progress = getIntent().getIntExtra(LEVEL_PROGRESS, 0);
+        this.quizResult = getIntent().getIntExtra(CURRENT_QUIZ_RESULT, 0);
+
         btn_continue = (Button) findViewById(R.id.button_skip);
         btn_continue.setText("weiter");
         btn_continue.setOnClickListener(this);
     }
 
+    // Progress is saved as an integer between 0 and 100 (percent)
     private void saveUserData(String key, int Progress){
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
