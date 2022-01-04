@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import java.util.logging.Level;
 
-// Dies ist der Einstiegspunkt
+// Dies ist der Einstiegspunkt (Update 2022)
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public Button btn_start;
