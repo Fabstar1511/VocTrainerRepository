@@ -19,6 +19,20 @@ public class VocabularyList {
         this.vocList.add(voc);
     }
 
+    public ArrayList<Vocabulary> getList(){
+        return this.vocList;
+    }
+
+    public Vocabulary getVocabularyById(int i){
+        if(this.vocList.isEmpty()) return null;
+        else if(i < this.vocList.size()) return this.vocList.get(i);
+        else return null;
+    }
+
+    public int getSize(){
+        return this.vocList.size();
+    }
+
     /*
      Counts number of correct answers
      */
