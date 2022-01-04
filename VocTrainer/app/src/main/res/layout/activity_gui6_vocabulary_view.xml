@@ -26,23 +26,23 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/text"
-        android:layout_width="208dp"
+        android:id="@+id/tv_english_word"
+        android:layout_width="0dp"
         android:layout_height="82dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="40dp"
         android:text="Voltage"
         android:textAlignment="center"
         android:textSize="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tV_quizResult" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_german_word" />
 
     <TextView
-        android:id="@+id/tV_quizResult"
-        android:layout_width="232dp"
+        android:id="@+id/tv_german_word"
+        android:layout_width="0dp"
         android:layout_height="70dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="140dp"
         android:text="Spannung"
         android:textAlignment="center"
         android:textSize="49dp"
@@ -55,12 +55,12 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="58dp"
-        android:layout_height="191dp"
-        android:layout_marginStart="176dp"
+        android:layout_width="110dp"
+        android:layout_height="200dp"
         android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text"
+        app:layout_constraintTop_toBottomOf="@+id/tv_english_word"
         app:srcCompat="@drawable/battery" />
 
     <Button
