@@ -1,5 +1,10 @@
 package com.voctrainer;
 
+/*
+    VocTrainer (Pre-Alpha-Version)
+    04.01.2022
+ */
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -12,7 +17,6 @@ import android.widget.Toast;
 
 import java.util.logging.Level;
 
-// Dies ist der Einstiegspunkt (Update 2022)
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public Button btn_start;
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_help = (Button) findViewById(R.id.button_help);
         btn_help.setText("?");
         btn_help.setOnClickListener(this);
+        Toast.makeText(getApplicationContext(),"MID Project: Voctrainer\n(Pre-Alpha-Version)", Toast.LENGTH_LONG).show();
     }
 
     public void onClick(View v) {
