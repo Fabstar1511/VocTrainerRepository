@@ -115,6 +115,8 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
 
         btn_level1.setBackgroundResource(button_bg_round);
         btn_level1.setOnClickListener(this);
+        btn_level2.setOnClickListener(this);
+        btn_level3.setOnClickListener(this);
 
         // Area name
         TextView tv = (TextView) findViewById(R.id.textView_Area);
@@ -143,9 +145,7 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
             ivLock3.setVisibility(View.INVISIBLE);
 
             btn_level2.setBackgroundResource(button_bg_round);
-            btn_level2.setOnClickListener(this);
             btn_level3.setBackgroundResource(button_bg_round);
-            btn_level3.setOnClickListener(this);
         }
         else if(getLevelStatus() == 2){
             ivUnlock2.setVisibility(View.VISIBLE);
@@ -155,14 +155,12 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
             ivUnlock3.setVisibility(View.INVISIBLE);
 
             btn_level2.setBackgroundResource(button_bg_round);
-            btn_level2.setOnClickListener(this);
             btn_level3.setBackgroundResource(button_bg_round_unclickable);
-            btn_level3.setOnClickListener(this);
         }
     }
 
     public boolean hasReachedHigherLvl(int progress){
-        if(progress <= LEVEL_UP) return false;
+        if(progress < LEVEL_UP) return false;
         else return true;
     }
 
@@ -224,10 +222,11 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
                 intent.putExtra(SELECTED_LEVEL, 2);
                 intent.putExtra(LEVEL_PROGRESS, progress_Lvl_2);
                 startActivity(intent);
-            } else {
+                this.finish();
+            }else {
                 Toast.makeText(getApplicationContext(),
-                        "Dieser Level ist noch nicht freigeschaltet!" +
-                                "Absolviere das Quiz auf Level 1 erfolgreich um diesen" +
+                        "Dieser Level ist noch nicht freigeschaltet! " +
+                                "Absolviere das Quiz auf Level 1 erfolgreich um diesen " +
                                 "Level freizuschalten.", Toast.LENGTH_LONG).show();
             }
         } else if (v.getId() == R.id.button_level3) {
@@ -237,10 +236,11 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
                 intent.putExtra(SELECTED_LEVEL, 3);
                 intent.putExtra(LEVEL_PROGRESS, progress_Lvl_3);
                 startActivity(intent);
+                this.finish();
             } else {
                 Toast.makeText(getApplicationContext(),
-                        "Dieser Level ist noch nicht freigeschaltet!" +
-                                "Absolviere das Quiz auf Level 2 erfolgreich um diesen" +
+                        "Dieser Level ist noch nicht freigeschaltet! " +
+                                "Absolviere das Quiz auf Level 2 erfolgreich um diesen " +
                                 "Level freizuschalten.", Toast.LENGTH_LONG).show();
             }
         }
