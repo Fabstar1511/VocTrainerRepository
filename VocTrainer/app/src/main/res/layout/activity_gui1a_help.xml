@@ -8,7 +8,7 @@
     tools:context=".Help">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tV_quizResult"
         android:layout_width="330dp"
         android:layout_height="80dp"
         android:layout_marginTop="30dp"
@@ -31,7 +31,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tV_quizResult" />
 
     <Button
         android:id="@+id/button_back"

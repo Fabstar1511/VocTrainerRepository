@@ -3,9 +3,11 @@ package com.voctrainer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,12 +19,16 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
     private final String LEVEL_PROGRESS = "levelProgress";
     private final String CURRENT_QUIZ_RESULT = "currentQuizProgress";
 
+    private final int LEVEL_UP = 70; // Level is reached of a progress quote of 70%
+
     private int areaID;
     private int level;
     private int progress;
     private int quizResult;
 
     public Button btn_continue;
+    TextView tvRes;
+    TextView tvDis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,10 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
         btn_continue = (Button) findViewById(R.id.button_skip);
         btn_continue.setText("weiter");
         btn_continue.setOnClickListener(this);
+        tvRes = findViewById(R.id.tvQuizResult);
+        tvDis = findViewById(R.id.tvDisplay);
+        saveUserData(buildKey(this.areaID, this.level), this.quizResult);
+        showResult();
     }
 
     // Progress is saved as an integer between 0 and 100 (percent)
@@ -45,33 +55,26 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(key, Progress);
+        editor.apply();
     }
 
-       /*
-    private void saveAllUserData(){
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(USER_DATA_FG0_LVL1, this.progress_Lvl_1[0]);
-        editor.putInt(USER_DATA_FG0_LVL2, this.progress_Lvl_2[0]);
-        editor.putInt(USER_DATA_FG0_LVL3, this.progress_Lvl_3[0]);
+    public String buildKey(int area, int level){
+        //FORMAT: "userDataKeyFg0L1"
+        String result = "userDataKeyFg";
+        return result + area + "L" + level;
+    }
 
-        editor.putInt(USER_DATA_FG1_LVL1, this.progress_Lvl_1[1]);
-        editor.putInt(USER_DATA_FG1_LVL2, this.progress_Lvl_2[1]);
-        editor.putInt(USER_DATA_FG1_LVL3, this.progress_Lvl_3[1]);
-
-        editor.putInt(USER_DATA_FG2_LVL1, this.progress_Lvl_1[2]);
-        editor.putInt(USER_DATA_FG2_LVL2, this.progress_Lvl_2[2]);
-        editor.putInt(USER_DATA_FG2_LVL3, this.progress_Lvl_3[2]);
-
-        editor.putInt(USER_DATA_FG3_LVL1, this.progress_Lvl_1[3]);
-        editor.putInt(USER_DATA_FG3_LVL2, this.progress_Lvl_2[3]);
-        editor.putInt(USER_DATA_FG3_LVL3, this.progress_Lvl_3[3]);
-
-        editor.putInt(USER_DATA_FG4_LVL1, this.progress_Lvl_1[4]);
-        editor.putInt(USER_DATA_FG4_LVL2, this.progress_Lvl_2[4]);
-        editor.putInt(USER_DATA_FG4_LVL3, this.progress_Lvl_3[4]);
-        editor.apply();
-    }*/
+    public void showResult(){
+        if(this.quizResult >= LEVEL_UP){
+            tvDis.setText("Du hast das Quiz bestanden!");
+            tvRes.setText(this.quizResult + "%");
+        }
+        else {
+            tvRes.setTextColor((Color.argb(255, 255, 50, 0)));
+            tvDis.setText("Du hast das Quiz nicht bestanden!");
+            tvRes.setText(this.quizResult + "%");
+        }
+    }
 
     @Override
     public void onClick(View v) {

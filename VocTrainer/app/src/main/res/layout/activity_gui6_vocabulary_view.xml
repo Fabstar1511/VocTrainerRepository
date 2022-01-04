@@ -36,10 +36,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tV_quizResult" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tV_quizResult"
         android:layout_width="232dp"
         android:layout_height="70dp"
         android:layout_marginTop="160dp"

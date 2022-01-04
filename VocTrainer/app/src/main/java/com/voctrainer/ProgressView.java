@@ -35,6 +35,10 @@ public class ProgressView extends AppCompatActivity implements View.OnClickListe
         btn_startQuiz.setOnClickListener(this);
     }
 
+    public int getLastProgress(){
+        return this.progress;
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_start_quiz) {
