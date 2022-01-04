@@ -45,7 +45,7 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
         btn_continue.setText("weiter");
         btn_continue.setOnClickListener(this);
         tvRes = findViewById(R.id.tvQuizResult);
-        tvDis = findViewById(R.id.tvDisplay);
+        tvDis = findViewById(R.id.tvResult);
         saveUserData(buildKey(this.areaID, this.level), this.quizResult);
         showResult();
     }
@@ -80,6 +80,10 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View v) {
         if (v.getId() == R.id.button_skip) {
             Intent intent = new Intent(Result.this, Congratulation.class);
+            intent.putExtra(SELECTED_AREA, areaID);
+            intent.putExtra(SELECTED_LEVEL, level);
+            intent.putExtra(LEVEL_PROGRESS, progress);
+            intent.putExtra(CURRENT_QUIZ_RESULT, quizResult);
             startActivity(intent);
             this.finish();
         }
