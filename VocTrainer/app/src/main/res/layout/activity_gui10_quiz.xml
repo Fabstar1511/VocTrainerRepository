@@ -55,6 +55,7 @@
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:text="Rotation"
+            android:textAllCaps="false"
             android:textAlignment="textStart"
             android:textSize="24sp"
             android:onClick="checkRadioButton"/>
@@ -66,6 +67,7 @@
             android:layout_marginTop="15dp"
             android:minHeight="48dp"
             android:text="Ampere"
+            android:textAllCaps="false"
             android:textAlignment="viewStart"
             android:textSize="24sp"
             android:onClick="checkRadioButton"/>
@@ -77,6 +79,7 @@
             android:layout_marginTop="15dp"
             android:minHeight="48dp"
             android:text="Voltage"
+            android:textAllCaps="false"
             android:textAlignment="viewStart"
             android:textSize="24sp"
             android:onClick="checkRadioButton"/>
@@ -88,6 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Button"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />

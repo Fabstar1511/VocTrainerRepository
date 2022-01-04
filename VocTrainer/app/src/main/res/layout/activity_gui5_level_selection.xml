@@ -41,11 +41,11 @@
         android:layout_marginTop="50dp"
         android:background="@drawable/button_bg_round"
         android:text="Anderes Fachgebiet finden"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_level3" />
-
 
     <ImageView
         android:id="@+id/unlock1"
@@ -170,6 +170,7 @@
         android:layout_marginEnd="5dp"
         android:background="@drawable/button_bg_round_unclickable"
         android:text="level 1"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/lock1"
         app:layout_constraintStart_toEndOf="@+id/level1"
@@ -184,6 +185,7 @@
         android:layout_marginEnd="5dp"
         android:background="@drawable/button_bg_round_unclickable"
         android:text="Level 2"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/lock2"
         app:layout_constraintStart_toEndOf="@+id/level2"
@@ -198,6 +200,7 @@
         android:layout_marginEnd="5dp"
         android:background="@drawable/button_bg_round_unclickable"
         android:text="Level 3"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/lock3"
         app:layout_constraintStart_toEndOf="@+id/level3"

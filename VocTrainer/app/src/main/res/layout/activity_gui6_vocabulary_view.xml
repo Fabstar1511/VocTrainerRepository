@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:background="@drawable/button_bg_round"
-        android:text="Nächste"
+        android:text="nächste"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:visibility="visible"
@@ -27,41 +27,45 @@
 
     <TextView
         android:id="@+id/tv_english_word"
-        android:layout_width="0dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
         android:text="Voltage"
         android:textAlignment="center"
-        android:textSize="40dp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_german_word" />
 
     <TextView
         android:id="@+id/tv_german_word"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="140dp"
+        android:layout_marginEnd="5dp"
         android:text="Spannung"
         android:textAlignment="center"
-        android:textSize="49dp"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.43"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="110dp"
+        android:id="@+id/ivPictureArea"
+        android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_english_word"
-        app:srcCompat="@drawable/battery" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_english_word" />
 
     <Button
         android:id="@+id/button_back"
@@ -71,6 +75,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/button_bg_round"
         android:text="zurück"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

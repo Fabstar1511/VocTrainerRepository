@@ -31,6 +31,7 @@
         android:layout_marginTop="40dp"
         android:background="@drawable/button_bg_round"
         android:text="weiter"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

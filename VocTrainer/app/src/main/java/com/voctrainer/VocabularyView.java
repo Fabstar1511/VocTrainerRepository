@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,8 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
 
     public TextView tv_ger;
     public TextView tv_eng;
-    VocabularyList vl = new VocabularyList();
+    public ImageView ivIconArea;
+    VocabularyList selVocList = new VocabularyList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,9 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
 
         tv_ger = (TextView) findViewById(R.id.tv_german_word);
         tv_eng = (TextView) findViewById(R.id.tv_english_word);
+        ivIconArea = (ImageView) findViewById(R.id.ivPictureArea);
 
+        setAreaIcon();
         createVocabularySet();
         setVocabulary(curVocId);
     }
@@ -58,10 +62,10 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
         Vocabulary voc1  = new Vocabulary("Auto", "car", "house", "money");
         Vocabulary voc2  = new Vocabulary("Maus", "mouse", "muose", "moose");
         Vocabulary voc3  = new Vocabulary("Stuhl", "chair", "table", "couch");
-        this.vl.add(voc1);
-        this.vl.add(voc2);
-        this.vl.add(voc3);
-        this.vl.randomizeOrder();
+        this.selVocList.add(voc1);
+        this.selVocList.add(voc2);
+        this.selVocList.add(voc3);
+        this.selVocList.randomizeOrder();
     }
 
     private void showVocabulary(String word_german, String word_english){
@@ -70,22 +74,41 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
     }
 
     public void setVocabulary(int i){
-        Vocabulary voc = this.vl.getVocabularyById(i);
+        Vocabulary voc = this.selVocList.getVocabularyById(i);
         showVocabulary(voc.getName(), voc.getName_correct());
+    }
+
+    public void setAreaIcon(){
+        this.areaID = 3;
+        // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
+        if(this.areaID == 0) ivIconArea.setImageResource(R.drawable.image_area_physics);
+        else if(this.areaID == 1) ivIconArea.setImageResource(R.drawable.image_area_economic);
+        else if(this.areaID == 2) ivIconArea.setImageResource(R.drawable.image_area_se);
+        else if(this.areaID == 3) ivIconArea.setImageResource(R.drawable.image_area_electrical);
+        else if(this.areaID == 4) ivIconArea.setImageResource(R.drawable.image_area_sociology);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_back) {
-            Intent intent = new Intent(VocabularyView.this, ProgressView.class);
-            startActivity(intent);
-            this.finish();
+            btn_next.setText("nächste");
+            this.curVocId--;
+            if(this.curVocId < 0){
+                Intent intent = new Intent(VocabularyView.this, LevelSelection.class);
+                intent.putExtra(SELECTED_AREA, areaID);
+                intent.putExtra(SELECTED_LEVEL, level);
+                intent.putExtra(LEVEL_PROGRESS, progress);
+                startActivity(intent);
+                this.finish();
+            } else if(this.curVocId >= 0) {
+                setVocabulary(this.curVocId);
+            }
         }
         else if (v.getId() == R.id.button_next) {
             this.curVocId++;
-            if(this.curVocId < this.vl.getSize()) {
+            if(this.curVocId < this.selVocList.getSize()) {
                 setVocabulary(this.curVocId);
-                if((this.curVocId + 1) == this.vl.getSize()) btn_next.setText("bereit");
+                if((this.curVocId + 1) == this.selVocList.getSize()) btn_next.setText("bereit");
             }
             else{
                 Intent intent = new Intent(VocabularyView.this, ProgressView.class);
@@ -95,7 +118,6 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent);
                 this.finish();
             }
-            Toast.makeText(getApplicationContext(),"VocID: " + this.curVocId + ", Size: " + this.vl.getSize(), Toast.LENGTH_LONG).show();
         }
     }
 }
