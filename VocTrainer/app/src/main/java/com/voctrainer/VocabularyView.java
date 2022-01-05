@@ -79,7 +79,6 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
     }
 
     public void setAreaIcon(){
-        this.areaID = 3;
         // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
         if(this.areaID == 0) ivIconArea.setImageResource(R.drawable.image_area_physics);
         else if(this.areaID == 1) ivIconArea.setImageResource(R.drawable.image_area_economic);

@@ -48,7 +48,6 @@ public class Congratulation extends AppCompatActivity implements View.OnClickLis
         this.level = getIntent().getIntExtra(SELECTED_LEVEL, 0);
         this.progress = getIntent().getIntExtra(LEVEL_PROGRESS, 0);
         this.quizResult = getIntent().getIntExtra(CURRENT_QUIZ_RESULT, 0);
-
         showMessage();
     }
 
@@ -62,7 +61,8 @@ public class Congratulation extends AppCompatActivity implements View.OnClickLis
         }
         // :) Last Progress < 70% && Current Progress >= 70%
         else if((this.progress < LEVEL_UP) && (this.quizResult >= LEVEL_UP)){
-            tvRes.setText("Gratulation!\n" + "Du hast Level " + (this.level++) + "erreicht!");
+            int newLevel = this.level + 1;
+            tvRes.setText("Gratulation!\n" + "Du hast Level " + newLevel + " erreicht!");
         }
         // Last Progress >= 70% && Current Progress < 70% :(
         else if((this.progress >= LEVEL_UP) && (this.quizResult < LEVEL_UP)){

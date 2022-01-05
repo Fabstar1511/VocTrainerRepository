@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +20,7 @@ public class ProgressView extends AppCompatActivity implements View.OnClickListe
     private int progress;
 
     public Button btn_startQuiz;
+    public TextView tvProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,9 @@ public class ProgressView extends AppCompatActivity implements View.OnClickListe
         btn_startQuiz = (Button) findViewById(R.id.button_start_quiz);
         btn_startQuiz.setText("Starte Quiz");
         btn_startQuiz.setOnClickListener(this);
+
+        tvProgress = (TextView) findViewById(R.id.textViewProgress);
+        tvProgress.setText(String.valueOf(getLastProgress()));
     }
 
     public int getLastProgress(){

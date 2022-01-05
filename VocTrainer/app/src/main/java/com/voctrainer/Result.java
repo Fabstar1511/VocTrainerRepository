@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 
 public class Result extends AppCompatActivity implements View.OnClickListener{
 
+    private final String USER_DATA_FILE_NAME = "userProgressData";
     private final String SELECTED_AREA = "selectedArea";
     private final String SELECTED_LEVEL = "selectedLevel";
     private final String LEVEL_PROGRESS = "levelProgress";
@@ -52,10 +54,10 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
 
     // Progress is saved as an integer between 0 and 100 (percent)
     private void saveUserData(String key, int Progress){
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences(USER_DATA_FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(key, Progress);
-        editor.apply();
+        editor.apply(); //editor.commit() same as apply but with return value
     }
 
     public String buildKey(int area, int level){

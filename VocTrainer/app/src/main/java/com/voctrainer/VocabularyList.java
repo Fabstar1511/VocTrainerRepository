@@ -36,7 +36,7 @@ public class VocabularyList {
     /*
      Counts number of correct answers
      */
-    private int countCorrectAnswers(){
+    public int countCorrectAnswers(){
         int number = 0;
         if(!this.vocList.isEmpty()){
             for(Vocabulary voc : this.vocList){
@@ -46,13 +46,6 @@ public class VocabularyList {
             }
         }
         return number;
-    }
-
-    /*
-    Calculates percentage of correct answers from 0% to 100%
-    */
-    public int getPercentageOfCorrectAnswers(){
-        return (countCorrectAnswers() / this.vocList.size()) * 100;
     }
 
     /*

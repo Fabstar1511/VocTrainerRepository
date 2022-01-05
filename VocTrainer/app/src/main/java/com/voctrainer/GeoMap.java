@@ -167,11 +167,13 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
 
         /*
          Properties of the Map
-         */
         // Constrain the camera target to the university-area bounds.
+
         mMap.setLatLngBoundsForCameraTarget(UNIVERSITY_AREA_BOUNDS);
         mMap.setMinZoomPreference(MIN_ZOOM_SIZE_MAP); // Max size for zooming out
         mMap.setMaxZoomPreference(MAX_ZOOM_SIZE_MAP); // Max size for zooming in
+
+         */
 
         marker_user = mMap.addMarker(new MarkerOptions().position(getUserPos()).title("My Position").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(MARKER_USER, 100, 100))));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current_latLng, 16.0f));

@@ -11,7 +11,18 @@
   <component name="ChangeListManager">
     <list default="true" id="6395f137-a757-4000-9b7d-7b1cdef23cf1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/Congratulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/Congratulation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/GeoMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/GeoMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/Help.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/LevelSelection.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/LevelSelection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/ProgressView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/ProgressView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/Quiz.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/Quiz.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/Result.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/VocabularyList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/VocabularyList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/VocabularyView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/VocabularyView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_gui1a_help.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_gui1a_help.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_gui5_level_selection.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_gui5_level_selection.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_gui9_progress_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_gui9_progress_view.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
