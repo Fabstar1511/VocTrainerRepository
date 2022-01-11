@@ -19,10 +19,24 @@ public abstract class VocabularyList {
         this.vocList.add(voc);
     }
 
+    public ArrayList<Vocabulary> getList(){
+        return this.vocList;
+    }
+
+    public Vocabulary getVocabularyById(int i){
+        if(this.vocList.isEmpty()) return null;
+        else if(i < this.vocList.size()) return this.vocList.get(i);
+        else return null;
+    }
+
+    public int getSize(){
+        return this.vocList.size();
+    }
+
     /*
      Counts number of correct answers
      */
-    private int countCorrectAnswers(){
+    public int countCorrectAnswers(){
         int number = 0;
         if(!this.vocList.isEmpty()){
             for(Vocabulary voc : this.vocList){
@@ -32,13 +46,6 @@ public abstract class VocabularyList {
             }
         }
         return number;
-    }
-
-    /*
-    Calculates percentage of correct answers from 0% to 100%
-    */
-    public int getPercentageOfCorrectAnswers(){
-        return (countCorrectAnswers() / this.vocList.size()) * 100;
     }
 
     /*

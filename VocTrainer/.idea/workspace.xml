@@ -31,7 +31,7 @@
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/VocabularyList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/VocabularyList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/VocabularyView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/VocabularyView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_gui6_vocabulary_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_gui6_vocabulary_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_gui6_vocabulary_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_gui6_vocabulary_view.xml" afterDir="false" /
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_gui9_progress_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_gui9_progress_view.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,7 +39,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\garro\.android\avd\Pixel_2_API_28.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[ce02182212e264970c]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />

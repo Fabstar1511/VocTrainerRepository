@@ -1,5 +1,10 @@
 package com.voctrainer;
 
+/*
+    VocTrainer (Pre-Alpha-Version)
+    04.01.2022
+ */
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -12,10 +17,8 @@ import android.widget.Toast;
 
 import java.util.logging.Level;
 
-// Dies ist der Einstiegspunkt
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    // Test Today new repo
     public Button btn_start;
     public Button btn_help;
 
@@ -31,19 +34,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_help = (Button) findViewById(R.id.button_help);
         btn_help.setText("?");
         btn_help.setOnClickListener(this);
+        Toast.makeText(getApplicationContext(),"MID Project: Voctrainer\n(Pre-Alpha-Version)", Toast.LENGTH_LONG).show();
     }
 
     public void onClick(View v) {
         if (v.getId() == R.id.button_start) {
-            //Toast.makeText(getApplicationContext(),
-            //        "Test", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(MainActivity.this, LevelSelection.class);
+            Intent intent = new Intent(MainActivity.this, MovingCounter.class);
             startActivity(intent);
             //this.finish();
         } else if (v.getId() == R.id.button_help) {
-            //Toast.makeText(getApplicationContext(),
-            //        "Test", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+            Intent intent = new Intent(MainActivity.this, Help.class);
             intent.putExtra("activity_id", 0); //MainActivity is ID = 0
             startActivity(intent);
             //this.finish();

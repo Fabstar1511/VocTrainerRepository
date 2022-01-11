@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/tvDisplay"
+        android:id="@+id/tvResult"
         android:layout_width="369dp"
         android:layout_height="139dp"
         android:layout_marginTop="20dp"
@@ -20,7 +20,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <Button
         android:id="@+id/button_exit"
@@ -34,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toEndOf="@+id/button_correction"
-        app:layout_constraintTop_toBottomOf="@+id/tvDisplay" />
+        app:layout_constraintTop_toBottomOf="@+id/tvResult" />
 
     <Button
         android:id="@+id/button_correction"
@@ -47,7 +46,6 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/button_exit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDisplay" />
-
+        app:layout_constraintTop_toBottomOf="@+id/tvResult" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

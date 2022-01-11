@@ -24,7 +24,7 @@ public class Help extends AppCompatActivity implements View.OnClickListener{
         btn_back.setText("zurück");
         btn_back.setOnClickListener(this);
 
-        tV_help = (TextView) findViewById(R.id.textView2);
+        tV_help = (TextView) findViewById(R.id.textViewProgress);
 
         if(getIntent().hasExtra("activity_id") == true) {
             int activity_id = getIntent().getExtras().getInt("activity_id");
