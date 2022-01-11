@@ -1,18 +1,30 @@
 package com.voctrainer;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Random;
 
 
-public class VocabularyView extends AppCompatActivity implements View.OnClickListener {
-
+public class VocabularyView extends Fragment {
+  
     private final String SELECTED_AREA = "selectedArea";
     private final String SELECTED_LEVEL = "selectedLevel";
     private final String LEVEL_PROGRESS = "levelProgress";
@@ -32,10 +44,12 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
     VocabularyList selVocList = new VocabularyList();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gui6_vocabulary_view);
-        this.setTitle("Voc1-Level1");
+        param1 = savedInstanceState.getString(PARAM1);
+        param2 = savedInstanceState.getString(PARAM2);
+
+    }
 
         this.areaID = getIntent().getIntExtra(SELECTED_AREA, 0);
         this.level = getIntent().getIntExtra(SELECTED_LEVEL, 0);
@@ -119,4 +133,18 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
             }
         }
     }
+
+    private void establishVocabulary(){
+        Intent oriServiceIntent = new Intent(requireContext(), VocabularyService.class);
+        requireActivity().bindService(oriServiceIntent, vocabularyConnection, AppCompatActivity.BIND_AUTO_CREATE);
+
+    }
+
+    private IntentFilter makeGattUpdateIntentFilter(){
+        IntentFilter filter = new IntentFilter();
+        return filter;
+    }
+
 }
+
+

@@ -7,7 +7,7 @@ package com.voctrainer;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class VocabularyList {
+public abstract class VocabularyList {
 
     private ArrayList<Vocabulary> vocList = new ArrayList<Vocabulary>();
 
