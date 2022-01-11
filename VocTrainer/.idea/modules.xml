@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/VocTrainer.iml" filepath="$PROJECT_DIR$/.idea/VocTrainer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/VocTrainer.iml" filepath="$PROJECT_DIR$/.idea/modules/VocTrainer.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/VocTrainer.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/VocTrainer.app.iml" />
     </modules>
   </component>
