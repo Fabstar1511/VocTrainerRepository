@@ -1,6 +1,7 @@
 package com.voctrainer;
 
 /*
+    Mobile Interaction Design - Group 5
     VocTrainer (Alpha-Version)
     12.01.2022
  */
