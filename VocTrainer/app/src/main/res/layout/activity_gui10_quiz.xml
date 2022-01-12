@@ -33,9 +33,12 @@
         android:id="@+id/textView_voc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
         android:text="Spannung"
-        android:textSize="34sp"
+        android:textAlignment="center"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_what_means" />
@@ -43,8 +46,10 @@
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="327dp"
-        android:layout_height="174dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="70dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_voc">
@@ -54,11 +59,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
+            android:onClick="checkRadioButton"
             android:text="Rotation"
-            android:textAllCaps="false"
             android:textAlignment="textStart"
-            android:textSize="24sp"
-            android:onClick="checkRadioButton"/>
+            android:textAllCaps="false"
+            android:textSize="24sp" />
 
         <RadioButton
             android:id="@+id/radioButton_b"
@@ -66,11 +71,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:minHeight="48dp"
+            android:onClick="checkRadioButton"
             android:text="Ampere"
-            android:textAllCaps="false"
             android:textAlignment="viewStart"
-            android:textSize="24sp"
-            android:onClick="checkRadioButton"/>
+            android:textAllCaps="false"
+            android:textSize="24sp" />
 
         <RadioButton
             android:id="@+id/radioButton_c"
@@ -78,11 +83,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:minHeight="48dp"
+            android:onClick="checkRadioButton"
             android:text="Voltage"
-            android:textAllCaps="false"
             android:textAlignment="viewStart"
-            android:textSize="24sp"
-            android:onClick="checkRadioButton"/>
+            android:textAllCaps="false"
+            android:textSize="24sp" />
     </RadioGroup>
 
     <Button

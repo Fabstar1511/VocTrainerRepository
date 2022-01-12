@@ -24,7 +24,6 @@ public class ProgressView extends AppCompatActivity implements View.OnClickListe
     public TextView progressText;
     public Button btn_startQuiz;
     public Button btn_back;
-    public TextView tvProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,7 @@ public class ProgressView extends AppCompatActivity implements View.OnClickListe
         progressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
         progressText = (TextView) findViewById(R.id.progressText_detail);
 
-        progressText.setText(String.valueOf(this.progress));
+        progressText.setText(String.valueOf(this.progress + " %"));
         progressBar.setProgress(this.progress);
     }
 
