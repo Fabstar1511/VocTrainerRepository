@@ -358,4 +358,9 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
             }
         }
     }
+    public void onBackPressed(){
+        Intent intent = new Intent(LevelSelection.this, GeoMap.class);
+        startActivity(intent);
+        this.finish();
+    }
 }

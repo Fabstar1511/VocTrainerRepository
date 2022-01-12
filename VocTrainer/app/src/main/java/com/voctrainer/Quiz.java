@@ -3,6 +3,7 @@ package com.voctrainer;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -24,6 +25,9 @@ import java.util.Random;
 
 public class Quiz extends AppCompatActivity implements View.OnClickListener{
 
+    private final int COLOR_CORRECT_GREEN = Color.argb(100,100,255,100);
+    private final int COLOR_CORRECT_RED = Color.argb(100,255,50,50);
+
     private final String SELECTED_AREA = "selectedArea";
     private final String SELECTED_LEVEL = "selectedLevel";
     private final String LEVEL_PROGRESS = "levelProgress";
@@ -43,6 +47,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
     public RadioButton radioButtonB;
     public RadioButton radioButtonC;
     public Button btn_DEBUG_skip;
+    public Button btn_cancel;
 
     private int curVocId = 0;
 
@@ -50,7 +55,6 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gui10_quiz);
-        this.setTitle("Quiz - Level 1");
 
         this.areaID = getIntent().getIntExtra(SELECTED_AREA, 0);
         this.level = getIntent().getIntExtra(SELECTED_LEVEL, 0);
@@ -68,41 +72,15 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         btn_DEBUG_skip.setText("To result");
         btn_DEBUG_skip.setOnClickListener(this);
 
+        btn_cancel = (Button) findViewById(R.id.button_cancel);
+        btn_cancel.setText("Quiz beenden");
+        btn_cancel.setOnClickListener(this);
+
         createVocabularySet();
         setVocabulary(curVocId);
+
+        this.setTitle("Quiz - Level " + String.valueOf(this.level));
     }
-/*
-    public void createVocabularySet(){
-        Vocabulary voc0  = new Vocabulary("Auto", "car", "house", "money");
-        Vocabulary voc1  = new Vocabulary("Maus", "mouse", "muose", "moose");
-        Vocabulary voc2  = new Vocabulary("Stuhl", "chair", "table", "couch");
-        Vocabulary voc3  = new Vocabulary("Fahrstuhl", "elevator", "loft", "selector");
-        Vocabulary voc4  = new Vocabulary("Feier", "party", "feyer", "part");
-        Vocabulary voc5  = new Vocabulary("Mann", "man", "woman", "Trans");
-
-        Vocabulary voc6  = new Vocabulary("Blau", "blue", "blou", "blalba");
-        Vocabulary voc7  = new Vocabulary("Rot", "red", "orange", "violette");
-        Vocabulary voc8  = new Vocabulary("Gelb", "yellow", "submarine", "supermarine");
-
-        Vocabulary voc9  = new Vocabulary("Tag", "day", "night", "fog");
-        Vocabulary voc10  = new Vocabulary("Frühstück", "breakfast", "eating", "earlst");
-        Vocabulary voc11  = new Vocabulary("Abendessen", "dinner", "lunch", "midnight snack");
-
-        this.selVocList.add(voc0);
-        this.selVocList.add(voc1);
-        this.selVocList.add(voc2);
-        this.selVocList.add(voc3);
-        this.selVocList.add(voc4);
-        this.selVocList.add(voc5);
-        this.selVocList.add(voc6);
-        this.selVocList.add(voc7);
-        this.selVocList.add(voc8);
-        this.selVocList.add(voc9);
-        this.selVocList.add(voc10);
-        this.selVocList.add(voc11);
-        this.selVocList.randomizeOrder();
-    }*/
-
     /*
      Loads the vocabularies from the csv files and set a vocabulary list
      */
@@ -138,6 +116,9 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
     }
 
     private void showVocabulary(String word_german, String word_correct, String word_wrong1, String word_wrong2){
+        radioButtonA.setBackgroundColor(Color.TRANSPARENT);
+        radioButtonB.setBackgroundColor(Color.TRANSPARENT);
+        radioButtonC.setBackgroundColor(Color.TRANSPARENT);
         radioGroup.clearCheck();
         tv_german_word.setText(word_german);
         tv_counterVocs.setText("Frage " + (this.curVocId + 1) + "/" + this.selVocList.getSize());
@@ -151,6 +132,10 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         radioButtonA.setText(answersList.get(0));
         radioButtonB.setText(answersList.get(1));
         radioButtonC.setText(answersList.get(2));
+
+        radioButtonA.setEnabled(true);
+        radioButtonB.setEnabled(true);
+        radioButtonC.setEnabled(true);
     }
 
     public void setVocabulary(int i){
@@ -158,9 +143,15 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         showVocabulary(voc.getName(), voc.getName_correct(), voc.getName_wrong1(), voc.getName_wrong2());
     }
 
-    public void callNextQuestion(String answer){
+    public void callNextQuestion(String answer, int selectedRadioID){
         // We have to set the given answer by the user in the vocabulary object
         this.selVocList.getVocabularyById(this.curVocId).setGivenAnswer(answer);
+        //Show if it was correct or not
+        radioButtonSelected = findViewById(selectedRadioID);
+        if(this.selVocList.getVocabularyById(this.curVocId).checkAnswerWasCorrect()) radioButtonSelected.setBackgroundColor(COLOR_CORRECT_GREEN);
+        else radioButtonSelected.setBackgroundColor(COLOR_CORRECT_RED);
+
+        // Counter count up
         this.curVocId++;
 
         // Show new Vocabulary if still one exists
@@ -183,7 +174,10 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
     public void checkRadioButton(View v){
         int radioID = radioGroup.getCheckedRadioButtonId();
         radioButtonSelected = findViewById(radioID);
-        callNextQuestion((String) radioButtonSelected.getText());
+        radioButtonA.setEnabled(false);
+        radioButtonB.setEnabled(false);
+        radioButtonC.setEnabled(false);
+        callNextQuestion((String) radioButtonSelected.getText(), radioID);
     }
 
     /*
@@ -193,13 +187,6 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         double temp1 = (double) this.selVocList.countCorrectAnswers();
         double temp2 = (double) this.selVocList.getSize();
         return (int) ((temp1 / temp2) * 100);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.button_DEBUG_SkipResult) {
-            goToActivityResult();
-        }
     }
 
     public void randomizeOrderOnList(ArrayList<String> strings) {
@@ -227,6 +214,27 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         intent.putExtra(SELECTED_LEVEL, level);
         intent.putExtra(LEVEL_PROGRESS, progress);
         intent.putExtra(CURRENT_QUIZ_RESULT, quizResult);
+        startActivity(intent);
+        this.finish();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.button_DEBUG_SkipResult) {
+            goToActivityResult();
+        }
+        else if (v.getId() == R.id.button_cancel) {
+            Intent intent = new Intent(Quiz.this, LevelSelection.class);
+            intent.putExtra(SELECTED_AREA, areaID);
+            startActivity(intent);
+            this.finish();
+        }
+    }
+    public void onBackPressed(){
+        Intent intent = new Intent(Quiz.this, ProgressView.class);
+        intent.putExtra(SELECTED_AREA, areaID);
+        intent.putExtra(SELECTED_LEVEL, level);
+        intent.putExtra(LEVEL_PROGRESS, progress);
         startActivity(intent);
         this.finish();
     }

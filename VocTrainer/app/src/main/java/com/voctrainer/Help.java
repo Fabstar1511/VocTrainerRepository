@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -42,22 +43,30 @@ public class Help extends AppCompatActivity implements View.OnClickListener{
 
     }
 
+    public void goBack(){
+        if(getIntent().hasExtra("activity_id") == true) {
+            int activity_id = getIntent().getExtras().getInt("activity_id");
+            if(activity_id == 1) {
+                Intent intent = new Intent(Help.this, MovingCounter.class);
+                startActivity(intent);
+                this.finish();
+            }
+            else {
+                Intent intent = new Intent(Help.this, MainActivity.class);
+                startActivity(intent);
+                this.finish();
+            }
+
+        }
+    }
+
     public void onClick(View v) {
         if (v.getId() == R.id.button_back) {
-            if(getIntent().hasExtra("activity_id") == true) {
-                int activity_id = getIntent().getExtras().getInt("activity_id");
-                if(activity_id == 1) {
-                    Intent intent = new Intent(Help.this, MovingCounter.class);
-                    startActivity(intent);
-                    this.finish();
-                }
-                else {
-                    Intent intent = new Intent(Help.this, MainActivity.class);
-                    startActivity(intent);
-                    this.finish();
-                }
-
-            }
+            goBack();
         }
+    }
+
+    public void onBackPressed(){
+        goBack();
     }
 }

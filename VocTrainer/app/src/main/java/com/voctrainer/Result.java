@@ -78,16 +78,23 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
+    public void goTo(){
+        Intent intent = new Intent(Result.this, Congratulation.class);
+        intent.putExtra(SELECTED_AREA, areaID);
+        intent.putExtra(SELECTED_LEVEL, level);
+        intent.putExtra(LEVEL_PROGRESS, progress);
+        intent.putExtra(CURRENT_QUIZ_RESULT, quizResult);
+        startActivity(intent);
+        this.finish();
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_skip) {
-            Intent intent = new Intent(Result.this, Congratulation.class);
-            intent.putExtra(SELECTED_AREA, areaID);
-            intent.putExtra(SELECTED_LEVEL, level);
-            intent.putExtra(LEVEL_PROGRESS, progress);
-            intent.putExtra(CURRENT_QUIZ_RESULT, quizResult);
-            startActivity(intent);
-            this.finish();
+            goTo();
         }
+    }
+    public void onBackPressed(){
+        goTo();
     }
 }

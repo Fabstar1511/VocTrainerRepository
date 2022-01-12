@@ -6,14 +6,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 
 public class Congratulation extends AppCompatActivity implements View.OnClickListener{
 
-    public Button btn_continue;
+    public Button btn_exit;
     public Button btn_correction;
+    public Button btn_repeatQuiz;
     public TextView tvRes;
 
     private final String SELECTED_AREA = "selectedArea";
@@ -34,9 +36,13 @@ public class Congratulation extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_gui14_congratulation);
         this.setTitle("Quiz beenden");
 
-        btn_continue = (Button) findViewById(R.id.button_exit);
-        btn_continue.setText("weiter");
-        btn_continue.setOnClickListener(this);
+        btn_exit = (Button) findViewById(R.id.button_exit);
+        btn_exit.setText("Quiz beenden");
+        btn_exit.setOnClickListener(this);
+
+        btn_repeatQuiz = (Button) findViewById(R.id.button_repeatQuiz);
+        btn_repeatQuiz.setText("Quiz wiederholen");
+        btn_repeatQuiz.setOnClickListener(this);
 
         btn_correction = (Button) findViewById(R.id.button_correction);
         btn_correction.setText("Korrektur");
@@ -85,8 +91,28 @@ public class Congratulation extends AppCompatActivity implements View.OnClickLis
             this.finish();
         } else if (v.getId() == R.id.button_correction) {
             Intent intent = new Intent(Congratulation.this, Correction.class);
+            intent.putExtra(SELECTED_AREA, areaID);
+            intent.putExtra(SELECTED_LEVEL, level);
+            intent.putExtra(LEVEL_PROGRESS, progress);
+            intent.putExtra(CURRENT_QUIZ_RESULT, quizResult);
             startActivity(intent);
             this.finish();
         }
+        else if (v.getId() == R.id.button_repeatQuiz) {
+            goBackToQuiz();
+        }
+    }
+
+    public void goBackToQuiz(){
+        Intent intent = new Intent(Congratulation.this, Quiz.class);
+        intent.putExtra(SELECTED_AREA, areaID);
+        intent.putExtra(SELECTED_LEVEL, level);
+        intent.putExtra(LEVEL_PROGRESS, progress);
+        startActivity(intent);
+        this.finish();
+    }
+
+    public void onBackPressed(){
+        goBackToQuiz();
     }
 }

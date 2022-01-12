@@ -50,4 +50,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvResult" />
 
+    <Button
+        android:id="@+id/button_repeatQuiz"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_bg_round"
+        android:text="repeat"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_correction" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

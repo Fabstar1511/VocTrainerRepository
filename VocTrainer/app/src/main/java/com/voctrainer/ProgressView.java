@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,7 +41,7 @@ public class ProgressView extends AppCompatActivity implements View.OnClickListe
         btn_startQuiz.setOnClickListener(this);
 
         btn_back = (Button) findViewById(R.id.button_back);
-        btn_back.setText("zurück");
+        btn_back.setText("anderen level wählen");
         btn_back.setOnClickListener(this);
 
         progressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
@@ -61,12 +62,16 @@ public class ProgressView extends AppCompatActivity implements View.OnClickListe
             this.finish();
         }
         else if (v.getId() == R.id.button_back) {
-        Intent intent = new Intent(ProgressView.this, LevelSelection.class);
+            Intent intent = new Intent(ProgressView.this, LevelSelection.class);
             intent.putExtra(SELECTED_AREA, areaID);
-            intent.putExtra(SELECTED_LEVEL, level);
-            intent.putExtra(LEVEL_PROGRESS, progress);
             startActivity(intent);
             this.finish();
         }
+    }
+    public void onBackPressed(){
+        Intent intent = new Intent(ProgressView.this, LevelSelection.class);
+        intent.putExtra(SELECTED_AREA, areaID);
+        startActivity(intent);
+        this.finish();
     }
 }

@@ -240,4 +240,9 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
             this.finish();
         }
     }
+    public void onBackPressed(){
+        Intent intent = new Intent(GeoMap.this, MovingCounter.class);
+        startActivity(intent);
+        this.finish();
+    }
 }

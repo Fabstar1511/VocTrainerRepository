@@ -1,8 +1,8 @@
 package com.voctrainer;
 
 /*
-    VocTrainer (Pre-Alpha-Version)
-    04.01.2022
+    VocTrainer (Alpha-Version)
+    12.01.2022
  */
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,12 +41,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.button_start) {
             Intent intent = new Intent(MainActivity.this, MovingCounter.class);
             startActivity(intent);
-            //this.finish();
         } else if (v.getId() == R.id.button_help) {
             Intent intent = new Intent(MainActivity.this, Help.class);
             intent.putExtra("activity_id", 0); //MainActivity is ID = 0
             startActivity(intent);
-            //this.finish();
         }
     }
 }

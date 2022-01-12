@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +13,7 @@ public class MovingCounter extends AppCompatActivity implements View.OnClickList
 
     public Button btn_help;
     public Button btn_DEBUG_Skip_to_100;
+    public Button btn_backToStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,10 @@ public class MovingCounter extends AppCompatActivity implements View.OnClickList
         btn_DEBUG_Skip_to_100 = (Button) findViewById(R.id.button_Debug_100Steps);
         btn_DEBUG_Skip_to_100.setText("Start");
         btn_DEBUG_Skip_to_100.setOnClickListener(this);
+
+        btn_backToStart = (Button) findViewById(R.id.button_backToStart);
+        btn_backToStart.setText("zurück");
+        btn_backToStart.setOnClickListener(this);
     }
 
     @Override
@@ -35,10 +41,20 @@ public class MovingCounter extends AppCompatActivity implements View.OnClickList
         intent.putExtra("activity_id", 1); //MainActivity is ID = 0
         startActivity(intent);
         }
+        else if(v.getId() == R.id.button_backToStart) {
+            Intent intent = new Intent(MovingCounter.this, MainActivity.class);
+            startActivity(intent);
+            this.finish();
+        }
         else if(v.getId() == R.id.button_Debug_100Steps) {
             Intent intent = new Intent(MovingCounter.this, ViewSteps.class);
             startActivity(intent);
             this.finish();
         }
+    }
+    public void onBackPressed(){
+        Intent intent = new Intent(MovingCounter.this, MainActivity.class);
+        startActivity(intent);
+        this.finish();
     }
 }

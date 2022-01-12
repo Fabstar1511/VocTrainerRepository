@@ -27,8 +27,9 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="100dp"
         android:src="@drawable/check"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.069"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,27 +37,12 @@
 
     <ImageView
         android:id="@+id/imageschritt"
-        android:layout_width="234dp"
-        android:layout_height="231dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="72dp"
+        android:layout_width="271dp"
+        android:layout_height="269dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="70dp"
         android:src="@drawable/schritte"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-    <Button
-        android:id="@+id/button_findArea"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="5dp"
-        android:background="@drawable/button_bg_round"
-        android:text="Finde Fachgebiet"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageschritt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

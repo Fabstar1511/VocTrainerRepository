@@ -159,4 +159,12 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
             }
         }
     }
+    public void onBackPressed(){
+        Intent intent = new Intent(VocabularyView.this, LevelSelection.class);
+        intent.putExtra(SELECTED_AREA, areaID);
+        intent.putExtra(SELECTED_LEVEL, level);
+        intent.putExtra(LEVEL_PROGRESS, progress);
+        startActivity(intent);
+        this.finish();
+    }
 }
