@@ -235,7 +235,7 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         if(v.getId() == R.id.button_DEBUG_in_Radius) {
             Intent intent = new Intent(GeoMap.this, LevelSelection.class);
             //intent.putExtra(SELECTED_AREA, this.areaID);
-            intent.putExtra(SELECTED_AREA, 2);
+            intent.putExtra(SELECTED_AREA, 3);
             startActivity(intent);
             this.finish();
         }

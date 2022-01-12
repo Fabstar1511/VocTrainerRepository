@@ -7,58 +7,78 @@
     android:background="@color/white"
     tools:context=".ProgressView">
 
-
     <Button
         android:id="@+id/button_start_quiz"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:text="Start Quiz"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/button_bg_round"
+        android:text="nächste"
         android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+        app:layout_constraintTop_toBottomOf="@+id/progressText_detail" />
 
     <TextView
-        android:id="@+id/tv_german_word"
+        android:id="@+id/textView_ProgressView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
-        android:text="Dein Aktueller Fortschritt"
+        android:text="Dein Aktuller Fortschritt"
         android:textSize="37dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <!--// 50 default progress value-->
+
     <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="266dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="212dp"
-        android:background="#0A1E90"
-        android:backgroundTint="#0F2AC2"
+        android:id="@+id/simpleProgressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="245dp"
+        android:layout_height="109dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="92dp"
+        android:max="100"
+        android:progress="60"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_german_word" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_ProgressView" />
+
+    <Button
+        android:id="@+id/button_back"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/button_bg_round"
+        android:text="zurück"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressText_detail" />
 
     <TextView
-        android:id="@+id/textViewProgress"
-        android:layout_width="87dp"
-        android:layout_height="62dp"
-        android:text="30%"
-        android:textColor="@color/black"
-        android:textSize="30dp"
+        android:id="@+id/progressText_detail"
+        android:layout_width="95dp"
+        android:layout_height="64dp"
+        android:text="60%"
+        android:textColor="#00519F"
+        android:textSize="40dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/button_start_quiz"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.572"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_german_word"
-        app:layout_constraintVertical_bias="0.553" /><![CDATA[
+        app:layout_constraintTop_toBottomOf="@+id/simpleProgressBar"
+        app:layout_constraintVertical_bias="0.0" />
 
 
-
-    >
-
-]]>
 </androidx.constraintlayout.widget.ConstraintLayout>

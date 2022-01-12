@@ -57,12 +57,13 @@ public class Congratulation extends AppCompatActivity implements View.OnClickLis
             // Current Progress > Last Progress
             if(this.quizResult > this.progress) tvRes.setText("Gratulation!\n" + "Du hast hast dich verbessert!\nWeiter so! :)");
             // Current Progress <= Last Progress
-            else tvRes.setText("Quiz erfolgreich absolviert.\n" + "Du hast dich aber nicht verbessert. :]");
+            else tvRes.setText("Quiz erfolgreich absolviert.\n" + "Du hast dich aber nicht verbessert.");
         }
         // :) Last Progress < 70% && Current Progress >= 70%
         else if((this.progress < LEVEL_UP) && (this.quizResult >= LEVEL_UP)){
             int newLevel = this.level + 1;
-            tvRes.setText("Gratulation!\n" + "Du hast Level " + newLevel + " erreicht!");
+            if(newLevel == 4) tvRes.setText("Gratulation!\n" + "Du hast Level 3 geschafft und diesen Fachbereich abgeschlossen!");
+            else tvRes.setText("Gratulation!\n" + "Du hast Level " + newLevel + " erreicht!");
         }
         // Last Progress >= 70% && Current Progress < 70% :(
         else if((this.progress >= LEVEL_UP) && (this.quizResult < LEVEL_UP)){

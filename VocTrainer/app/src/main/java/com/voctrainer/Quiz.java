@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -12,6 +13,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -64,7 +70,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         createVocabularySet();
         setVocabulary(curVocId);
     }
-
+/*
     public void createVocabularySet(){
         Vocabulary voc0  = new Vocabulary("Auto", "car", "house", "money");
         Vocabulary voc1  = new Vocabulary("Maus", "mouse", "muose", "moose");
@@ -93,6 +99,40 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         this.selVocList.add(voc9);
         this.selVocList.add(voc10);
         this.selVocList.add(voc11);
+        this.selVocList.randomizeOrder();
+    }*/
+
+    /*
+     Loads the vocabularies from the csv files and set a vocabulary list
+     */
+    public void createVocabularySet(){
+        Vocabulary voc;
+        InputStream is = null;
+        String line = "";
+
+        // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
+        if(this.areaID == 0) is = getResources().openRawResource(R.raw.vocbook_physics);
+        else if(this.areaID == 1) is = getResources().openRawResource(R.raw.vocbook_economic);
+        else if(this.areaID == 2) is = getResources().openRawResource(R.raw.vocbook_se);
+        else if(this.areaID == 3) is = getResources().openRawResource(R.raw.vocbook_electrical);
+        else if(this.areaID == 4) is = getResources().openRawResource(R.raw.vocbook_sociology);
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+        try{
+            while((line = reader.readLine()) != null){
+                // Split by ';'
+                String[] tokens = line.split(";");
+                // Read the data and add it to list, if the level is the right ones
+                if(tokens[0].equals(String.valueOf(this.level))){
+                    voc = new Vocabulary(tokens[1], tokens[2], tokens[3], tokens[4]);
+                    this.selVocList.add(voc);
+                }
+            }
+        }
+        catch(IOException e){
+            Log.wtf("MyActivity", "Error reading data file on line" + line, e);
+            e.printStackTrace();
+        }
         this.selVocList.randomizeOrder();
     }
 
