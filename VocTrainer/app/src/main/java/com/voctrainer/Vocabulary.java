@@ -4,13 +4,22 @@ package com.voctrainer;
  This class describes a single Vocabulary with name, correct answer and two wrong answers
  */
 
-public class Vocabulary {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Random;
+
+// Must be implements interface serializable to send it later to another activity via putExtra()
+
+public class Vocabulary implements Serializable {
 
     private String name = "";
     private String name_correct = "";
     private String name_wrong1 = "";
     private String name_wrong2 = "";
     private String givenAnswer = "";
+    private int posName_correct = 0;
+    private int posName_wrong1 = 0;
+    private int posName_wrong2 = 0;
 
     public Vocabulary(String name, String correct, String wrong1, String wrong2){
         this.name = name;
@@ -35,6 +44,16 @@ public class Vocabulary {
     public String getGivenAnswer(){
         return this.givenAnswer;
     }
+    public int getCorrectAnswerPos(){
+        return this.posName_correct;
+    }
+    public int getWrong1AnswerPos(){
+        return this.posName_wrong1;
+    }
+    public int getWrong2AnswerPos(){
+        return this.posName_wrong2;
+    }
+
     // Setter
     public void setGivenAnswer(String answer){
         this.givenAnswer = answer;
@@ -42,4 +61,21 @@ public class Vocabulary {
     public boolean checkAnswerWasCorrect(){
         return this.name_correct.equals(this.givenAnswer);
     }
+
+    public void randomizeOrder(){
+        int x = 0;
+        int y = 0;
+        int z = 0;
+        Random rand = new Random();
+
+        while(!((x != y)&&(x != z)&&(y != z))){
+            x = rand.nextInt(3); // 0 , 1 or 2;
+            y = rand.nextInt(3); // 0 , 1 or 2;
+            z = rand.nextInt(3); // 0 , 1 or 2;
+        }
+        this.posName_correct = x;
+        this.posName_wrong1 = y;
+        this.posName_wrong2 = z;
+    }
+
 }

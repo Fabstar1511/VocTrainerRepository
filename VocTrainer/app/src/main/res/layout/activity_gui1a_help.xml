@@ -8,10 +8,12 @@
     tools:context=".Help">
 
     <TextView
-        android:id="@+id/tv_german_word"
-        android:layout_width="330dp"
-        android:layout_height="80dp"
+        android:id="@+id/tv_headline"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
         android:text="Willkommen bei VocTrainer"
         android:textAlignment="viewStart"
         android:textColor="@color/colorPrimaryBlue"
@@ -21,17 +23,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewProgress"
-        android:layout_width="330dp"
-        android:layout_height="280dp"
-        android:layout_marginTop="15dp"
+        android:id="@+id/tv_helpText"
+        android:layout_width="0dp"
+        android:layout_height="372dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:scrollbars = "vertical"
         android:text="blank"
         android:textAlignment="viewStart"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_german_word" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_headline" />
 
     <Button
         android:id="@+id/button_back"
@@ -44,5 +49,5 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewProgress" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_helpText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

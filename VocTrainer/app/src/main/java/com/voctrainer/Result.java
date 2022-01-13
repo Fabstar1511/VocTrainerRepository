@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 
 public class Result extends AppCompatActivity implements View.OnClickListener{
 
@@ -28,6 +30,8 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
     private int progress;
     private int quizResult;
 
+    private ArrayList<Vocabulary> quizList;
+
     public Button btn_continue;
     TextView tvRes;
     TextView tvDis;
@@ -42,6 +46,8 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
         this.level = getIntent().getIntExtra(SELECTED_LEVEL, 0);
         this.progress = getIntent().getIntExtra(LEVEL_PROGRESS, 0);
         this.quizResult = getIntent().getIntExtra(CURRENT_QUIZ_RESULT, 0);
+
+        this.quizList = (ArrayList<Vocabulary>) getIntent().getSerializableExtra("quizList");
 
         btn_continue = (Button) findViewById(R.id.button_skip);
         btn_continue.setText("weiter");
@@ -78,12 +84,13 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    public void goTo(){
+    public void goToCongratulation(){
         Intent intent = new Intent(Result.this, Congratulation.class);
         intent.putExtra(SELECTED_AREA, areaID);
         intent.putExtra(SELECTED_LEVEL, level);
         intent.putExtra(LEVEL_PROGRESS, progress);
         intent.putExtra(CURRENT_QUIZ_RESULT, quizResult);
+        intent.putExtra("quizList", this.quizList);
         startActivity(intent);
         this.finish();
     }
@@ -91,10 +98,10 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_skip) {
-            goTo();
+            goToCongratulation();
         }
     }
     public void onBackPressed(){
-        goTo();
+        goToCongratulation();
     }
 }

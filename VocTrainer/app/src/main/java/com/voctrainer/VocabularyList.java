@@ -4,15 +4,24 @@ package com.voctrainer;
  This class describes a set of vocabularies
  */
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class VocabularyList {
+public class VocabularyList{
 
     private ArrayList<Vocabulary> vocList = new ArrayList<Vocabulary>();
 
     public VocabularyList(){
 
+    }
+
+    public VocabularyList(ArrayList<Vocabulary> list){
+        this.vocList = list;
+    }
+
+    public ArrayList<Vocabulary> getVocList(){
+        return this.vocList;
     }
 
     public void add(Vocabulary voc){

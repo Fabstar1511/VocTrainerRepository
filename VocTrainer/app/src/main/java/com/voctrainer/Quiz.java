@@ -38,9 +38,9 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
     private int progress;
     private int quizResult;
     private VocabularyList selVocList = new VocabularyList();
+
     private TextView tv_german_word;
     private TextView tv_counterVocs;
-
     public RadioGroup radioGroup;
     public RadioButton radioButtonSelected;
     public RadioButton radioButtonA;
@@ -93,7 +93,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         if(this.areaID == 0) is = getResources().openRawResource(R.raw.vocbook_physics);
         else if(this.areaID == 1) is = getResources().openRawResource(R.raw.vocbook_economic);
         else if(this.areaID == 2) is = getResources().openRawResource(R.raw.vocbook_se);
-        else if(this.areaID == 3) is = getResources().openRawResource(R.raw.vocbook_electrical);
+        else if(this.areaID == 3) is = getResources().openRawResource(R.raw.vocbook_example);// ÄNDERN!!!!
         else if(this.areaID == 4) is = getResources().openRawResource(R.raw.vocbook_sociology);
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.ISO_8859_1));
@@ -115,7 +115,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         this.selVocList.randomizeOrder();
     }
 
-    private void showVocabulary(String word_german, String word_correct, String word_wrong1, String word_wrong2){
+    private void showVocabulary(String word_german, Vocabulary voc){
         radioButtonA.setBackgroundColor(Color.TRANSPARENT);
         radioButtonB.setBackgroundColor(Color.TRANSPARENT);
         radioButtonC.setBackgroundColor(Color.TRANSPARENT);
@@ -123,15 +123,19 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         tv_german_word.setText(word_german);
         tv_counterVocs.setText("Frage " + (this.curVocId + 1) + "/" + this.selVocList.getSize());
 
-        ArrayList<String> answersList = new ArrayList<String>();
-        answersList.add(word_correct);
-        answersList.add(word_wrong1);
-        answersList.add(word_wrong2);
-        randomizeOrderOnList(answersList);
+        // Randomize position and save position for later correction
+        voc.randomizeOrder();
+        // Get random answer position and names
+        String[] answers = new String[3];
+        answers[voc.getCorrectAnswerPos()] = voc.getName_correct();
+        answers[voc.getWrong1AnswerPos()] = voc.getName_wrong1();
+        answers[voc.getWrong2AnswerPos()] = voc.getName_wrong2();
 
-        radioButtonA.setText(answersList.get(0));
-        radioButtonB.setText(answersList.get(1));
-        radioButtonC.setText(answersList.get(2));
+        //Toast.makeText(getApplicationContext(), "Liste: " + voc.getCorrectAnswerPos() + ", " +voc.getWrong1AnswerPos() + ", " + voc.getWrong2AnswerPos(), Toast.LENGTH_LONG).show();
+
+        radioButtonA.setText(answers[0]);
+        radioButtonB.setText(answers[1]);
+        radioButtonC.setText(answers[2]);
 
         radioButtonA.setEnabled(true);
         radioButtonB.setEnabled(true);
@@ -140,7 +144,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
 
     public void setVocabulary(int i){
         Vocabulary voc = this.selVocList.getVocabularyById(i);
-        showVocabulary(voc.getName(), voc.getName_correct(), voc.getName_wrong1(), voc.getName_wrong2());
+        showVocabulary(voc.getName(), voc);
     }
 
     public void callNextQuestion(String answer, int selectedRadioID){
@@ -189,7 +193,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         return (int) ((temp1 / temp2) * 100);
     }
 
-    public void randomizeOrderOnList(ArrayList<String> strings) {
+    /*public void randomizeOrderOnList(ArrayList<String> strings) {
         if (strings.size() > 1) {
             ArrayList<String> vocListTemp = new ArrayList<String>();
             for (String str : strings) {
@@ -206,7 +210,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
                 vocListTemp.remove(r);
             }
         }
-    }
+    }*/
 
     public void goToActivityResult(){
         Intent intent = new Intent(Quiz.this, Result.class);
@@ -214,6 +218,10 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         intent.putExtra(SELECTED_LEVEL, level);
         intent.putExtra(LEVEL_PROGRESS, progress);
         intent.putExtra(CURRENT_QUIZ_RESULT, quizResult);
+
+        //ArrayList<Vocabulary> send to the Activity Result
+        intent.putExtra("quizList", this.selVocList.getVocList());
+
         startActivity(intent);
         this.finish();
     }

@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 
 public class Congratulation extends AppCompatActivity implements View.OnClickListener{
 
@@ -29,6 +31,8 @@ public class Congratulation extends AppCompatActivity implements View.OnClickLis
     private int level;
     private int progress;
     private int quizResult;
+
+    private ArrayList<Vocabulary> quizList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,9 @@ public class Congratulation extends AppCompatActivity implements View.OnClickLis
         this.level = getIntent().getIntExtra(SELECTED_LEVEL, 0);
         this.progress = getIntent().getIntExtra(LEVEL_PROGRESS, 0);
         this.quizResult = getIntent().getIntExtra(CURRENT_QUIZ_RESULT, 0);
+
+        this.quizList = (ArrayList<Vocabulary>) getIntent().getSerializableExtra("quizList");
+
         showMessage();
     }
 
@@ -95,6 +102,7 @@ public class Congratulation extends AppCompatActivity implements View.OnClickLis
             intent.putExtra(SELECTED_LEVEL, level);
             intent.putExtra(LEVEL_PROGRESS, progress);
             intent.putExtra(CURRENT_QUIZ_RESULT, quizResult);
+            intent.putExtra("quizList", this.quizList);
             startActivity(intent);
             this.finish();
         }
