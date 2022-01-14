@@ -1,11 +1,14 @@
 package com.voctrainer;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,10 +19,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -47,6 +55,9 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
 
     private LocationListener locationListener;
     private LocationManager locationManager;
+    private ConnectivityManager connectivityManager;
+    private NetworkInfo activeNetworkInfo;
+
     private final long MIN_TIME = 500; // millisec.
     private final float MIN_DIST = 0.2f; // Meters
 
@@ -83,6 +94,11 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
 
     private Marker marker_user;
     private boolean userPosSaved = false;
+    private int GPS_REQUEST_CODE = 1;
+    private boolean updateNetworkAndGPS = true;
+    private boolean hasLoaded = false;
+
+    ProgressBar loadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,15 +112,70 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         btn_DEBUG_Inside_Radius.setText("Skip");
         btn_DEBUG_Inside_Radius.setOnClickListener(this);
 
+        updateNetworkAndGPS();
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync((OnMapReadyCallback) this);
 
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        loadingBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
+        loadingBar.setVisibility(View.VISIBLE);
+    }
 
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PackageManager.PERMISSION_GRANTED);
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PackageManager.PERMISSION_GRANTED);
+    // Update if GPS or Network is enabled
+    private void updateNetworkAndGPS(){
+        if(updateNetworkAndGPS){
+            checkNetworkConnection();
+            checkGPSEnabled();
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    updateNetworkAndGPS();
+                }
+            }, 10000);
+        }
+    }
+
+    private boolean isNetworkAvailable(){
+        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public void checkNetworkConnection(){
+        if(!isNetworkAvailable()) {
+            updateNetworkAndGPS = false;
+            AlertDialog alertDialog = new AlertDialog.Builder(this)
+                    .setTitle("Netzwerkverbindung ausgeschaltet")
+                    .setMessage("Es muss eine Internetverbindung für diese Applikation existieren. Bitte schalte deine Internetverbindung jetzt ein.")
+                    .setPositiveButton("Yes", ((dialogInterface, i) -> {
+                        updateNetworkAndGPS = true;
+                        Intent intent = new Intent(GeoMap.this, GeoMap.class);
+                        startActivity(intent);
+                    }))
+                    .setCancelable(false)
+                    .show();
+        }
+    }
+
+    public void checkGPSEnabled(){
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        boolean providerEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        if(!providerEnable){
+            updateNetworkAndGPS = false;
+            AlertDialog alertDialog = new AlertDialog.Builder(this)
+                    .setTitle("GPS Erlaubnis")
+                    .setMessage("Deine Standortbestimmung ist für diese Applikation erforderlich. Bitte schalte dein GPS an.")
+                    .setPositiveButton("Yes", ((dialogInterface, i) -> {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivityForResult(intent, GPS_REQUEST_CODE);
+                    }))
+                    .setCancelable(false)
+                    .show();
+        }
     }
 
     // scales the marker icons
@@ -158,13 +229,16 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     */
     public void OnUserEnteredArea(int areaID){
         this.areaID = areaID;
+        Intent intent = new Intent(GeoMap.this, LevelSelection.class);
+        intent.putExtra(SELECTED_AREA, areaID);
+        startActivity(intent);
+        this.finish();
     }
 
     @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         /*
          Properties of the Map
         // Constrain the camera target to the university-area bounds.
@@ -200,6 +274,9 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
+
+                if(hasLoaded == false) loadingBar.setVisibility(View.GONE);
+                hasLoaded = true;
                 current_latLng = new LatLng(location.getLatitude(), location.getLongitude());
                 if(!userPosSaved){
                     saveUserPos(current_latLng);
@@ -208,7 +285,7 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
                 if(marker_user != null) marker_user.remove();
 
                 marker_user = mMap.addMarker(new MarkerOptions().position(current_latLng).title("My Position").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(MARKER_USER, 100, 100))));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current_latLng, 16.0f));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(current_latLng));
                 //Toast.makeText(getApplicationContext(), location.getLatitude() + "  " + location.getLongitude(), Toast.LENGTH_LONG).show();
                 if(isUserInArea(current_latLng, COORDS_AREA_NETTO)) Toast.makeText(getApplicationContext(), "Du bist bei Netto:" + distanceBetweenLocations(current_latLng, COORDS_AREA_NETTO), Toast.LENGTH_LONG).show();
                 else if(isUserInArea(current_latLng, COORDS_AREA_PHYSIK)) OnUserEnteredArea(0);  // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
@@ -230,6 +307,28 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DIST, locationListener);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DIST, locationListener);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == GPS_REQUEST_CODE) {
+            updateNetworkAndGPS = true;
+            boolean providerEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+            if (providerEnable) {
+                Toast.makeText(this, "GPS wurde eingeschaltet", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(GeoMap.this, GeoMap.class);
+                startActivity(intent);
+                this.finish();
+            } else {
+                Toast.makeText(this, "Dein GPS ist ausgeschaltet, daher kann die Applikation nicht verwendet werden", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(GeoMap.this, MainActivity.class);
+                startActivity(intent);
+                this.finish();
+            }
+        }
+    }
+
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.button_DEBUG_in_Radius) {

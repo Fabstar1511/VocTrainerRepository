@@ -2,6 +2,7 @@ package com.voctrainer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -50,16 +51,29 @@ public class ProgressView extends AppCompatActivity implements View.OnClickListe
         progressText.setText(String.valueOf(this.progress + " %"));
         progressBar.setProgress(this.progress);
     }
+    public void startQuiz(){
+        Intent intent = new Intent(ProgressView.this, Quiz.class);
+        intent.putExtra(SELECTED_AREA, areaID);
+        intent.putExtra(SELECTED_LEVEL, level);
+        intent.putExtra(LEVEL_PROGRESS, progress);
+        startActivity(intent);
+        this.finish();
+    }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_start_quiz) {
-            Intent intent = new Intent(ProgressView.this, Quiz.class);
-            intent.putExtra(SELECTED_AREA, areaID);
-            intent.putExtra(SELECTED_LEVEL, level);
-            intent.putExtra(LEVEL_PROGRESS, progress);
-            startActivity(intent);
-            this.finish();
+            btn_startQuiz.setVisibility(View.INVISIBLE);
+            btn_back.setVisibility(View.INVISIBLE);
+            // Message to user to explain that he has directly selected an answer if he clicked on a Radio Button
+            Toast.makeText(getApplicationContext(),"Hinweis: Durch drücken einer Antwort wird diese sofort akzeptiert.\nViel Erfolg :)\n\nQuiz wird gestartet...", Toast.LENGTH_LONG).show();
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startQuiz();
+                }
+            }, 3000);
         }
         else if (v.getId() == R.id.button_back) {
             Intent intent = new Intent(ProgressView.this, LevelSelection.class);

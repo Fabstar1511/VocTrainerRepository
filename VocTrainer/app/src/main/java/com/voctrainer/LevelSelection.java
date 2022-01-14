@@ -85,9 +85,7 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
         // Order is important. Don't change it.
         initElements();
         loadUserData();
-        Toast.makeText(getApplicationContext(),"Level 1: " + this.progress_Lvl_1, Toast.LENGTH_LONG).show();
         setStatus();
-        //...
     }
 
     public void initElements() {

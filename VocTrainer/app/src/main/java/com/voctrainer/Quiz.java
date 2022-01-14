@@ -78,7 +78,6 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
 
         createVocabularySet();
         setVocabulary(curVocId);
-
         this.setTitle("Quiz - Level " + String.valueOf(this.level));
     }
     /*
