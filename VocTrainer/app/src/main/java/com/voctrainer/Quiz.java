@@ -92,7 +92,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         if(this.areaID == 0) is = getResources().openRawResource(R.raw.vocbook_physics);
         else if(this.areaID == 1) is = getResources().openRawResource(R.raw.vocbook_economic);
         else if(this.areaID == 2) is = getResources().openRawResource(R.raw.vocbook_se);
-        else if(this.areaID == 3) is = getResources().openRawResource(R.raw.vocbook_example);// ÄNDERN!!!!
+        else if(this.areaID == 3) is = getResources().openRawResource(R.raw.vocbook_electrical);
         else if(this.areaID == 4) is = getResources().openRawResource(R.raw.vocbook_sociology);
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.ISO_8859_1));

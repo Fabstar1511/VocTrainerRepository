@@ -1,5 +1,8 @@
 package com.voctrainer;
 
+import static com.voctrainer.R.drawable.button_bg_round;
+import static com.voctrainer.R.drawable.button_bg_round_unclickable;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +38,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -50,6 +54,12 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
      */
     private GoogleMap mMap;
     public Button btn_DEBUG_Inside_Radius;
+    private Button btn_areaAccepted;
+    private Circle circleArea0;
+    private Circle circleArea1;
+    private Circle circleArea2;
+    private Circle circleArea3;
+    private Circle circleArea4;
 
     private final String SELECTED_AREA = "selectedArea";
 
@@ -57,6 +67,8 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     private LocationManager locationManager;
     private ConnectivityManager connectivityManager;
     private NetworkInfo activeNetworkInfo;
+
+    private final int LEVEL_UP = 70; // Level is reached of a progress quote of 70%
 
     private final long MIN_TIME = 500; // millisec.
     private final float MIN_DIST = 0.2f; // Meters
@@ -71,12 +83,23 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
 
     private LatLng current_latLng = new LatLng(52.3825973407738, 9.717844806973376);
 
-    private LatLng COORDS_AREA_NETTO = new LatLng(52.37715709991843, 9.807249143046873);
+    /*
+    Institutsdaten
+
     private LatLng COORDS_AREA_PHYSIK = new LatLng(52.38820423962352, 9.710702083217582);
     private LatLng COORDS_AREA_WIRTSCHAFT = new LatLng(52.378316453594074, 9.724494898171324);
     private LatLng COORDS_AREA_SE = new LatLng(52.382673590028475, 9.716884204104959);
     private LatLng COORDS_AREA_ETECHNIK = new LatLng(52.38944092518481, 9.71510862426616);
     private LatLng COORDS_AREA_SOZIOLOGIE = new LatLng(52.38586900257287, 9.713364899880526);
+
+     */
+
+    // Daten in Umgebung
+    private LatLng COORDS_AREA_PHYSIK = new LatLng(52.16709700366869, 9.925726191646199);
+    private LatLng COORDS_AREA_WIRTSCHAFT = new LatLng(52.16366505298161, 9.928957263538317);
+    private LatLng COORDS_AREA_SE = new LatLng(52.16674126129023, 9.923187884676636);
+    private LatLng COORDS_AREA_ETECHNIK = new LatLng(52.16324919644967, 9.92568191389064);
+    private LatLng COORDS_AREA_SOZIOLOGIE = new LatLng(52.16304574616967, 9.922523656249917);
 
     private int areaID = -1; // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
 
@@ -87,6 +110,50 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     private final int MARKER_AREA_BLUE_3_STARS = 3;
     private final int MARKER_AREA_GREY = 4;
 
+    /*
+       User data Keys
+       */
+    private final String USER_DATA_FILE_NAME = "userProgressData";
+    private final String USER_DATA_FG0_LVL1 = "userDataKeyFg0L1";
+    private final String USER_DATA_FG0_LVL2 = "userDataKeyFg0L2";
+    private final String USER_DATA_FG0_LVL3 = "userDataKeyFg0L3";
+
+    private final String USER_DATA_FG1_LVL1 = "userDataKeyFg1L1";
+    private final String USER_DATA_FG1_LVL2 = "userDataKeyFg1L2";
+    private final String USER_DATA_FG1_LVL3 = "userDataKeyFg1L3";
+
+    private final String USER_DATA_FG2_LVL1 = "userDataKeyFg2L1";
+    private final String USER_DATA_FG2_LVL2 = "userDataKeyFg2L2";
+    private final String USER_DATA_FG2_LVL3 = "userDataKeyFg2L3";
+
+    private final String USER_DATA_FG3_LVL1 = "userDataKeyFg3L1";
+    private final String USER_DATA_FG3_LVL2 = "userDataKeyFg3L2";
+    private final String USER_DATA_FG3_LVL3 = "userDataKeyFg3L3";
+
+    private final String USER_DATA_FG4_LVL1 = "userDataKeyFg4L1";
+    private final String USER_DATA_FG4_LVL2 = "userDataKeyFg4L2";
+    private final String USER_DATA_FG4_LVL3 = "userDataKeyFg4L3";
+
+    private int progress_P_Lvl_1;
+    private int progress_P_Lvl_2;
+    private int progress_P_Lvl_3;
+
+    private int progress_W_Lvl_1;
+    private int progress_W_Lvl_2;
+    private int progress_W_Lvl_3;
+
+    private int progress_S_Lvl_1;
+    private int progress_S_Lvl_2;
+    private int progress_S_Lvl_3;
+
+    private int progress_E_Lvl_1;
+    private int progress_E_Lvl_2;
+    private int progress_E_Lvl_3;
+
+    private int progress_C_Lvl_1;
+    private int progress_C_Lvl_2;
+    private int progress_C_Lvl_3;
+
     private final String USER_DATA_KEY_LAT = "userDataKeyLat";
     private final String USER_DATA_KEY_LON = "userDataKeyLon";
 
@@ -96,7 +163,10 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     private boolean userPosSaved = false;
     private int GPS_REQUEST_CODE = 1;
     private boolean updateNetworkAndGPS = true;
+    public boolean updateUserLocation = true;
     private boolean hasLoaded = false;
+    private boolean registerUserIsInArea = true;
+    private boolean areaIsAvailable = false;
 
     ProgressBar loadingBar;
 
@@ -104,23 +174,77 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //binding = ActivityMapsBinding.inflate(getLayoutInflater());
-        //setContentView(binding.getRoot());
         setContentView(R.layout.activity_gui4_geo_map);
         this.setTitle("Fachgebiet finden");
         btn_DEBUG_Inside_Radius = (Button) findViewById(R.id.button_DEBUG_in_Radius);
         btn_DEBUG_Inside_Radius.setText("Skip");
         btn_DEBUG_Inside_Radius.setOnClickListener(this);
 
-        updateNetworkAndGPS();
+        btn_areaAccepted = (Button) findViewById(R.id.button_areaAcception);
+        btn_areaAccepted.setText("Fachgebiet wählen");
+        btn_areaAccepted.setBackgroundResource(button_bg_round_unclickable);
+        btn_areaAccepted.setOnClickListener(this);
+
+        loadingBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync((OnMapReadyCallback) this);
 
-        loadingBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
+        init();
+    }
+
+    public void init(){
+        updateNetworkAndGPS();
+        loadUserData();
         loadingBar.setVisibility(View.VISIBLE);
+    }
+
+    // Used to get the highest reached level by calculating progress of predecessor
+    public int getLevelStatus(int progressL1, int progressL2, int progressL3){
+        int lvl = 1;
+        if(hasReachedHigherLvl(progressL1)) lvl = 2;
+        if(hasReachedHigherLvl(progressL2)) lvl = 3;
+        if(hasReachedHigherLvl(progressL3)) lvl = 4;
+        return lvl;
+    }
+
+    public boolean hasReachedHigherLvl(int progress){
+        if(progress < LEVEL_UP) return false;
+        else return true;
+    }
+
+    /*
+ Load User Data selected by the area user has chosen
+ */
+    public void loadUserData(){
+        try{
+            SharedPreferences sharedPref = getSharedPreferences(USER_DATA_FILE_NAME, Context.MODE_PRIVATE);
+            // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
+                this.progress_P_Lvl_1 = sharedPref.getInt(USER_DATA_FG0_LVL1, 0);
+                this.progress_P_Lvl_2 = sharedPref.getInt(USER_DATA_FG0_LVL2, 0);
+                this.progress_P_Lvl_3 = sharedPref.getInt(USER_DATA_FG0_LVL3, 0);
+
+                this.progress_W_Lvl_1 = sharedPref.getInt(USER_DATA_FG1_LVL1, 0);
+                this.progress_W_Lvl_2 = sharedPref.getInt(USER_DATA_FG1_LVL2, 0);
+                this.progress_W_Lvl_3 = sharedPref.getInt(USER_DATA_FG1_LVL3, 0);
+
+                this.progress_S_Lvl_1 = sharedPref.getInt(USER_DATA_FG2_LVL1, 0);
+                this.progress_S_Lvl_2 = sharedPref.getInt(USER_DATA_FG2_LVL2, 0);
+                this.progress_S_Lvl_3 = sharedPref.getInt(USER_DATA_FG2_LVL3, 0);
+
+                this.progress_E_Lvl_1 = sharedPref.getInt(USER_DATA_FG3_LVL1, 0);
+                this.progress_E_Lvl_2 = sharedPref.getInt(USER_DATA_FG3_LVL2, 0);
+                this.progress_E_Lvl_3 = sharedPref.getInt(USER_DATA_FG3_LVL3, 0);
+
+                this.progress_C_Lvl_1 = sharedPref.getInt(USER_DATA_FG4_LVL1, 0);
+                this.progress_C_Lvl_2 = sharedPref.getInt(USER_DATA_FG4_LVL2, 0);
+                this.progress_C_Lvl_3 = sharedPref.getInt(USER_DATA_FG4_LVL3, 0);
+        }
+        catch(Exception e){
+            Toast.makeText(getApplicationContext(),"Upps ein Fehler:(GetUserData) ist aufgetaucht.", Toast.LENGTH_LONG).show();
+        }
     }
 
     // Update if GPS or Network is enabled
@@ -178,6 +302,25 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         }
     }
 
+    // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
+    public int getMarkerTypeByLevel(int areaID){
+        int curLevel = 0;
+        int marker = 0;
+
+        if(areaID == 0) curLevel = getLevelStatus(progress_P_Lvl_1, progress_P_Lvl_2, progress_P_Lvl_3);
+        else if(areaID == 1) curLevel = getLevelStatus(progress_W_Lvl_1, progress_W_Lvl_2, progress_W_Lvl_3);
+        else if(areaID == 2) curLevel = getLevelStatus(progress_S_Lvl_1, progress_S_Lvl_2, progress_S_Lvl_3);
+        else if(areaID == 3) curLevel = getLevelStatus(progress_E_Lvl_1, progress_E_Lvl_2, progress_E_Lvl_3);
+        else if(areaID == 4) curLevel = getLevelStatus(progress_C_Lvl_1, progress_C_Lvl_2, progress_C_Lvl_3);
+
+        if(curLevel == 1) marker = MARKER_AREA_BLUE;
+        else if(curLevel == 2) marker = MARKER_AREA_BLUE_1_STAR;
+        else if(curLevel == 3) marker = MARKER_AREA_BLUE_2_STARS;
+        else if(curLevel == 4) marker = MARKER_AREA_BLUE_3_STARS;
+        else marker = MARKER_AREA_GREY;
+
+        return marker;
+    }
     // scales the marker icons
     private Bitmap createSmallIcon(int markerID, int height, int width) {
         BitmapDrawable bitmapDraw;
@@ -223,16 +366,46 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         if(lonStr != null) lonDou = Double.valueOf(lonStr);
         return new LatLng(latDou, lonDou);
     }
+
+
     /*
     Is called if the user entered an area.
     Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
     */
-    public void OnUserEnteredArea(int areaID){
-        this.areaID = areaID;
-        Intent intent = new Intent(GeoMap.this, LevelSelection.class);
-        intent.putExtra(SELECTED_AREA, areaID);
-        startActivity(intent);
-        this.finish();
+    public void onUserEnteredArea(int areaID){
+            this.areaID = areaID;
+            if(registerUserIsInArea){
+
+                registerUserIsInArea = false;
+                btn_areaAccepted.setBackgroundResource(button_bg_round);
+                areaIsAvailable = true;
+
+                if(areaID == 0){
+                    circleArea0.remove();
+                    circleArea0 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_PHYSIK).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 255, 0)));
+                }
+                else if(areaID == 1){
+                    circleArea1.remove();
+                    circleArea1 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_WIRTSCHAFT).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 255, 0)));
+                }
+                else if(areaID == 2){
+                    circleArea2.remove();
+                    circleArea2 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_SE).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 255, 0)));
+                }
+                else if(areaID == 3){
+                    circleArea3.remove();
+                    circleArea3 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_ETECHNIK).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 255, 0)));
+                }
+                else if(areaID == 4){
+                    circleArea4.remove();
+                    circleArea4 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_SOZIOLOGIE).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 255, 0)));
+                }
+            }
+    }
+
+    private void stop(){
+        this.updateUserLocation = false;
+        this.updateNetworkAndGPS = false;
     }
 
     @SuppressLint("MissingPermission")
@@ -253,23 +426,21 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current_latLng, 16.0f));
 
         // Areas
-        mMap.addMarker(new MarkerOptions().position(COORDS_AREA_NETTO).title("Fachbereich: A").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(MARKER_AREA_BLUE, 150, 100))));
-        mMap.addCircle(new CircleOptions().center(COORDS_AREA_NETTO).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 81, 159)));
 
-        mMap.addMarker(new MarkerOptions().position(COORDS_AREA_PHYSIK).title("Fachbereich: Gravitationsphysik").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(MARKER_AREA_BLUE, 150, 100))));
-        mMap.addCircle(new CircleOptions().center(COORDS_AREA_PHYSIK).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 81, 159)));
+        mMap.addMarker(new MarkerOptions().position(COORDS_AREA_PHYSIK).title("Fachbereich: Gravitationsphysik").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(getMarkerTypeByLevel(0), 200, 150))));
+        circleArea0 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_PHYSIK).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 81, 159)));
 
-        mMap.addMarker(new MarkerOptions().position(COORDS_AREA_WIRTSCHAFT).title("Fachbereich: Wirtschaftswissenschaft").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(MARKER_AREA_BLUE, 150, 100))));
-        mMap.addCircle(new CircleOptions().center(COORDS_AREA_WIRTSCHAFT).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 81, 159)));
+        mMap.addMarker(new MarkerOptions().position(COORDS_AREA_WIRTSCHAFT).title("Fachbereich: Wirtschaftswissenschaft").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(getMarkerTypeByLevel(1), 200, 150))));
+        circleArea1 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_WIRTSCHAFT).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 81, 159)));
 
-        mMap.addMarker(new MarkerOptions().position(COORDS_AREA_SE).title("Fachbereich: Software Engineering").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(MARKER_AREA_BLUE, 150, 100))));
-        mMap.addCircle(new CircleOptions().center(COORDS_AREA_SE).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 81, 159)));
+        mMap.addMarker(new MarkerOptions().position(COORDS_AREA_SE).title("Fachbereich: Software Engineering").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(getMarkerTypeByLevel(2), 200, 150))));
+        circleArea2 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_SE).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 81, 159)));
 
-        mMap.addMarker(new MarkerOptions().position(COORDS_AREA_ETECHNIK).title("Fachbereich: Elektrotechnik").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(MARKER_AREA_BLUE, 150, 100))));
-        mMap.addCircle(new CircleOptions().center(COORDS_AREA_ETECHNIK).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 81, 159)));
+        mMap.addMarker(new MarkerOptions().position(COORDS_AREA_ETECHNIK).title("Fachbereich: Elektrotechnik").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(getMarkerTypeByLevel(3), 200, 150))));
+        circleArea3 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_ETECHNIK).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 81, 159)));
 
-        mMap.addMarker(new MarkerOptions().position(COORDS_AREA_SOZIOLOGIE).title("Fachbereich: Soziologie").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(MARKER_AREA_BLUE, 150, 100))));
-        mMap.addCircle(new CircleOptions().center(COORDS_AREA_SOZIOLOGIE).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 81, 159)));
+        mMap.addMarker(new MarkerOptions().position(COORDS_AREA_SOZIOLOGIE).title("Fachbereich: Soziologie").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(getMarkerTypeByLevel(4), 200, 150))));
+        circleArea4 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_SOZIOLOGIE).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 81, 159)));
 
         locationListener = new LocationListener() {
             @Override
@@ -287,12 +458,31 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
                 marker_user = mMap.addMarker(new MarkerOptions().position(current_latLng).title("My Position").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(MARKER_USER, 100, 100))));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(current_latLng));
                 //Toast.makeText(getApplicationContext(), location.getLatitude() + "  " + location.getLongitude(), Toast.LENGTH_LONG).show();
-                if(isUserInArea(current_latLng, COORDS_AREA_NETTO)) Toast.makeText(getApplicationContext(), "Du bist bei Netto:" + distanceBetweenLocations(current_latLng, COORDS_AREA_NETTO), Toast.LENGTH_LONG).show();
-                else if(isUserInArea(current_latLng, COORDS_AREA_PHYSIK)) OnUserEnteredArea(0);  // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
-                else if(isUserInArea(current_latLng, COORDS_AREA_WIRTSCHAFT)) OnUserEnteredArea(1);
-                else if(isUserInArea(current_latLng, COORDS_AREA_SE)) OnUserEnteredArea(2);
-                else if(isUserInArea(current_latLng, COORDS_AREA_ETECHNIK)) OnUserEnteredArea(3);
-                else if(isUserInArea(current_latLng, COORDS_AREA_SOZIOLOGIE)) OnUserEnteredArea(4);
+
+                if(updateUserLocation){
+                    if(isUserInArea(current_latLng, COORDS_AREA_PHYSIK)) onUserEnteredArea(0);  // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
+                    else if(isUserInArea(current_latLng, COORDS_AREA_WIRTSCHAFT)) onUserEnteredArea(1);
+                    else if(isUserInArea(current_latLng, COORDS_AREA_SE)) onUserEnteredArea(2);
+                    else if(isUserInArea(current_latLng, COORDS_AREA_ETECHNIK)) onUserEnteredArea(3);
+                    else if(isUserInArea(current_latLng, COORDS_AREA_SOZIOLOGIE)) onUserEnteredArea(4);
+                    else {
+                        if(registerUserIsInArea == false){
+                            registerUserIsInArea = true;
+                            areaIsAvailable = false;
+                            btn_areaAccepted.setBackgroundResource(button_bg_round_unclickable);
+                            circleArea0.remove();
+                            circleArea1.remove();
+                            circleArea2.remove();
+                            circleArea3.remove();
+                            circleArea4.remove();
+                            circleArea0 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_PHYSIK).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 81, 159)));
+                            circleArea1 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_WIRTSCHAFT).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 81, 159)));
+                            circleArea2 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_SE).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 81, 159)));
+                            circleArea3 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_ETECHNIK).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 81, 159)));
+                            circleArea4 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_SOZIOLOGIE).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 81, 159)));
+                        }
+                    }
+                }
             }
             @Override
             public void onProviderDisabled (String provider){
@@ -337,6 +527,16 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
             intent.putExtra(SELECTED_AREA, 3);
             startActivity(intent);
             this.finish();
+        }
+        else if(v.getId() == R.id.button_areaAcception) {
+            if(areaIsAvailable){
+                stop();
+                Intent intent = new Intent(GeoMap.this, LevelSelection.class);
+                intent.putExtra(SELECTED_AREA, this.areaID);
+                startActivity(intent);
+                this.finish();
+            }
+            else Toast.makeText(this, "Du kannst kein Fachgebiet auswählen, weil du dich in keinem Fachgebiet befindest.", Toast.LENGTH_SHORT).show();
         }
     }
     public void onBackPressed(){
