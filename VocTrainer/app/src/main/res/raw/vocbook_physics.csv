@@ -8,7 +8,7 @@
 1;Aktions-Reaktions-Gesetz;Action-reaction law ;Astrophysics ;Symmetry 
 1;Aktivität;Activity;Atom;Synchronisation
 1;Aktivitätskoeffizient;Activity coefficient;Axiom ;System 
-1;Aerophysik;?Aerophysics ;background;Tensor
+1;Aerophysik;Aerophysics ;background;Tensor
 1;Aggregat;Aggregate;background activity ;temperature
 1;Alpha;Alpha;background radiation ;Torsion
 1;Alphazerfall;Alpha decay;balance;Trajectory
@@ -28,7 +28,7 @@
 1;Anharmonische;Anharmonic ;Convex ;Notation
 1;Anharmonischer Oszillator;Anharmonic oscillator;Dynamic;natural radiation
 1;Vernichtung;Annihilation ;Distortion;Nebulae
-1;Anti-;Anti;Diffraction;Orbit
+1;Strahlung;radiation;Diffraction;Orbit
 1;Astrophysik;Astrophysics ;Electricity;Oscillate
 1;Atom;Atom;Elasticity ;Optics
 1;Axiom;Axiom ;Electromagnetic ;Particle
@@ -54,7 +54,7 @@
 2;Beugung;Diffraction;Level ;Action-reaction law 
 2;Elektrizität;Electricity;Light;Activity
 2;Elastizität;Elasticity ;Linear;Activity coefficient
-2;Elektromagnetisch;Electromagnetic ;Longitude;?Aerophysics 
+2;Elektromagnetisch;Electromagnetic ;Longitude;Aerophysics 
 2;Elektromagnetisches Feld;Electromagnetic Field;Luminescent;Aggregate
 2;Gewalt;Force;Magnetic ;Alpha
 2;Verschmelzung;Fusion ;Manometer;Alpha decay

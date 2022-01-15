@@ -5,7 +5,7 @@
 1;Knappheit;Scarcity;Relative prices;Moderate inflation
 1;Knappe Ressourcen;Scarce Resources;Exchange rate;Creeping inflation
 1;Ökonomische Resourcen;Economic Resources;Foreign trade multiplier;Galloping inflation
-1;Ressourcenzuweisung;Recourses Allocation;Open economy multiplier;Hype – inflation
+1;Ressourcenzuweisung;Recourses Allocation;Open economy multiplier;Hype-inflation
 1;Wünsche oder Bedürfnisse;Wants or Needs;Marginal propensity to import;Demand pull inflation
 1;Kostenlose Ressourcen;Free Resources;Inflation;Cost push inflation
 1;Humanressourcen;Human Resources;Unemployment;Imported inflation
@@ -14,12 +14,12 @@
 1;Produktionsfaktoren;Factors of Production;Moderate inflation;Cyclical unemployment
 1;Makroökonomie;Macroeconomics;Creeping inflation;Seasonal unemployment
 1;Mikroökonomie;Microeconomics;Galloping inflation;Disguised unemployment
-1;Positive Ökonomie;Positive Economics;Hype – inflation;Open unemployment
+1;Positive Ökonomie;Positive Economics;Hype-inflation;Open unemployment
 1;Normative Ökonomie;Normative Economics;Demand pull inflation;Behavioral unemployment
-1;Ökonometrie;Econometrics;Imported inflation;Trade – off
+1;Ökonometrie;Econometrics;Imported inflation;Trade-off
 1;Einkommen;Income;Fiscal deficit;Philips curve
 1;Reichtum;Wealth;Unemployment rate;Stagflation
-1;Ökonomische Systeme;Economic Systems;Okun’s law;Money
+1;Ökonomische Systeme;Economic Systems;Okuns law;Money
 1;Kapitalismus;Capitalism;Frictional unemployment;Banks
 1;Sozialismus;Socialism;Structural unemployment;Barter
 1;Ökonomisches Problem;Economic Problem;Cyclical unemployment;Commodity money
@@ -28,7 +28,7 @@
 1;Opportunitätskosten;Opportunity Cost;Open unemployment;Credit money
 1;Alternative;Alternative;Behavioral unemployment;Credit cards
 1;Abtausch;Trade-Off;Imported unemployment;Medium of exchange
-1;Leistungen;Benefits;Trade – off;Unit of account
+1;Leistungen;Benefits;Trade-off;Unit of account
 1;Zuweisung von Ressourcen;Allocation of Resources;Philips curve;Store of value
 1;Produktionsmöglichkeiten Kurve;Production Possibilities Curve;Stagflation;Money supply
 1;Vollbeschäftigung;Full Employment;Money;Money in circulation
@@ -50,7 +50,7 @@
 2;Das Gesetz der Nachfrage;The Law of Demand;Assets;Discount mechanism
 2;Geforderter Zeitplan;Demand Schedule;Liabilities;Reserves policy
 2;Nachfragekurve;Demand curve;Central bank;Contractionary policy
-2;Geschmäcker & Vorlieben;Tastes & Preferences;Reserves policy;Expansionary policy
+2;Vorlieben;Preferences;Reserves policy;Expansionary policy
 2;Größe des Marktes;Size of the Market;Money multiplier;Treasury bills
 2;Einkommen;Income;Banking system;Excess reserves
 2;Erwartungen;Expectations;Monetary policy;Credit control
@@ -71,13 +71,13 @@
 2;Marktkräfte;Market Forces;Fiscal policy;Moderate inflation
 2;Schwarzmarkt;Black Market;Public finance;Creeping inflation
 2;Gleichgewichtspreis;Equilibrium Price;Full employment;Galloping inflation
-2;Gleichgewichtsmenge;Equilibrium quantity;Sustainable growth;Hype – inflation
+2;Gleichgewichtsmenge;Equilibrium quantity;Sustainable growth;Hype-inflation
 2;Preisuntergrenze;Price floor;Prices stability;Demand pull inflation
 2;Preisobergrenze;Price ceiling;Economic welfare;Cost push inflation
 2;Arbeitslosigkeit;Unemployment;Government budget;Imported inflation
 2;Konsumrationierung;Consumption rationing;Fiscal deficit;Fiscal deficit
 2;Bruttoinlandsprodukt;Gross domestic product;Fiscal surplus;Unemployment rate
-2;Gesamtnachfrage;Aggregate demand;Balanced budget;Okun’s law
+2;Gesamtnachfrage;Aggregate demand;Balanced budget;Okuns law
 3;Gesamtangebot;Aggregate supply;Public debt;Frictional unemployment
 3;Allgemeines Preisniveau;General price level;Government revenues;Structural unemployment
 3;Halbfertigware;Inter mediate goods;Direct taxes;Cyclical unemployment
@@ -86,7 +86,7 @@
 3;Wert hinzugefügt;Value added;Automatic instruments;Open unemployment
 3;Reales BIP;Real GDP;employee;Behavioral unemployment
 3;BIP-Deflator;GDP Deflator;Behavior employement;Imported unemployment
-3;Haushalte;Households;Globalization;Trade – off
+3;Haushalte;Households;Globalization;Trade-off
 3;Abschreibungen;Depreciation;Economic Problem;Philips curve
 3;Indirekte Steuer;Indirect taxes;Economics;Stagflation
 3;Direkte Steuern;Direct taxes;Scarcity;Money
@@ -111,7 +111,7 @@
 3;Dienstleistungen;Services;Income;Reserves policy
 3;Autonomer Verbrauch;Autonomous consumption;Wealth;Money multiplier
 3;Entsparen;Dissaving;Economic Systems;Banking system
-3;Break – gerader Punkt;Break – even point;Capitalism;Monetary policy
+3;Kosten gleich Gewinn;Break-even point;Capitalism;Monetary policy
 3;Induzierter Konsum;Induced consumption;Socialism;Central bank of Jordan
 3;Verbrauchsfunktion;Consumption function;Economic Problem;Monetary instruments
 3;Speicherfunktion;Saving function;Scarcity;General instruments

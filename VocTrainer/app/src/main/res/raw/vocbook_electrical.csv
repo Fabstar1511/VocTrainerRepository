@@ -5,8 +5,8 @@
 1;Amperemeter;Ammeter;Depth of modulation;Ohmmeter
 1;Barrierespannung;Barrier voltage;Control devices;Conservation of charge
 1;Trägerwellen;Carrier waves;Backward connection;One way circuit
-1;Ladungserhaltung;Conservation of charge;Autotransformer;On – Off switch
-1;Umlenkplatten;Deflection plates;Amplitude Modulation;Over head transmission – line
+1;Ladungserhaltung;Conservation of charge;Autotransformer;On-Off switch
+1;Umlenkplatten;Deflection plates;Amplitude Modulation;Over-head-transmission-line
 1;Wellenteilchentheorie;Wave particle theory;Acid solution;Carrier waves
 1;Videoverstärker;Video amplifier;Base solution;Conservation of charge
 1;Verkürzungskondensator;Shortening capacitor;Carrier waves;Deflection plates
@@ -25,7 +25,7 @@
 1;Transistor;Transistor;Mixed -flow turbine;Quarter wave dipole
 1;Radiowelle;Radio wave;Moving iron ammeter;Signal corps
 1;Leiter;Printed circuit;Multiple connection;Amplitude Modulation
-1;Positives Ion;Positive ion;Multi -way switch;Thermistor
+1;Positives Ion;Positive ion;Multiway switch;Thermistor
 1;Multiplikatorwiderstand;Multiplier resistance;Murray loop test;Trigger pulse
 1;Passender Transformator;Matching transformer;Natural rectifier;Voltmeter
 2;Erdstation;Earth station;Neutral conductor;Upper side band
@@ -65,7 +65,7 @@
 3;Ohmscher Verlust;Ohmic loss;Ammeter;Multi -way switch
 3;Ohmmeter;Ohmmeter;Barrier voltage;Murray loop test
 3;Einbahnstraße;One way circuit;Conservation of charge;Neutral conductor
-3;Ein / Aus Schalter;On – Off switch;Deflection plates;Ni -Fe battery
+3;Ein-Aus Schalter;On-Off switch;Deflection plates;Ni -Fe battery
 3;Freileitung – Leitung;Over head transmission – line;Wave particle theory;Nuclear energy plant
 3;Passives Netzwerk;Passive network;Video amplifier;Cathode ray tube
 3;Fotoelektrisches System;Photoelectric system;Shortening capacitor;Electrolytic
