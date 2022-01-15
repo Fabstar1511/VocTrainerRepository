@@ -22,9 +22,8 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
     public Button btn_help;
     public Button btn_DEBUG_Skip_to_100;
     public Button btn_backToStart;
-  
-    private final int MAXIMUM_OF_STEPS = 30;
-  
+
+    private final int MAXIMUM_OF_STEPS = 100;
     private TextView tv_steps;
     private SensorManager sensorManager;
     private Sensor mStepCounter, mStepDetector;
