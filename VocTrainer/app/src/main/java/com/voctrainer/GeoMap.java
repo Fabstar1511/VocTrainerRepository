@@ -45,7 +45,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener{
+public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
 
     /*
@@ -71,7 +71,7 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     private final int LEVEL_UP = 70; // Level is reached of a progress quote of 70%
 
     private final long MIN_TIME = 500; // millisec.
-    private final float MIN_DIST = 0.2f; // Meters
+    private final float MIN_DIST = 1.0f; // Meters
 
     private LatLngBounds UNIVERSITY_AREA_BOUNDS = new LatLngBounds(
             new LatLng(52.162012256087124, 9.932759429103145), // SW bounds
@@ -195,61 +195,60 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         init();
     }
 
-    public void init(){
+    public void init() {
         updateNetworkAndGPS();
         loadUserData();
         loadingBar.setVisibility(View.VISIBLE);
     }
 
     // Used to get the highest reached level by calculating progress of predecessor
-    public int getLevelStatus(int progressL1, int progressL2, int progressL3){
+    public int getLevelStatus(int progressL1, int progressL2, int progressL3) {
         int lvl = 1;
-        if(hasReachedHigherLvl(progressL1)) lvl = 2;
-        if(hasReachedHigherLvl(progressL2)) lvl = 3;
-        if(hasReachedHigherLvl(progressL3)) lvl = 4;
+        if (hasReachedHigherLvl(progressL1)) lvl = 2;
+        if (hasReachedHigherLvl(progressL2)) lvl = 3;
+        if (hasReachedHigherLvl(progressL3)) lvl = 4;
         return lvl;
     }
 
-    public boolean hasReachedHigherLvl(int progress){
-        if(progress < LEVEL_UP) return false;
+    public boolean hasReachedHigherLvl(int progress) {
+        if (progress < LEVEL_UP) return false;
         else return true;
     }
 
     /*
  Load User Data selected by the area user has chosen
  */
-    public void loadUserData(){
-        try{
+    public void loadUserData() {
+        try {
             SharedPreferences sharedPref = getSharedPreferences(USER_DATA_FILE_NAME, Context.MODE_PRIVATE);
             // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
-                this.progress_P_Lvl_1 = sharedPref.getInt(USER_DATA_FG0_LVL1, 0);
-                this.progress_P_Lvl_2 = sharedPref.getInt(USER_DATA_FG0_LVL2, 0);
-                this.progress_P_Lvl_3 = sharedPref.getInt(USER_DATA_FG0_LVL3, 0);
+            this.progress_P_Lvl_1 = sharedPref.getInt(USER_DATA_FG0_LVL1, 0);
+            this.progress_P_Lvl_2 = sharedPref.getInt(USER_DATA_FG0_LVL2, 0);
+            this.progress_P_Lvl_3 = sharedPref.getInt(USER_DATA_FG0_LVL3, 0);
 
-                this.progress_W_Lvl_1 = sharedPref.getInt(USER_DATA_FG1_LVL1, 0);
-                this.progress_W_Lvl_2 = sharedPref.getInt(USER_DATA_FG1_LVL2, 0);
-                this.progress_W_Lvl_3 = sharedPref.getInt(USER_DATA_FG1_LVL3, 0);
+            this.progress_W_Lvl_1 = sharedPref.getInt(USER_DATA_FG1_LVL1, 0);
+            this.progress_W_Lvl_2 = sharedPref.getInt(USER_DATA_FG1_LVL2, 0);
+            this.progress_W_Lvl_3 = sharedPref.getInt(USER_DATA_FG1_LVL3, 0);
 
-                this.progress_S_Lvl_1 = sharedPref.getInt(USER_DATA_FG2_LVL1, 0);
-                this.progress_S_Lvl_2 = sharedPref.getInt(USER_DATA_FG2_LVL2, 0);
-                this.progress_S_Lvl_3 = sharedPref.getInt(USER_DATA_FG2_LVL3, 0);
+            this.progress_S_Lvl_1 = sharedPref.getInt(USER_DATA_FG2_LVL1, 0);
+            this.progress_S_Lvl_2 = sharedPref.getInt(USER_DATA_FG2_LVL2, 0);
+            this.progress_S_Lvl_3 = sharedPref.getInt(USER_DATA_FG2_LVL3, 0);
 
-                this.progress_E_Lvl_1 = sharedPref.getInt(USER_DATA_FG3_LVL1, 0);
-                this.progress_E_Lvl_2 = sharedPref.getInt(USER_DATA_FG3_LVL2, 0);
-                this.progress_E_Lvl_3 = sharedPref.getInt(USER_DATA_FG3_LVL3, 0);
+            this.progress_E_Lvl_1 = sharedPref.getInt(USER_DATA_FG3_LVL1, 0);
+            this.progress_E_Lvl_2 = sharedPref.getInt(USER_DATA_FG3_LVL2, 0);
+            this.progress_E_Lvl_3 = sharedPref.getInt(USER_DATA_FG3_LVL3, 0);
 
-                this.progress_C_Lvl_1 = sharedPref.getInt(USER_DATA_FG4_LVL1, 0);
-                this.progress_C_Lvl_2 = sharedPref.getInt(USER_DATA_FG4_LVL2, 0);
-                this.progress_C_Lvl_3 = sharedPref.getInt(USER_DATA_FG4_LVL3, 0);
-        }
-        catch(Exception e){
-            Toast.makeText(getApplicationContext(),"Upps ein Fehler:(GetUserData) ist aufgetaucht.", Toast.LENGTH_LONG).show();
+            this.progress_C_Lvl_1 = sharedPref.getInt(USER_DATA_FG4_LVL1, 0);
+            this.progress_C_Lvl_2 = sharedPref.getInt(USER_DATA_FG4_LVL2, 0);
+            this.progress_C_Lvl_3 = sharedPref.getInt(USER_DATA_FG4_LVL3, 0);
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Upps ein Fehler:(GetUserData) ist aufgetaucht.", Toast.LENGTH_LONG).show();
         }
     }
 
     // Update if GPS or Network is enabled
-    private void updateNetworkAndGPS(){
-        if(updateNetworkAndGPS){
+    private void updateNetworkAndGPS() {
+        if (updateNetworkAndGPS) {
             checkNetworkConnection();
             checkGPSEnabled();
             final Handler handler = new Handler();
@@ -262,14 +261,14 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         }
     }
 
-    private boolean isNetworkAvailable(){
+    private boolean isNetworkAvailable() {
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    public void checkNetworkConnection(){
-        if(!isNetworkAvailable()) {
+    public void checkNetworkConnection() {
+        if (!isNetworkAvailable()) {
             updateNetworkAndGPS = false;
             AlertDialog alertDialog = new AlertDialog.Builder(this)
                     .setTitle("Netzwerkverbindung ausgeschaltet")
@@ -284,11 +283,11 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         }
     }
 
-    public void checkGPSEnabled(){
+    public void checkGPSEnabled() {
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         boolean providerEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-        if(!providerEnable){
+        if (!providerEnable) {
             updateNetworkAndGPS = false;
             AlertDialog alertDialog = new AlertDialog.Builder(this)
                     .setTitle("GPS Erlaubnis")
@@ -303,24 +302,30 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     }
 
     // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
-    public int getMarkerTypeByLevel(int areaID){
+    public int getMarkerTypeByLevel(int areaID) {
         int curLevel = 0;
         int marker = 0;
 
-        if(areaID == 0) curLevel = getLevelStatus(progress_P_Lvl_1, progress_P_Lvl_2, progress_P_Lvl_3);
-        else if(areaID == 1) curLevel = getLevelStatus(progress_W_Lvl_1, progress_W_Lvl_2, progress_W_Lvl_3);
-        else if(areaID == 2) curLevel = getLevelStatus(progress_S_Lvl_1, progress_S_Lvl_2, progress_S_Lvl_3);
-        else if(areaID == 3) curLevel = getLevelStatus(progress_E_Lvl_1, progress_E_Lvl_2, progress_E_Lvl_3);
-        else if(areaID == 4) curLevel = getLevelStatus(progress_C_Lvl_1, progress_C_Lvl_2, progress_C_Lvl_3);
+        if (areaID == 0)
+            curLevel = getLevelStatus(progress_P_Lvl_1, progress_P_Lvl_2, progress_P_Lvl_3);
+        else if (areaID == 1)
+            curLevel = getLevelStatus(progress_W_Lvl_1, progress_W_Lvl_2, progress_W_Lvl_3);
+        else if (areaID == 2)
+            curLevel = getLevelStatus(progress_S_Lvl_1, progress_S_Lvl_2, progress_S_Lvl_3);
+        else if (areaID == 3)
+            curLevel = getLevelStatus(progress_E_Lvl_1, progress_E_Lvl_2, progress_E_Lvl_3);
+        else if (areaID == 4)
+            curLevel = getLevelStatus(progress_C_Lvl_1, progress_C_Lvl_2, progress_C_Lvl_3);
 
-        if(curLevel == 1) marker = MARKER_AREA_BLUE;
-        else if(curLevel == 2) marker = MARKER_AREA_BLUE_1_STAR;
-        else if(curLevel == 3) marker = MARKER_AREA_BLUE_2_STARS;
-        else if(curLevel == 4) marker = MARKER_AREA_BLUE_3_STARS;
+        if (curLevel == 1) marker = MARKER_AREA_BLUE;
+        else if (curLevel == 2) marker = MARKER_AREA_BLUE_1_STAR;
+        else if (curLevel == 3) marker = MARKER_AREA_BLUE_2_STARS;
+        else if (curLevel == 4) marker = MARKER_AREA_BLUE_3_STARS;
         else marker = MARKER_AREA_GREY;
 
         return marker;
     }
+
     // scales the marker icons
     private Bitmap createSmallIcon(int markerID, int height, int width) {
         BitmapDrawable bitmapDraw;
@@ -338,32 +343,32 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         return Bitmap.createScaledBitmap(bitmapDraw.getBitmap(), width, height, false);
     }
 
-    private float distanceBetweenLocations(LatLng ll1, LatLng ll2){
+    private float distanceBetweenLocations(LatLng ll1, LatLng ll2) {
         float[] results = new float[1];
         Location.distanceBetween(ll1.latitude, ll1.longitude, ll2.latitude, ll2.longitude, results);
         return results[0];
     }
 
-    private boolean isUserInArea(LatLng userPos, LatLng areaPos){
+    private boolean isUserInArea(LatLng userPos, LatLng areaPos) {
         double dist = distanceBetweenLocations(userPos, areaPos);
-        if(dist < AREA_RADIUS) return true;
+        if (dist < AREA_RADIUS) return true;
         else return false;
     }
 
-    private void saveUserPos(LatLng ll){
+    private void saveUserPos(LatLng ll) {
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(USER_DATA_KEY_LAT, String.valueOf(ll.latitude));
         editor.putString(USER_DATA_KEY_LON, String.valueOf(ll.longitude));
     }
 
-    private LatLng getUserPos(){
+    private LatLng getUserPos() {
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         String latStr = sharedPref.getString(USER_DATA_KEY_LAT, null);
         String lonStr = sharedPref.getString(USER_DATA_KEY_LON, null);
         double latDou = 0.0, lonDou = 0.0;
-        if(latStr != null) latDou = Double.valueOf(latStr);
-        if(lonStr != null) lonDou = Double.valueOf(lonStr);
+        if (latStr != null) latDou = Double.valueOf(latStr);
+        if (lonStr != null) lonDou = Double.valueOf(lonStr);
         return new LatLng(latDou, lonDou);
     }
 
@@ -372,40 +377,37 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     Is called if the user entered an area.
     Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
     */
-    public void onUserEnteredArea(int areaID){
-            this.areaID = areaID;
-            if(registerUserIsInArea){
+    public void onUserEnteredArea(int areaID) {
+        this.areaID = areaID;
+        if (registerUserIsInArea) {
 
-                registerUserIsInArea = false;
-                btn_areaAccepted.setBackgroundResource(button_bg_round);
-                areaIsAvailable = true;
+            registerUserIsInArea = false;
+            btn_areaAccepted.setBackgroundResource(button_bg_round);
+            areaIsAvailable = true;
 
-                if(areaID == 0){
-                    circleArea0.remove();
-                    circleArea0 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_PHYSIK).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 255, 0)));
-                }
-                else if(areaID == 1){
-                    circleArea1.remove();
-                    circleArea1 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_WIRTSCHAFT).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 255, 0)));
-                }
-                else if(areaID == 2){
-                    circleArea2.remove();
-                    circleArea2 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_SE).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 255, 0)));
-                }
-                else if(areaID == 3){
-                    circleArea3.remove();
-                    circleArea3 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_ETECHNIK).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 255, 0)));
-                }
-                else if(areaID == 4){
-                    circleArea4.remove();
-                    circleArea4 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_SOZIOLOGIE).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 255, 0)));
-                }
+            if (areaID == 0) {
+                circleArea0.remove();
+                circleArea0 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_PHYSIK).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 255, 0)));
+            } else if (areaID == 1) {
+                circleArea1.remove();
+                circleArea1 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_WIRTSCHAFT).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 255, 0)));
+            } else if (areaID == 2) {
+                circleArea2.remove();
+                circleArea2 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_SE).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 255, 0)));
+            } else if (areaID == 3) {
+                circleArea3.remove();
+                circleArea3 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_ETECHNIK).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 255, 0)));
+            } else if (areaID == 4) {
+                circleArea4.remove();
+                circleArea4 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_SOZIOLOGIE).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 255, 0)));
             }
+        }
     }
 
-    private void stop(){
+    private void stop() {
         this.updateUserLocation = false;
         this.updateNetworkAndGPS = false;
+        this.locationManager.removeUpdates(this.locationListener);
     }
 
     @SuppressLint("MissingPermission")
@@ -417,10 +419,10 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         // Constrain the camera target to the university-area bounds.
 
         mMap.setLatLngBoundsForCameraTarget(UNIVERSITY_AREA_BOUNDS);
+
+        */
         mMap.setMinZoomPreference(MIN_ZOOM_SIZE_MAP); // Max size for zooming out
         mMap.setMaxZoomPreference(MAX_ZOOM_SIZE_MAP); // Max size for zooming in
-
-         */
 
         marker_user = mMap.addMarker(new MarkerOptions().position(getUserPos()).title("My Position").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(MARKER_USER, 100, 100))));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current_latLng, 16.0f));
@@ -494,6 +496,7 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
             public void onStatusChanged (String provider,int status, Bundle ext){
             }
         };
+        // First Networkprovider for quick start and than take GPS Provider
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DIST, locationListener);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DIST, locationListener);
     }
