@@ -1,10 +1,10 @@
 0;vocabulary;correct;wrong1;wrong2
-1;System;System;Optimization;(JIT) - Just In Time Compiling
+1;System;System;Optimization;(JIT) Just In Time Compiling
 1;Betriebssystem;Operating System;Versioning;Resource Files
 1;Hexadezimal;Hexadecimal;Web Services;Identifiers
-1;Festplattenbetrieb;Disk Operating;I/O File Processing;paper-tape reader 
+1;Festplattenbetrieb;Disk Operating;hard drive company;paper-tape reader 
 1;System;System;Threading;paper-tape reader 
-1;Ordner;Folder;CLR) – Common Language Runtime;paper-tape reader 
+1;Ordner;Folder;CLR-Common Language Runtime;paper-tape reader 
 1;Linux;Linux;Memory Management;paper-tape reader 
 1;Betriebssystem Macintosh;OS Macintosh;Just In Time Compiling;paper-tape reader 
 1;Unix;Unix;Resource Files;paper-tape reader 
@@ -12,9 +12,9 @@
 1;Formattyp;Format Type;paper-tape reader ;paper-tape reader 
 1;Schriftart;Font;power-supply circuit;paper-tape reader 
 1;oi;oi;power transformer;file
-1;Grafischer Benutzer;Graphical User;power transistor ;Text
+1;Grafischer Benutzer;Graphical User;power transistor;Text
 1;Zentrale Bearbeitung;Central Processing;simultaneous computer ;Endless loop
-1;Einheit;Unit;target computer ;Hexadecimal
+1;Einheit;Unit;target computer;Hexadecimal
 1;Blatt;Sheet;transportable microcomputer;Disk Operating
 1;Arbeitsblatt;Worksheet;Unit;Machine language 
 1;automatischer Locher ;automatic punch ;Graphical User;Token
@@ -54,13 +54,13 @@
 2;Zeiger;Pointers;VBScript;Framework 
 2;Internetdienste;Web Services;Optimization;Hardcode
 2;Spiegelung;Mirroring;Inheritance;Loop 
-2;E/A-Dateiverarbeitung;I/O File Processing;Versioning;Variable 
+2;Eingabe und Ausgabe;input and output;inside and outside;interrupts
 2;Einfädeln;Threading;Pointers;Operand Programming language
-2;CLR) – Common Language Runtime;CLR) – Common Language Runtime;Web Services;Machine language 
+2;CLR – Common Language Runtime;CLR – Common Language Runtime;Web Services;Machine language 
 2;Speicherverwaltung;Memory Management;Mirroring;Token
-2;Müllabfuhr;Garbage Collection;I/O File Processing;Endless loop
+2;Müllabfuhr;Garbage Collection;I and O File Processing;Endless loop
 2;(JIT) - Just-In-Time-Kompilierung;(JIT) - Just In Time Compiling;Threading;Keywords
-2;Baugruppen;Assemblies;CLR) – Common Language Runtime;drivers
+2;Baugruppen;Assemblies;CLR – Common Language Runtime;drivers
 2;Ressourcendateien;Resource Files;Memory Management;devices
 2;Debuggen;Debugging;Garbage Collection;(OLE) - Object Linking & Embedding
 3;Identifikatoren;Identifiers;(JIT) - Just In Time Compiling;(DDE) - Dynamic Data Exchange
@@ -104,12 +104,12 @@
 3;Konstanten;Constants;Machine language ;Pointers
 3;Rahmen;Framework ;Token;Web Services
 3;Hardcode;Hardcode;Endless loop;Mirroring
-3;Schleife;Loop ;Keywords;I/O File Processing
+3;Schleife;Loop ;Keywords;I-O File Processing
 3;Variable;Variable ;drivers;Threading
 3;Operand Programmiersprache;Operand Programming language;devices;(CLR) – Common Language Runtime
 3;Maschinensprache;Machine language ;(OLE) - Object Linking & Embedding;Memory Management
 3;Zeichen;Token;(DDE) - Dynamic Data Exchange;Garbage Collection
 3;Endlosschleife;Endless loop;(COM) - Component Object Model;(JIT) - Just In Time Compiling
 3;Schlüsselwörter;Keywords;(DCOM) - Distributed COM;Assemblies
-3;Fahrer;drivers;System Resources;Resource Files
 3;Debuggen;Debugging;Resource Files;Constants
+3;Fahrer;drivers;System Resources;Resource Files

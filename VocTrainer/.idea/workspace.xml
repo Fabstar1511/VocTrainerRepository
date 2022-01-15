@@ -13,8 +13,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6395f137-a757-4000-9b7d-7b1cdef23cf1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_15_01_2022_17_02__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_15_01_2022_17_02__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_15_01_2022_17_08__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_15_01_2022_17_08__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/GeoMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/GeoMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/Help.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/MovingCounter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/voctrainer/MovingCounter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_gui2_moving_counter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_gui2_moving_counter.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/vocbook_economic.csv" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vocbook_economic.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/vocbook_electrical.csv" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vocbook_electrical.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/vocbook_example.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/vocbook_physics.csv" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vocbook_physics.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/vocbook_se.csv" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/raw/vocbook_se.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -15,6 +15,7 @@ public class Help extends AppCompatActivity implements View.OnClickListener{
 
     public Button btn_back;
     public TextView tV_help;
+    private int countedSteps = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,8 @@ public class Help extends AppCompatActivity implements View.OnClickListener{
 
         tV_help = (TextView) findViewById(R.id.tv_helpText);
         tV_help.setMovementMethod(new ScrollingMovementMethod());
+
+        this.countedSteps = getIntent().getIntExtra("countedSteps", 0);
 
         if(getIntent().hasExtra("activity_id") == true) {
             int activity_id = getIntent().getExtras().getInt("activity_id");
@@ -60,6 +63,7 @@ public class Help extends AppCompatActivity implements View.OnClickListener{
             int activity_id = getIntent().getExtras().getInt("activity_id");
             if(activity_id == 1) {
                 Intent intent = new Intent(Help.this, MovingCounter.class);
+                intent.putExtra("countedSteps", this.countedSteps);
                 startActivity(intent);
                 this.finish();
             }
