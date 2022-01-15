@@ -6,16 +6,11 @@ import static com.voctrainer.R.drawable.button_bg_round_unclickable;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -29,7 +24,6 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -47,11 +41,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
-
-    /*
-    PrimaryColorBlue(RGB):    0,  81, 159
-    PrimaryColorGreen(RGB): 145, 167, 3
-     */
     private GoogleMap mMap;
     public Button btn_DEBUG_Inside_Radius;
     private Button btn_areaAccepted;

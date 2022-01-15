@@ -1,10 +1,15 @@
 package com.voctrainer;
 
 /*
+
     Mobile Interaction Design - Group 5
     VocTrainer (BETA-Version)
-    14.01.2022
- */
+    15.01.2022
+
+    Conventions:
+    PrimaryColorBlue(RGB):    0,  81, 159
+    PrimaryColorGreen(RGB): 145, 167, 3
+*/
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
