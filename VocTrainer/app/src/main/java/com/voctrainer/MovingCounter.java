@@ -1,16 +1,20 @@
 package com.voctrainer;
 
+import static com.voctrainer.R.drawable.*;
+
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.Image;
 import android.os.Bundle;
 import android.se.omapi.Session;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,12 +27,15 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
     public Button btn_DEBUG_Skip_to_100;
     public Button btn_backToStart;
 
+    public ImageView iV_go1, iV_go2, iV_go3;
+
     private final int MAXIMUM_OF_STEPS = 100;
     private TextView tv_steps;
     private SensorManager sensorManager;
     private Sensor mStepCounter, mStepDetector;
     private boolean isCounterSensorPresent, isDetectorSensorPresent;
     public int stepCount = 0, stepDetect = 0;
+    public int iterationWalk = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +62,18 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
         btn_backToStart.setText("zurück");
         btn_backToStart.setOnClickListener(this);
 
+        iV_go1 = (ImageView) findViewById(R.id.imageView_go1);
+        iV_go2 = (ImageView) findViewById(R.id.imageView_go2);
+        iV_go3= (ImageView) findViewById(R.id.imageView_go3);
+
+        iV_go1.setImageResource(person_go);
+        iV_go2.setImageResource(person_go);
+        iV_go3.setImageResource(person_go);
+
+        iV_go1.setVisibility(View.INVISIBLE);
+        iV_go2.setVisibility(View.VISIBLE);
+        iV_go3.setVisibility(View.INVISIBLE);
+
         /*
         if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null){
             mStepCounter = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
@@ -79,6 +98,58 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
         }
     }
 
+    public void iterateWalk(){
+        if(this.iterationWalk == 0) {
+            iV_go1.setImageResource(person_go);
+            iV_go2.setImageResource(person_go);
+            iV_go3.setImageResource(person_go);
+            personWalk(0);
+            this.iterationWalk = 1;
+        }
+        else if(this.iterationWalk == 1){
+            personWalk(1);
+            this.iterationWalk = 2;
+        }
+        else if(this.iterationWalk == 2){
+            personWalk(2);
+            this.iterationWalk = 3;
+        }
+        else if(this.iterationWalk == 3){
+            iV_go1.setImageResource(person_go2);
+            iV_go2.setImageResource(person_go2);
+            iV_go3.setImageResource(person_go2);
+            personWalk(0);
+            this.iterationWalk = 4;
+        }
+        else if(this.iterationWalk == 4){
+            personWalk(1);
+            this.iterationWalk = 5;
+        }
+        else if(this.iterationWalk == 5){
+            personWalk(2);
+            this.iterationWalk = 0;
+        }
+    }
+
+    // 0,1 and 2
+    public void personWalk(int personID){
+        if(personID == 0) {
+            iV_go1.setVisibility(View.VISIBLE);
+            iV_go2.setVisibility(View.INVISIBLE);
+            iV_go3.setVisibility(View.INVISIBLE);
+        }
+        else if(personID == 1) {
+            iV_go1.setVisibility(View.INVISIBLE);
+            iV_go2.setVisibility(View.VISIBLE);
+            iV_go3.setVisibility(View.INVISIBLE);
+        }
+        else if(personID == 2) {
+            iV_go1.setVisibility(View.INVISIBLE);
+            iV_go2.setVisibility(View.INVISIBLE);
+            iV_go3.setVisibility(View.VISIBLE);
+        }
+    }
+
     public void onBackPressed(){
         Intent intent = new Intent(MovingCounter.this, MainActivity.class);
         startActivity(intent);
@@ -95,6 +166,7 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
         if(sensorEvent.sensor == mStepDetector){
             stepDetect = (int) (stepDetect + sensorEvent.values[0]);
             tv_steps.setText(String.valueOf(stepDetect));
+            iterateWalk();
         }
     }
 
