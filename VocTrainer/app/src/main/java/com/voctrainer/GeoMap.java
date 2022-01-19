@@ -43,6 +43,8 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
 
     private GoogleMap mMap;
     public Button btn_DEBUG_Inside_Radius;
+    public Button btn_cameraOnUser;
+    public Button btn_focusOnUser;
     private Button btn_areaAccepted;
     private Circle circleArea0;
     private Circle circleArea1;
@@ -153,6 +155,8 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     private boolean hasLoaded = false;
     private boolean registerUserIsInArea = true;
     private boolean areaIsAvailable = false;
+    private boolean hasPressedCenteredButton = false;
+    private boolean hasPressedFocusOnMeButton = false;
 
     ProgressBar loadingBar;
 
@@ -165,6 +169,18 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         btn_DEBUG_Inside_Radius = (Button) findViewById(R.id.button_DEBUG_in_Radius);
         btn_DEBUG_Inside_Radius.setText("Skip");
         btn_DEBUG_Inside_Radius.setOnClickListener(this);
+
+        btn_cameraOnUser = (Button) findViewById(R.id.button_center);
+        btn_cameraOnUser.setBackgroundResource(R.drawable.button_center_transparent);
+        btn_cameraOnUser.setText("");
+        btn_cameraOnUser.setVisibility(View.INVISIBLE);
+        btn_cameraOnUser.setOnClickListener(this);
+
+        btn_focusOnUser = (Button) findViewById(R.id.button_focusOnMe);
+        btn_focusOnUser.setBackgroundResource(R.drawable.button_track_me);
+        btn_focusOnUser.setText("");
+        btn_focusOnUser.setVisibility(View.INVISIBLE);
+        btn_focusOnUser.setOnClickListener(this);
 
         btn_areaAccepted = (Button) findViewById(R.id.button_areaAcception);
         btn_areaAccepted.setText("Fachgebiet wählen");
@@ -404,7 +420,7 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
          Properties of the Map
         // Constrain the camera target to the university-area bounds.
         */
-        mMap.setLatLngBoundsForCameraTarget(UNIVERSITY_AREA_BOUNDS);
+        //mMap.setLatLngBoundsForCameraTarget(UNIVERSITY_AREA_BOUNDS);
         mMap.setMinZoomPreference(MIN_ZOOM_SIZE_MAP); // Max size for zooming out
         mMap.setMaxZoomPreference(MAX_ZOOM_SIZE_MAP); // Max size for zooming in
 
@@ -432,8 +448,13 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
             @Override
             public void onLocationChanged(Location location) {
 
-                if(hasLoaded == false) loadingBar.setVisibility(View.GONE);
-                hasLoaded = true;
+                if(hasLoaded == false){
+                    hasLoaded = true;
+                    loadingBar.setVisibility(View.GONE);
+                    btn_cameraOnUser.setVisibility(View.VISIBLE);
+                    btn_focusOnUser.setVisibility(View.VISIBLE);
+                }
+
                 current_latLng = new LatLng(location.getLatitude(), location.getLongitude());
                 if(!userPosSaved){
                     saveUserPos(current_latLng);
@@ -442,8 +463,15 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
                 if(marker_user != null) marker_user.remove();
 
                 marker_user = mMap.addMarker(new MarkerOptions().position(current_latLng).title("My Position").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(MARKER_USER, 100, 100))));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(current_latLng));
-                //Toast.makeText(getApplicationContext(), location.getLatitude() + "  " + location.getLongitude(), Toast.LENGTH_LONG).show();
+
+                // Tracking
+                //if(hasPressedCenteredButton && !hasPressedFocusOnMeButton){
+                //    hasPressedCenteredButton = false;
+                //    mMap.moveCamera(CameraUpdateFactory.newLatLng(current_latLng));
+                //}
+                if(hasPressedFocusOnMeButton){
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(current_latLng));
+                }
 
                 if(updateUserLocation){
                     if(isUserInArea(current_latLng, COORDS_AREA_PHYSIK)) onUserEnteredArea(0);  // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
@@ -514,6 +542,24 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
             intent.putExtra(SELECTED_AREA, 2);
             startActivity(intent);
             this.finish();
+        }
+        else if(v.getId() == R.id.button_center) {
+            hasPressedCenteredButton = true;
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(current_latLng));
+            }
+        else if(v.getId() == R.id.button_focusOnMe) {
+            if(hasPressedFocusOnMeButton == false) {
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(current_latLng));
+                btn_cameraOnUser.setVisibility(View.INVISIBLE);
+                hasPressedCenteredButton = false;
+                hasPressedFocusOnMeButton = true;
+                btn_focusOnUser.setBackgroundResource(R.drawable.button_dont_track_me);
+            }
+            else {
+                hasPressedFocusOnMeButton = false;
+                btn_cameraOnUser.setVisibility(View.VISIBLE);
+                btn_focusOnUser.setBackgroundResource(R.drawable.button_track_me);
+            }
         }
         else if(v.getId() == R.id.button_areaAcception) {
             if(areaIsAvailable){
