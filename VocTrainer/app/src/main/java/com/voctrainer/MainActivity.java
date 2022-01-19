@@ -3,7 +3,7 @@ package com.voctrainer;
 /*
 
     Mobile Interaction Design - Group 5
-    VocTrainer 0.1
+    VocTrainer 0.1.1
     15.01.2022
 
     Conventions:

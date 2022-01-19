@@ -74,20 +74,20 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
 
     private LatLng current_latLng = new LatLng(52.3825973407738, 9.717844806973376);
 
+    /*
+    // Echte Daten
     private LatLng COORDS_AREA_PHYSIK = new LatLng(52.38820423962352, 9.710702083217582);
     private LatLng COORDS_AREA_WIRTSCHAFT = new LatLng(52.378316453594074, 9.724494898171324);
     private LatLng COORDS_AREA_SE = new LatLng(52.382673590028475, 9.716884204104959);
     private LatLng COORDS_AREA_ETECHNIK = new LatLng(52.38944092518481, 9.71510862426616);
     private LatLng COORDS_AREA_SOZIOLOGIE = new LatLng(52.38586900257287, 9.713364899880526);
+     */
 
-    /*
-    // Daten in Umgebung
     private LatLng COORDS_AREA_PHYSIK = new LatLng(52.16709700366869, 9.925726191646199);
     private LatLng COORDS_AREA_WIRTSCHAFT = new LatLng(52.16366505298161, 9.928957263538317);
     private LatLng COORDS_AREA_SE = new LatLng(52.16674126129023, 9.923187884676636);
     private LatLng COORDS_AREA_ETECHNIK = new LatLng(52.16324919644967, 9.92568191389064);
     private LatLng COORDS_AREA_SOZIOLOGIE = new LatLng(52.16304574616967, 9.922523656249917);
-    */
 
     private int areaID = -1; // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
 
