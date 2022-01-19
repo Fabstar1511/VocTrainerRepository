@@ -45,6 +45,7 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
 
     public TextView tv_ger;
     public TextView tv_eng;
+    public TextView tv_counterVocs;
     public ImageView ivIconArea;
     VocabularyList selVocList = new VocabularyList();
 
@@ -69,6 +70,8 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
         tv_ger = (TextView) findViewById(R.id.tv_german_word);
         tv_eng = (TextView) findViewById(R.id.tv_english_word);
         ivIconArea = (ImageView) findViewById(R.id.ivPictureArea);
+
+        tv_counterVocs = (TextView) findViewById(R.id.textView_counter_vocs);
 
         setAreaIcon();
         createVocabularySet();
@@ -111,6 +114,7 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
     private void showVocabulary(String word_german, String word_english){
         tv_ger.setText(word_german);
         tv_eng.setText(word_english);
+        tv_counterVocs.setText("Vokabel " + (this.curVocId + 1) + "/" + this.selVocList.getSize());
     }
 
     public void setVocabulary(int i){

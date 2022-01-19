@@ -63,17 +63,14 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     private final float MIN_DIST = 1.0f; // Meters
 
     private LatLngBounds UNIVERSITY_AREA_BOUNDS = new LatLngBounds(
-            new LatLng(52.162012256087124, 9.932759429103145), // SW bounds
-            new LatLng(52.17854514551059, 9.954006410545121)  // NE bounds
+            new LatLng(52.36793879457692, 9.697743528455748), // SW bounds
+            new LatLng(52.39735265600114, 9.746175318289547)  // NE bounds
     );
 
     private float MIN_ZOOM_SIZE_MAP = 14.0f; // Max size for zooming out
-    private float MAX_ZOOM_SIZE_MAP = 18.0f; // Max size for zooming in
+    private float MAX_ZOOM_SIZE_MAP = 19.0f; // Max size for zooming in
 
     private LatLng current_latLng = new LatLng(52.3825973407738, 9.717844806973376);
-
-    /*
-    Institutsdaten
 
     private LatLng COORDS_AREA_PHYSIK = new LatLng(52.38820423962352, 9.710702083217582);
     private LatLng COORDS_AREA_WIRTSCHAFT = new LatLng(52.378316453594074, 9.724494898171324);
@@ -81,14 +78,14 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     private LatLng COORDS_AREA_ETECHNIK = new LatLng(52.38944092518481, 9.71510862426616);
     private LatLng COORDS_AREA_SOZIOLOGIE = new LatLng(52.38586900257287, 9.713364899880526);
 
-     */
-
+    /*
     // Daten in Umgebung
     private LatLng COORDS_AREA_PHYSIK = new LatLng(52.16709700366869, 9.925726191646199);
     private LatLng COORDS_AREA_WIRTSCHAFT = new LatLng(52.16366505298161, 9.928957263538317);
     private LatLng COORDS_AREA_SE = new LatLng(52.16674126129023, 9.923187884676636);
     private LatLng COORDS_AREA_ETECHNIK = new LatLng(52.16324919644967, 9.92568191389064);
     private LatLng COORDS_AREA_SOZIOLOGIE = new LatLng(52.16304574616967, 9.922523656249917);
+    */
 
     private int areaID = -1; // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
 
@@ -406,10 +403,8 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         /*
          Properties of the Map
         // Constrain the camera target to the university-area bounds.
-
-        mMap.setLatLngBoundsForCameraTarget(UNIVERSITY_AREA_BOUNDS);
-
         */
+        mMap.setLatLngBoundsForCameraTarget(UNIVERSITY_AREA_BOUNDS);
         mMap.setMinZoomPreference(MIN_ZOOM_SIZE_MAP); // Max size for zooming out
         mMap.setMaxZoomPreference(MAX_ZOOM_SIZE_MAP); // Max size for zooming in
 
