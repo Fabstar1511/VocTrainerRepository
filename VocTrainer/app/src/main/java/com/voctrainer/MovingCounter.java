@@ -1,5 +1,11 @@
 package com.voctrainer;
+/*
+    Mobile Interaction Design - Group 5
+    VocTrainer 0.1.1
+    BETA vom 15.01.2022
+*/
 
+import static com.voctrainer.R.drawable.*;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -7,29 +13,30 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.se.omapi.Session;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 
 public class MovingCounter extends AppCompatActivity implements SensorEventListener, View.OnClickListener{
 
-    public Button btn_help;
-    public Button btn_DEBUG_Skip_to_100;
-    public Button btn_backToStart;
-  
-    private final int MAXIMUM_OF_STEPS = 30;
-  
+    private final int MAXIMUM_OF_STEPS = 100;
+
+    private Button btn_help;
+    private Button btn_DEBUG_Skip_to_100;
+    private Button btn_backToStart;
+    private ImageView iV_go1, iV_go2, iV_go3;
     private TextView tv_steps;
+
     private SensorManager sensorManager;
     private Sensor mStepCounter, mStepDetector;
+
     private boolean isCounterSensorPresent, isDetectorSensorPresent;
-    public int stepCount = 0, stepDetect = 0;
+    private int stepCount = 0, stepDetect = 0;
+    private int iterationWalk = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +63,18 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
         btn_backToStart.setText("zurück");
         btn_backToStart.setOnClickListener(this);
 
+        iV_go1 = (ImageView) findViewById(R.id.imageView_go1);
+        iV_go2 = (ImageView) findViewById(R.id.imageView_go2);
+        iV_go3= (ImageView) findViewById(R.id.imageView_go3);
+
+        iV_go1.setImageResource(person_go);
+        iV_go2.setImageResource(person_go);
+        iV_go3.setImageResource(person_go);
+
+        iV_go1.setVisibility(View.INVISIBLE);
+        iV_go2.setVisibility(View.VISIBLE);
+        iV_go3.setVisibility(View.INVISIBLE);
+
         /*
         if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null){
             mStepCounter = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
@@ -69,7 +88,7 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
         init();
     }
 
-    public void init(){
+    private void init(){
         if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR) != null){
             mStepDetector = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
             isDetectorSensorPresent = true;
@@ -77,6 +96,58 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
         else {
             tv_steps.setText("Detector Sensor is not present!");
             isDetectorSensorPresent = false;
+        }
+    }
+
+    private void iterateWalk(){
+        if(this.iterationWalk == 0) {
+            iV_go1.setImageResource(person_go);
+            iV_go2.setImageResource(person_go);
+            iV_go3.setImageResource(person_go);
+            personWalk(0);
+            this.iterationWalk = 1;
+        }
+        else if(this.iterationWalk == 1){
+            personWalk(1);
+            this.iterationWalk = 2;
+        }
+        else if(this.iterationWalk == 2){
+            personWalk(2);
+            this.iterationWalk = 3;
+        }
+        else if(this.iterationWalk == 3){
+            iV_go1.setImageResource(person_go2);
+            iV_go2.setImageResource(person_go2);
+            iV_go3.setImageResource(person_go2);
+            personWalk(0);
+            this.iterationWalk = 4;
+        }
+        else if(this.iterationWalk == 4){
+            personWalk(1);
+            this.iterationWalk = 5;
+        }
+        else if(this.iterationWalk == 5){
+            personWalk(2);
+            this.iterationWalk = 0;
+        }
+    }
+
+    // 0,1 and 2
+    private void personWalk(int personID){
+        if(personID == 0) {
+            iV_go1.setVisibility(View.VISIBLE);
+            iV_go2.setVisibility(View.INVISIBLE);
+            iV_go3.setVisibility(View.INVISIBLE);
+        }
+        else if(personID == 1) {
+            iV_go1.setVisibility(View.INVISIBLE);
+            iV_go2.setVisibility(View.VISIBLE);
+            iV_go3.setVisibility(View.INVISIBLE);
+        }
+        else if(personID == 2) {
+            iV_go1.setVisibility(View.INVISIBLE);
+            iV_go2.setVisibility(View.INVISIBLE);
+            iV_go3.setVisibility(View.VISIBLE);
         }
     }
 
@@ -88,14 +159,17 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        //if(sensorEvent.sensor == mStepCounter){
-        //    stepCount = (int) sensorEvent.values[0];
-        //    tv_steps.setText(String.valueOf(stepCount));
-        //}
+        /*
+        if(sensorEvent.sensor == mStepCounter){
+            stepCount = (int) sensorEvent.values[0];
+            tv_steps.setText(String.valueOf(stepCount));
+        }
+         */
         if(this.stepDetect >= MAXIMUM_OF_STEPS) goToGeoMap();
         if(sensorEvent.sensor == mStepDetector){
             stepDetect = (int) (stepDetect + sensorEvent.values[0]);
             tv_steps.setText(String.valueOf(stepDetect));
+            iterateWalk();
         }
     }
 
@@ -106,9 +180,10 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
     @Override
     protected void onResume() {
         super.onResume();
-        //if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null)
-        //    sensorManager.registerListener(this, mStepCounter, SensorManager.SENSOR_DELAY_NORMAL);
-
+        /*
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null)
+            sensorManager.registerListener(this, mStepCounter, SensorManager.SENSOR_DELAY_NORMAL);
+         */
         if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR) != null)
             sensorManager.registerListener(this, mStepDetector, SensorManager.SENSOR_DELAY_NORMAL);
     }
@@ -147,7 +222,7 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
         }
     }
 
-    public void goToGeoMap(){
+    private void goToGeoMap(){
         //sensorManager.unregisterListener(this, mStepCounter);
         sensorManager.unregisterListener(this, mStepDetector);
         Intent intent = new Intent(MovingCounter.this, ViewSteps.class);

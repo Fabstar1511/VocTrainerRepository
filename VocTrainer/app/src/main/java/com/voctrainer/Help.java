@@ -1,4 +1,9 @@
 package com.voctrainer;
+/*
+    Mobile Interaction Design - Group 5
+    VocTrainer 0.1.1
+    BETA vom 15.01.2022
+*/
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,15 +11,13 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 
 public class Help extends AppCompatActivity implements View.OnClickListener{
 
-    public Button btn_back;
-    public TextView tV_help;
+    private Button btn_back;
+    private TextView tV_help;
     private int countedSteps = 0;
 
     @Override
@@ -55,10 +58,9 @@ public class Help extends AppCompatActivity implements View.OnClickListener{
 
         }
         tV_help.setOnClickListener(this);
-
     }
 
-    public void goBack(){
+    private void goBack(){
         if(getIntent().hasExtra("activity_id") == true) {
             int activity_id = getIntent().getExtras().getInt("activity_id");
             if(activity_id == 1) {

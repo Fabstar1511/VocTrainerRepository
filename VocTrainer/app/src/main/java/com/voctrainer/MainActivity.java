@@ -1,10 +1,14 @@
 package com.voctrainer;
-
 /*
-
     Mobile Interaction Design - Group 5
-    VocTrainer (BETA-Version)
-    15.01.2022
+    VocTrainer 0.1.1
+    BETA vom 15.01.2022
+
+    ***************************
+    *   Release Candidate 1   *
+    *    Last Build: 21:14    *
+    *       20.01.2022        *
+    ***************************
 
     Conventions:
     PrimaryColorBlue(RGB):    0,  81, 159
@@ -15,13 +19,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,8 +31,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public Button btn_start;
-    public Button btn_help;
+    private Button btn_start;
+    private Button btn_help;
     private int FINE_LOCATION_PERMISSION_CODE = 1; // ACCESS_FINE_LOCATION includes ACCESS_COARSE_LOCATION
 
     @Override
@@ -45,18 +47,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_help = (Button) findViewById(R.id.button_help);
         btn_help.setText("?");
         btn_help.setOnClickListener(this);
-        Toast.makeText(getApplicationContext(),"MID Project: Voctrainer\n(BETA-Version)", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"MID Project: Voctrainer\n(Version 0.1)", Toast.LENGTH_LONG).show();
     }
 
     // Permission needed for GPS Location
-    public void checkFineLocation(){
+    private void checkFineLocation(){
+
+        // Already granted this permission!
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            //Toast.makeText(this, "You have already granted this permission!", Toast.LENGTH_SHORT).show();
             goToMovingCounter();
         }
-        else {
-            requestFineLocationPermission();
-        }
+        else requestFineLocationPermission();
     }
 
     private void requestFineLocationPermission(){
@@ -95,15 +96,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void goToMovingCounter(){
+    private void goToMovingCounter(){
         Intent intent = new Intent(MainActivity.this, MovingCounter.class);
         startActivity(intent);
     }
 
     public void onClick(View v) {
-        if (v.getId() == R.id.button_start) {
+        if(v.getId() == R.id.button_start) {
             checkFineLocation();
-        } else if (v.getId() == R.id.button_help) {
+        } else if(v.getId() == R.id.button_help) {
             Intent intent = new Intent(MainActivity.this, Help.class);
             intent.putExtra("activity_id", 0); //MainActivity is ID = 0
             startActivity(intent);

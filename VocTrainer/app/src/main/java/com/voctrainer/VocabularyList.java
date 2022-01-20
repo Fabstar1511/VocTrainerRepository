@@ -1,12 +1,16 @@
 package com.voctrainer;
+/*
+    Mobile Interaction Design - Group 5
+    VocTrainer 0.1.1
+    BETA vom 15.01.2022
+*/
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /*
  This class describes a set of vocabularies
  */
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Random;
 
 public class VocabularyList{
 
@@ -76,10 +80,6 @@ public class VocabularyList{
                 this.vocList.add(vocListTemp.get(r));
                 vocListTemp.remove(r);
             }
-            //String Test = "";
-            //for(int i = 0; i < this.vocList.size(); i++){
-            //    Test = Test + i + ". " + this.vocList.get(i) + "\n";
-            //}
         }
     }
 }

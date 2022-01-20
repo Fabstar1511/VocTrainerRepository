@@ -1,4 +1,11 @@
 package com.voctrainer;
+/*
+    Mobile Interaction Design - Group 5
+    VocTrainer 0.1.1
+    BETA vom 15.01.2022
+
+    SetTitel...
+*/
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,15 +14,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 /*
@@ -35,24 +38,25 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
     private final String LEVEL_PROGRESS = "levelProgress";
 
     private int curVocId = 0;
+    private VocabularyList selVocList = new VocabularyList();
 
     private int areaID;
     private int level;
     private int progress;
 
-    public Button btn_back;
-    public Button btn_next;
+    private Button btn_back;
+    private Button btn_next;
 
-    public TextView tv_ger;
-    public TextView tv_eng;
-    public ImageView ivIconArea;
-    VocabularyList selVocList = new VocabularyList();
+    private TextView tv_ger;
+    private TextView tv_eng;
+    private TextView tv_counterVocs;
+    private ImageView ivIconArea;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gui6_vocabulary_view);
-        this.setTitle("Voc1-Level1");
+        this.setTitle("Voc1-Level1 !!!! LEVEL MUSS HIN");
 
         this.areaID = getIntent().getIntExtra(SELECTED_AREA, 0);
         this.level = getIntent().getIntExtra(SELECTED_LEVEL, 0);
@@ -70,14 +74,17 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
         tv_eng = (TextView) findViewById(R.id.tv_english_word);
         ivIconArea = (ImageView) findViewById(R.id.ivPictureArea);
 
+        tv_counterVocs = (TextView) findViewById(R.id.textView_counter_vocs);
+
         setAreaIcon();
         createVocabularySet();
         setVocabulary(this.curVocId);
     }
+
     /*
      Loads the vocabularies from the csv files and set a vocabulary list
      */
-    public void createVocabularySet(){
+    private void createVocabularySet(){
         Vocabulary voc;
         InputStream is = null;
         String line = "";
@@ -111,14 +118,15 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
     private void showVocabulary(String word_german, String word_english){
         tv_ger.setText(word_german);
         tv_eng.setText(word_english);
+        tv_counterVocs.setText("Vokabel " + (this.curVocId + 1) + "/" + this.selVocList.getSize());
     }
 
-    public void setVocabulary(int i){
+    private void setVocabulary(int i){
         Vocabulary voc = this.selVocList.getVocabularyById(i);
         showVocabulary(voc.getName(), voc.getName_correct());
     }
 
-    public void setAreaIcon(){
+    private void setAreaIcon(){
         // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
         if(this.areaID == 0) ivIconArea.setImageResource(R.drawable.image_area_physics);
         else if(this.areaID == 1) ivIconArea.setImageResource(R.drawable.image_area_economic);
@@ -129,7 +137,7 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.button_back) {
+        if(v.getId() == R.id.button_back) {
             btn_next.setText("nächste");
             this.curVocId--;
             if(this.curVocId < 0){
@@ -139,11 +147,10 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
                 intent.putExtra(LEVEL_PROGRESS, progress);
                 startActivity(intent);
                 this.finish();
-            } else if(this.curVocId >= 0) {
-                setVocabulary(this.curVocId);
             }
+            else if(this.curVocId >= 0) setVocabulary(this.curVocId);
         }
-        else if (v.getId() == R.id.button_next) {
+        else if(v.getId() == R.id.button_next) {
             this.curVocId++;
             if(this.curVocId < this.selVocList.getSize()) {
                 setVocabulary(this.curVocId);

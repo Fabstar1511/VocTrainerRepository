@@ -1,18 +1,20 @@
 package com.voctrainer;
+/*
+    Mobile Interaction Design - Group 5
+    VocTrainer 0.1.1
+    BETA vom 15.01.2022
+*/
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 
 public class Correction extends AppCompatActivity implements View.OnClickListener{
@@ -25,6 +27,7 @@ public class Correction extends AppCompatActivity implements View.OnClickListene
     private final String LEVEL_PROGRESS = "levelProgress";
     private final String CURRENT_QUIZ_RESULT = "currentQuizProgress";
 
+    private int curVocId = 0;
     private int areaID;
     private int level;
     private int progress;
@@ -35,15 +38,13 @@ public class Correction extends AppCompatActivity implements View.OnClickListene
 
     private TextView tv_german_word;
     private TextView tv_counterVocs;
-    public RadioGroup radioGroup;
-    public RadioButton radioButton;
-    public Button btn_continue;
-    public Button btn_back;
-    public RadioButton radioButtonA;
-    public RadioButton radioButtonB;
-    public RadioButton radioButtonC;
-
-    private int curVocId = 0;
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
+    private Button btn_continue;
+    private Button btn_back;
+    private RadioButton radioButtonA;
+    private RadioButton radioButtonB;
+    private RadioButton radioButtonC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +84,7 @@ public class Correction extends AppCompatActivity implements View.OnClickListene
         setVocabulary(curVocId);
     }
 
-    public void setVocabulary(int i){
+    private void setVocabulary(int i){
         Vocabulary voc = this.selVocList.getVocabularyById(i);
         showVocabulary(voc.getName(), voc);
     }
@@ -102,13 +103,11 @@ public class Correction extends AppCompatActivity implements View.OnClickListene
         answers[voc.getWrong1AnswerPos()] = voc.getName_wrong1();
         answers[voc.getWrong2AnswerPos()] = voc.getName_wrong2();
 
-        //Toast.makeText(getApplicationContext(), "Liste: " + voc.getCorrectAnswerPos() + ", " +voc.getWrong1AnswerPos() + ", " + voc.getWrong2AnswerPos(), Toast.LENGTH_LONG).show();
-
         radioButtonA.setText(answers[0]);
         radioButtonB.setText(answers[1]);
         radioButtonC.setText(answers[2]);
 
-        // Show correct answer
+        // Shows correct answer
         if(answers[0].equals(voc.getName_correct())){
             radioButtonA.setBackgroundColor(COLOR_CORRECT_GREEN);
             radioButtonA.setChecked(true);
@@ -122,7 +121,7 @@ public class Correction extends AppCompatActivity implements View.OnClickListene
             radioButtonC.setChecked(true);
         }
 
-        // Show wrong answer if it wasn't correct answered
+        // Shows wrong answer if it wasn't correct answered
         if(voc.checkAnswerWasCorrect() == false){
             if(answers[0].equals(voc.getGivenAnswer())){
                 radioButtonA.setBackgroundColor(COLOR_CORRECT_RED);
@@ -141,29 +140,25 @@ public class Correction extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.button_back) {
+        if(v.getId() == R.id.button_back) {
             btn_continue.setText("nächste");
             this.curVocId--;
             if(this.curVocId == 0) btn_back.setText("Korrektur beenden");
-            if(this.curVocId < 0){
-                goToCongratulation();
-            } else if(this.curVocId >= 0) {
-                setVocabulary(this.curVocId);
-            }
-        } else if (v.getId() == R.id.button_next) {
+            if(this.curVocId < 0) goToCongratulation();
+            else if(this.curVocId >= 0) setVocabulary(this.curVocId);
+        }
+        else if(v.getId() == R.id.button_next) {
             btn_back.setText("vorherige");
             this.curVocId++;
-            if (this.curVocId < this.selVocList.getSize()) {
+            if(this.curVocId < this.selVocList.getSize()) {
                 setVocabulary(this.curVocId);
-                if ((this.curVocId + 1) == this.selVocList.getSize())
-                    btn_continue.setText("Korrektur beenden");
-            } else {
-                goToCongratulation();
+                if ((this.curVocId + 1) == this.selVocList.getSize()) btn_continue.setText("Korrektur beenden");
             }
+            else goToCongratulation();
         }
     }
 
-    public void goToCongratulation(){
+    private void goToCongratulation(){
         Intent intent = new Intent(Correction.this, Congratulation.class);
         intent.putExtra(SELECTED_AREA, areaID);
         intent.putExtra(SELECTED_LEVEL, level);
