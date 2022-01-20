@@ -56,7 +56,6 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gui6_vocabulary_view);
-        this.setTitle("Voc1-Level1 !!!! LEVEL MUSS HIN");
 
         this.areaID = getIntent().getIntExtra(SELECTED_AREA, 0);
         this.level = getIntent().getIntExtra(SELECTED_LEVEL, 0);
@@ -79,6 +78,8 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
         setAreaIcon();
         createVocabularySet();
         setVocabulary(this.curVocId);
+
+        this.setTitle("Vokabeln lernen - Level " + String.valueOf(this.level));
     }
 
     /*
