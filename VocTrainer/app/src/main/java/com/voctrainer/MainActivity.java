@@ -5,8 +5,10 @@ package com.voctrainer;
     BETA vom 15.01.2022
 
     ***************************
-    *** Release Candidate 1 ***
-    ******* 20.01.2022 ********
+    *   Release Candidate 1   *
+    *    Last Build: 21:14    *
+    *       20.01.2022        *
+    ***************************
 
     Conventions:
     PrimaryColorBlue(RGB):    0,  81, 159
