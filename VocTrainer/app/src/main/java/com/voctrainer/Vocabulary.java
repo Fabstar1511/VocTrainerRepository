@@ -1,15 +1,18 @@
 package com.voctrainer;
+/*
+    Mobile Interaction Design - Group 5
+    VocTrainer 0.1.1
+    BETA vom 15.01.2022
+*/
+
+import java.io.Serializable;
+import java.util.Random;
 
 /*
  This class describes a single Vocabulary with name, correct answer and two wrong answers
  */
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Random;
-
 // Must be implements interface serializable to send it later to another activity via putExtra()
-
 public class Vocabulary implements Serializable {
 
     private String name = "";
@@ -77,5 +80,4 @@ public class Vocabulary implements Serializable {
         this.posName_wrong1 = y;
         this.posName_wrong2 = z;
     }
-
 }

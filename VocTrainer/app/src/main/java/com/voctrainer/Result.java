@@ -1,4 +1,9 @@
 package com.voctrainer;
+/*
+    Mobile Interaction Design - Group 5
+    VocTrainer 0.1.1
+    BETA vom 15.01.2022
+*/
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,10 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 
 
@@ -22,19 +24,17 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
     private final String SELECTED_LEVEL = "selectedLevel";
     private final String LEVEL_PROGRESS = "levelProgress";
     private final String CURRENT_QUIZ_RESULT = "currentQuizProgress";
-
     private final int LEVEL_UP = 70; // Level is reached of a progress quote of 70%
 
     private int areaID;
     private int level;
     private int progress;
     private int quizResult;
-
     private ArrayList<Vocabulary> quizList;
 
-    public Button btn_continue;
-    TextView tvRes;
-    TextView tvDis;
+    private Button btn_continue;
+    private TextView tvRes;
+    private TextView tvDis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +66,13 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
         editor.apply(); //editor.commit() same as apply but with return value
     }
 
-    public String buildKey(int area, int level){
+    private String buildKey(int area, int level){
         //FORMAT: "userDataKeyFg0L1"
         String result = "userDataKeyFg";
         return result + area + "L" + level;
     }
 
-    public void showResult(){
+    private void showResult(){
         if(this.quizResult >= LEVEL_UP){
             tvDis.setText("Du hast das Quiz bestanden!");
             tvRes.setText(this.quizResult + "%");
@@ -84,7 +84,7 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    public void goToCongratulation(){
+    private void goToCongratulation(){
         Intent intent = new Intent(Result.this, Congratulation.class);
         intent.putExtra(SELECTED_AREA, areaID);
         intent.putExtra(SELECTED_LEVEL, level);
@@ -97,7 +97,7 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.button_skip) {
+        if(v.getId() == R.id.button_skip) {
             goToCongratulation();
         }
     }

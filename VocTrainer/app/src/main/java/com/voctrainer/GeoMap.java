@@ -1,4 +1,9 @@
 package com.voctrainer;
+/*
+    Mobile Interaction Design - Group 5
+    VocTrainer 0.1.1
+    BETA vom 15.01.2022
+*/
 
 import static com.voctrainer.R.drawable.button_bg_round;
 import static com.voctrainer.R.drawable.button_bg_round_unclickable;
@@ -6,7 +11,6 @@ import static com.voctrainer.R.drawable.button_bg_round_unclickable;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -41,56 +45,34 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
-    private GoogleMap mMap;
-    public Button btn_DEBUG_Inside_Radius;
-    public Button btn_cameraOnUser;
-    public Button btn_focusOnUser;
-    private Button btn_areaAccepted;
-    private Circle circleArea0;
-    private Circle circleArea1;
-    private Circle circleArea2;
-    private Circle circleArea3;
-    private Circle circleArea4;
-
-    private final String SELECTED_AREA = "selectedArea";
-
-    private LocationListener locationListener;
-    private LocationManager locationManager;
-    private ConnectivityManager connectivityManager;
-    private NetworkInfo activeNetworkInfo;
-
+    private final double AREA_RADIUS = 30.0;
+    private final int GPS_REQUEST_CODE = 1;
     private final int LEVEL_UP = 70; // Level is reached of a progress quote of 70%
-
     private final long MIN_TIME = 500; // millisec.
     private final float MIN_DIST = 1.0f; // Meters
-
-    private LatLngBounds UNIVERSITY_AREA_BOUNDS = new LatLngBounds(
+    private final float MIN_ZOOM_SIZE_MAP = 14.0f; // Max size for zooming out
+    private final float MAX_ZOOM_SIZE_MAP = 19.0f; // Max size for zooming in
+    private final LatLngBounds UNIVERSITY_AREA_BOUNDS = new LatLngBounds(
             new LatLng(52.36793879457692, 9.697743528455748), // SW bounds
             new LatLng(52.39735265600114, 9.746175318289547)  // NE bounds
     );
 
-    private float MIN_ZOOM_SIZE_MAP = 14.0f; // Max size for zooming out
-    private float MAX_ZOOM_SIZE_MAP = 19.0f; // Max size for zooming in
-
-    private LatLng current_latLng = new LatLng(52.3825973407738, 9.717844806973376);
-
+    private final String USER_DATA_KEY_LAT = "userDataKeyLat";
+    private final String USER_DATA_KEY_LON = "userDataKeyLon";
+    private final String SELECTED_AREA = "selectedArea";
     /*
     // Echte Daten
-    private LatLng COORDS_AREA_PHYSIK = new LatLng(52.38820423962352, 9.710702083217582);
-    private LatLng COORDS_AREA_WIRTSCHAFT = new LatLng(52.378316453594074, 9.724494898171324);
-    private LatLng COORDS_AREA_SE = new LatLng(52.382673590028475, 9.716884204104959);
-    private LatLng COORDS_AREA_ETECHNIK = new LatLng(52.38944092518481, 9.71510862426616);
-    private LatLng COORDS_AREA_SOZIOLOGIE = new LatLng(52.38586900257287, 9.713364899880526);
-     */
-
-    private LatLng COORDS_AREA_PHYSIK = new LatLng(52.16709700366869, 9.925726191646199);
-    private LatLng COORDS_AREA_WIRTSCHAFT = new LatLng(52.16366505298161, 9.928957263538317);
-    private LatLng COORDS_AREA_SE = new LatLng(52.16674126129023, 9.923187884676636);
-    private LatLng COORDS_AREA_ETECHNIK = new LatLng(52.16324919644967, 9.92568191389064);
-    private LatLng COORDS_AREA_SOZIOLOGIE = new LatLng(52.16304574616967, 9.922523656249917);
-
-    private int areaID = -1; // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
-
+    private final LatLng COORDS_AREA_PHYSIK = new LatLng(52.38820423962352, 9.710702083217582);
+    private final LatLng COORDS_AREA_WIRTSCHAFT = new LatLng(52.378316453594074, 9.724494898171324);
+    private final LatLng COORDS_AREA_SE = new LatLng(52.382673590028475, 9.716884204104959);
+    private final LatLng COORDS_AREA_ETECHNIK = new LatLng(52.38944092518481, 9.71510862426616);
+    private final LatLng COORDS_AREA_SOZIOLOGIE = new LatLng(52.38586900257287, 9.713364899880526);
+    */
+    private final LatLng COORDS_AREA_PHYSIK = new LatLng(52.16709700366869, 9.925726191646199);
+    private final LatLng COORDS_AREA_WIRTSCHAFT = new LatLng(52.16366505298161, 9.928957263538317);
+    private final LatLng COORDS_AREA_SE = new LatLng(52.16674126129023, 9.923187884676636);
+    private final LatLng COORDS_AREA_ETECHNIK = new LatLng(52.16324919644967, 9.92568191389064);
+    private final LatLng COORDS_AREA_SOZIOLOGIE = new LatLng(52.16304574616967, 9.922523656249917);
     private final int MARKER_USER = -1;
     private final int MARKER_AREA_BLUE = 0;
     private final int MARKER_AREA_BLUE_1_STAR = 1;
@@ -99,8 +81,8 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     private final int MARKER_AREA_GREY = 4;
 
     /*
-       User data Keys
-       */
+   User data Keys
+   */
     private final String USER_DATA_FILE_NAME = "userProgressData";
     private final String USER_DATA_FG0_LVL1 = "userDataKeyFg0L1";
     private final String USER_DATA_FG0_LVL2 = "userDataKeyFg0L2";
@@ -122,6 +104,10 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     private final String USER_DATA_FG4_LVL2 = "userDataKeyFg4L2";
     private final String USER_DATA_FG4_LVL3 = "userDataKeyFg4L3";
 
+    private GoogleMap mMap;
+    private int areaID = -1; // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
+    private LatLng current_latLng = new LatLng(52.3825973407738, 9.717844806973376);
+
     private int progress_P_Lvl_1;
     private int progress_P_Lvl_2;
     private int progress_P_Lvl_3;
@@ -142,23 +128,31 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     private int progress_C_Lvl_2;
     private int progress_C_Lvl_3;
 
-    private final String USER_DATA_KEY_LAT = "userDataKeyLat";
-    private final String USER_DATA_KEY_LON = "userDataKeyLon";
-
-    private final double AREA_RADIUS = 30.0;
-
     private Marker marker_user;
     private boolean userPosSaved = false;
-    private int GPS_REQUEST_CODE = 1;
     private boolean updateNetworkAndGPS = true;
-    public boolean updateUserLocation = true;
+    private boolean updateUserLocation = true;
     private boolean hasLoaded = false;
     private boolean registerUserIsInArea = true;
     private boolean areaIsAvailable = false;
     private boolean hasPressedCenteredButton = false;
     private boolean hasPressedFocusOnMeButton = false;
 
-    ProgressBar loadingBar;
+    private LocationListener locationListener;
+    private LocationManager locationManager;
+    private ConnectivityManager connectivityManager;
+    private NetworkInfo activeNetworkInfo;
+
+    private Button btn_DEBUG_Inside_Radius;
+    private Button btn_cameraOnUser;
+    private Button btn_focusOnUser;
+    private Button btn_areaAccepted;
+    private Circle circleArea0;
+    private Circle circleArea1;
+    private Circle circleArea2;
+    private Circle circleArea3;
+    private Circle circleArea4;
+    private ProgressBar loadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,6 +160,7 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
 
         setContentView(R.layout.activity_gui4_geo_map);
         this.setTitle("Fachgebiet finden");
+
         btn_DEBUG_Inside_Radius = (Button) findViewById(R.id.button_DEBUG_in_Radius);
         btn_DEBUG_Inside_Radius.setText("Skip");
         btn_DEBUG_Inside_Radius.setOnClickListener(this);
@@ -197,14 +192,14 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         init();
     }
 
-    public void init() {
+    private void init() {
         updateNetworkAndGPS();
         loadUserData();
         loadingBar.setVisibility(View.VISIBLE);
     }
 
     // Used to get the highest reached level by calculating progress of predecessor
-    public int getLevelStatus(int progressL1, int progressL2, int progressL3) {
+    private int getLevelStatus(int progressL1, int progressL2, int progressL3) {
         int lvl = 1;
         if (hasReachedHigherLvl(progressL1)) lvl = 2;
         if (hasReachedHigherLvl(progressL2)) lvl = 3;
@@ -212,17 +207,18 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         return lvl;
     }
 
-    public boolean hasReachedHigherLvl(int progress) {
+    private boolean hasReachedHigherLvl(int progress) {
         if (progress < LEVEL_UP) return false;
         else return true;
     }
 
     /*
- Load User Data selected by the area user has chosen
- */
-    public void loadUserData() {
+    Load User Data selected by the area user has chosen
+    */
+    private void loadUserData() {
         try {
             SharedPreferences sharedPref = getSharedPreferences(USER_DATA_FILE_NAME, Context.MODE_PRIVATE);
+
             // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
             this.progress_P_Lvl_1 = sharedPref.getInt(USER_DATA_FG0_LVL1, 0);
             this.progress_P_Lvl_2 = sharedPref.getInt(USER_DATA_FG0_LVL2, 0);
@@ -244,7 +240,7 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
             this.progress_C_Lvl_2 = sharedPref.getInt(USER_DATA_FG4_LVL2, 0);
             this.progress_C_Lvl_3 = sharedPref.getInt(USER_DATA_FG4_LVL3, 0);
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Upps ein Fehler:(GetUserData) ist aufgetaucht.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "ERROR FOUND! In (GetUserData) SharedPreferences not loading.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -269,7 +265,7 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    public void checkNetworkConnection() {
+    private void checkNetworkConnection() {
         if (!isNetworkAvailable()) {
             updateNetworkAndGPS = false;
             AlertDialog alertDialog = new AlertDialog.Builder(this)
@@ -285,7 +281,7 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         }
     }
 
-    public void checkGPSEnabled() {
+    private void checkGPSEnabled() {
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         boolean providerEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
@@ -304,7 +300,7 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     }
 
     // Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
-    public int getMarkerTypeByLevel(int areaID) {
+    private int getMarkerTypeByLevel(int areaID) {
         int curLevel = 0;
         int marker = 0;
 
@@ -328,7 +324,7 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         return marker;
     }
 
-    // scales the marker icons
+    // Scales the marker icons
     private Bitmap createSmallIcon(int markerID, int height, int width) {
         BitmapDrawable bitmapDraw;
         if (markerID == -1)
@@ -374,12 +370,11 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         return new LatLng(latDou, lonDou);
     }
 
-
     /*
     Is called if the user entered an area.
     Physik=0, Wirtschaft=1, SE=2, ETechnik=3, Soziologie=4
     */
-    public void onUserEnteredArea(int areaID) {
+    private void onUserEnteredArea(int areaID) {
         this.areaID = areaID;
         if (registerUserIsInArea) {
 
@@ -427,7 +422,7 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         marker_user = mMap.addMarker(new MarkerOptions().position(getUserPos()).title("My Position").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(MARKER_USER, 100, 100))));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current_latLng, 16.0f));
 
-        // Areas
+        // The Areas
 
         mMap.addMarker(new MarkerOptions().position(COORDS_AREA_PHYSIK).title("Fachbereich: Gravitationsphysik").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(getMarkerTypeByLevel(0), 200, 150))));
         circleArea0 = mMap.addCircle(new CircleOptions().center(COORDS_AREA_PHYSIK).radius(AREA_RADIUS).strokeColor(Color.argb(0, 0, 81, 159)).fillColor(Color.argb(50, 0, 81, 159)));
@@ -464,11 +459,6 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
 
                 marker_user = mMap.addMarker(new MarkerOptions().position(current_latLng).title("My Position").icon(BitmapDescriptorFactory.fromBitmap(createSmallIcon(MARKER_USER, 100, 100))));
 
-                // Tracking
-                //if(hasPressedCenteredButton && !hasPressedFocusOnMeButton){
-                //    hasPressedCenteredButton = false;
-                //    mMap.moveCamera(CameraUpdateFactory.newLatLng(current_latLng));
-                //}
                 if(hasPressedFocusOnMeButton){
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(current_latLng));
                 }
@@ -508,7 +498,7 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
             public void onStatusChanged (String provider,int status, Bundle ext){
             }
         };
-        // First Networkprovider for quick start and than take GPS Provider
+        // First network provider for quick start and than GPS Provider
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DIST, locationListener);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DIST, locationListener);
     }
@@ -538,7 +528,6 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     public void onClick(View v) {
         if(v.getId() == R.id.button_DEBUG_in_Radius) {
             Intent intent = new Intent(GeoMap.this, LevelSelection.class);
-            //intent.putExtra(SELECTED_AREA, this.areaID);
             intent.putExtra(SELECTED_AREA, 2);
             startActivity(intent);
             this.finish();

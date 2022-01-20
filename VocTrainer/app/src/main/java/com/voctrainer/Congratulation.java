@@ -1,38 +1,37 @@
 package com.voctrainer;
+/*
+    Mobile Interaction Design - Group 5
+    VocTrainer 0.1.1
+    BETA vom 15.01.2022
+*/
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 
 
 public class Congratulation extends AppCompatActivity implements View.OnClickListener{
 
-    public Button btn_exit;
-    public Button btn_correction;
-    public Button btn_repeatQuiz;
-    public TextView tvRes;
-
     private final String SELECTED_AREA = "selectedArea";
     private final String SELECTED_LEVEL = "selectedLevel";
     private final String LEVEL_PROGRESS = "levelProgress";
     private final String CURRENT_QUIZ_RESULT = "currentQuizProgress";
-
     private final int LEVEL_UP = 70; // Level is reached of a progress quote of 70%
 
     private int areaID;
     private int level;
     private int progress;
     private int quizResult;
-
     private ArrayList<Vocabulary> quizList;
+
+    private Button btn_exit;
+    private Button btn_correction;
+    private Button btn_repeatQuiz;
+    private TextView tvRes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,15 +63,16 @@ public class Congratulation extends AppCompatActivity implements View.OnClickLis
         showMessage();
     }
 
-    public void showMessage(){
-        // :) Last Progress >= 70% && Current Progress >= 70%
+    private void showMessage(){
+
+        // Last Progress >= 70% && Current Progress >= 70%
         if((this.progress >= LEVEL_UP) && (this.quizResult >= LEVEL_UP)){
             // Current Progress > Last Progress
             if(this.quizResult > this.progress) tvRes.setText("Gratulation!\n" + "Du hast hast dich verbessert!\nWeiter so! :)");
             // Current Progress <= Last Progress
             else tvRes.setText("Quiz erfolgreich absolviert.\n" + "Du hast dich aber nicht verbessert.");
         }
-        // :) Last Progress < 70% && Current Progress >= 70%
+        // Last Progress < 70% && Current Progress >= 70%
         else if((this.progress < LEVEL_UP) && (this.quizResult >= LEVEL_UP)){
             int newLevel = this.level + 1;
             if(newLevel == 4) tvRes.setText("Gratulation!\n" + "Du hast Level 3 geschafft und diesen Fachbereich abgeschlossen!");
@@ -92,11 +92,12 @@ public class Congratulation extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.button_exit) {
+        if(v.getId() == R.id.button_exit) {
             Intent intent = new Intent(Congratulation.this, MainActivity.class);
             startActivity(intent);
             this.finish();
-        } else if (v.getId() == R.id.button_correction) {
+        }
+        else if(v.getId() == R.id.button_correction) {
             Intent intent = new Intent(Congratulation.this, Correction.class);
             intent.putExtra(SELECTED_AREA, areaID);
             intent.putExtra(SELECTED_LEVEL, level);
@@ -106,12 +107,10 @@ public class Congratulation extends AppCompatActivity implements View.OnClickLis
             startActivity(intent);
             this.finish();
         }
-        else if (v.getId() == R.id.button_repeatQuiz) {
-            goBackToQuiz();
-        }
+        else if(v.getId() == R.id.button_repeatQuiz) goBackToQuiz();
     }
 
-    public void goBackToQuiz(){
+    private void goBackToQuiz(){
         Intent intent = new Intent(Congratulation.this, Quiz.class);
         intent.putExtra(SELECTED_AREA, areaID);
         intent.putExtra(SELECTED_LEVEL, level);

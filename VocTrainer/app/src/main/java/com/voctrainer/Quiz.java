@@ -1,7 +1,11 @@
 package com.voctrainer;
+/*
+    Mobile Interaction Design - Group 5
+    VocTrainer 0.1.1
+    BETA vom 15.01.2022
+*/
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,16 +16,12 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Random;
 
 public class Quiz extends AppCompatActivity implements View.OnClickListener{
 
@@ -33,6 +33,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
     private final String LEVEL_PROGRESS = "levelProgress";
     private final String CURRENT_QUIZ_RESULT = "currentQuizProgress";
 
+    private int curVocId = 0;
     private int areaID;
     private int level;
     private int progress;
@@ -42,14 +43,12 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
     private TextView tv_german_word;
     private TextView tv_counterVocs;
     public RadioGroup radioGroup;
-    public RadioButton radioButtonSelected;
-    public RadioButton radioButtonA;
-    public RadioButton radioButtonB;
-    public RadioButton radioButtonC;
-    public Button btn_DEBUG_skip;
-    public Button btn_cancel;
-
-    private int curVocId = 0;
+    private RadioButton radioButtonSelected;
+    private RadioButton radioButtonA;
+    private RadioButton radioButtonB;
+    private RadioButton radioButtonC;
+    private Button btn_DEBUG_skip;
+    private Button btn_cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +79,11 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         setVocabulary(curVocId);
         this.setTitle("Quiz - Level " + String.valueOf(this.level));
     }
+
     /*
      Loads the vocabularies from the csv files and set a vocabulary list
      */
-    public void createVocabularySet(){
+    private void createVocabularySet(){
         Vocabulary voc;
         InputStream is = null;
         String line = "";
@@ -108,7 +108,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
             }
         }
         catch(IOException e){
-            Log.wtf("MyActivity", "Error reading data file on line" + line, e);
+            Log.wtf("MyActivity", "Error: Fehler beim Lesen der Datei in Zeiel: " + line, e);
             e.printStackTrace();
         }
         this.selVocList.randomizeOrder();
@@ -130,8 +130,6 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         answers[voc.getWrong1AnswerPos()] = voc.getName_wrong1();
         answers[voc.getWrong2AnswerPos()] = voc.getName_wrong2();
 
-        //Toast.makeText(getApplicationContext(), "Liste: " + voc.getCorrectAnswerPos() + ", " +voc.getWrong1AnswerPos() + ", " + voc.getWrong2AnswerPos(), Toast.LENGTH_LONG).show();
-
         radioButtonA.setText(answers[0]);
         radioButtonB.setText(answers[1]);
         radioButtonC.setText(answers[2]);
@@ -141,12 +139,13 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         radioButtonC.setEnabled(true);
     }
 
-    public void setVocabulary(int i){
+    private void setVocabulary(int i){
         Vocabulary voc = this.selVocList.getVocabularyById(i);
         showVocabulary(voc.getName(), voc);
     }
 
-    public void callNextQuestion(String answer, int selectedRadioID){
+    private void callNextQuestion(String answer, int selectedRadioID){
+
         // We have to set the given answer by the user in the vocabulary object
         this.selVocList.getVocabularyById(this.curVocId).setGivenAnswer(answer);
         //Show if it was correct or not
@@ -186,32 +185,13 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
     /*
     Calculates percentage of correct answers from 0% to 100%
     */
-    public int getPercentageOfCorrectAnswers(){
+    private int getPercentageOfCorrectAnswers(){
         double temp1 = (double) this.selVocList.countCorrectAnswers();
         double temp2 = (double) this.selVocList.getSize();
         return (int) ((temp1 / temp2) * 100);
     }
 
-    /*public void randomizeOrderOnList(ArrayList<String> strings) {
-        if (strings.size() > 1) {
-            ArrayList<String> vocListTemp = new ArrayList<String>();
-            for (String str : strings) {
-                vocListTemp.add(str);
-            }
-            strings.clear();
-
-            Random rand = new Random();
-            int r = 0;
-
-            while (!vocListTemp.isEmpty()) {
-                r = rand.nextInt(vocListTemp.size());
-                strings.add(vocListTemp.get(r));
-                vocListTemp.remove(r);
-            }
-        }
-    }*/
-
-    public void goToActivityResult(){
+    private void goToActivityResult(){
         Intent intent = new Intent(Quiz.this, Result.class);
         intent.putExtra(SELECTED_AREA, areaID);
         intent.putExtra(SELECTED_LEVEL, level);
@@ -227,10 +207,8 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.button_DEBUG_SkipResult) {
-            goToActivityResult();
-        }
-        else if (v.getId() == R.id.button_cancel) {
+        if(v.getId() == R.id.button_DEBUG_SkipResult) goToActivityResult();
+        else if(v.getId() == R.id.button_cancel) {
             Intent intent = new Intent(Quiz.this, LevelSelection.class);
             intent.putExtra(SELECTED_AREA, areaID);
             startActivity(intent);
