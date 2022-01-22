@@ -1,7 +1,8 @@
 package com.voctrainer;
 /*
     Mobile Interaction Design - Group 5
-    VocTrainer 1.0 (Final Version)
+    VocTrainer 1.0
+    (Final Version)
     von Fabrice S., Sara A., Garros S. und Sara M.
 
     ***************************
