@@ -1,8 +1,8 @@
 package com.voctrainer;
 /*
     Mobile Interaction Design - Group 5
-    VocTrainer 0.1.1
-    BETA vom 15.01.2022
+    VocTrainer 1.0
+    von Fabrice S., Sara A., Garros S. und Sara M.
 */
 
 import static com.voctrainer.R.drawable.*;
@@ -24,7 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
     */
 public class LevelSelection extends AppCompatActivity implements View.OnClickListener{
 
-    // Identification of areas (Fachbereichen)
+    // Identification of areas (Fachbereiche/Fachgebiete)
     private final String SELECTED_AREA = "selectedArea";
     private final String SELECTED_LEVEL = "selectedLevel";
     private final String LEVEL_PROGRESS = "levelProgress";

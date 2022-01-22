@@ -1,8 +1,8 @@
 package com.voctrainer;
 /*
     Mobile Interaction Design - Group 5
-    VocTrainer 0.1.1
-    BETA vom 15.01.2022
+    VocTrainer 1.0
+    von Fabrice S., Sara A., Garros S. und Sara M.
 */
 
 import android.content.Intent;
@@ -78,12 +78,12 @@ public class Congratulation extends AppCompatActivity implements View.OnClickLis
             if(newLevel == 4) tvRes.setText("Gratulation!\n" + "Du hast Level 3 geschafft und diesen Fachbereich abgeschlossen!");
             else tvRes.setText("Gratulation!\n" + "Du hast Level " + newLevel + " erreicht!");
         }
-        // Last Progress >= 70% && Current Progress < 70% :(
+        // Last Progress >= 70% && Current Progress < 70%
         else if((this.progress >= LEVEL_UP) && (this.quizResult < LEVEL_UP)){
             tvRes.setText("Du hast wohl einige Vokabeln vergessen." + "\n\nDu bleibst auf Level " + this.level
                     + "\n\n Versuche das Quiz später erneut!");
         }
-        // Last Progress < 70% && Current Progress < 70% :(
+        // Last Progress < 70% && Current Progress < 70%
         else {
             tvRes.setText("Du bleibst auf Level " + this.level
                     + "\n\n Versuche das Quiz später erneut!");

@@ -1,8 +1,8 @@
 package com.voctrainer;
 /*
     Mobile Interaction Design - Group 5
-    VocTrainer 0.1.1
-    BETA vom 15.01.2022
+    VocTrainer 1.0
+    von Fabrice S., Sara A., Garros S. und Sara M.
 */
 
 import static com.voctrainer.R.drawable.button_bg_round;
@@ -48,31 +48,25 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     private final double AREA_RADIUS = 30.0;
     private final int GPS_REQUEST_CODE = 1;
     private final int LEVEL_UP = 70; // Level is reached of a progress quote of 70%
-    private final long MIN_TIME = 500; // millisec.
+    private final long MIN_TIME = 500; // Milli sec.
     private final float MIN_DIST = 1.0f; // Meters
     private final float MIN_ZOOM_SIZE_MAP = 14.0f; // Max size for zooming out
     private final float MAX_ZOOM_SIZE_MAP = 19.0f; // Max size for zooming in
-    private final LatLngBounds UNIVERSITY_AREA_BOUNDS = new LatLngBounds(
-            new LatLng(52.36793879457692, 9.697743528455748), // SW bounds
-            new LatLng(52.39735265600114, 9.746175318289547)  // NE bounds
-    );
+    //private final LatLngBounds UNIVERSITY_AREA_BOUNDS = new LatLngBounds(
+    //        new LatLng(52.36793879457692, 9.697743528455748), // SW bounds
+    //        new LatLng(52.39735265600114, 9.746175318289547)  // NE bounds
+    //);
 
     private final String USER_DATA_KEY_LAT = "userDataKeyLat";
     private final String USER_DATA_KEY_LON = "userDataKeyLon";
     private final String SELECTED_AREA = "selectedArea";
-    /*
-    // Echte Daten
+
     private final LatLng COORDS_AREA_PHYSIK = new LatLng(52.38820423962352, 9.710702083217582);
     private final LatLng COORDS_AREA_WIRTSCHAFT = new LatLng(52.378316453594074, 9.724494898171324);
     private final LatLng COORDS_AREA_SE = new LatLng(52.382673590028475, 9.716884204104959);
     private final LatLng COORDS_AREA_ETECHNIK = new LatLng(52.38944092518481, 9.71510862426616);
     private final LatLng COORDS_AREA_SOZIOLOGIE = new LatLng(52.38586900257287, 9.713364899880526);
-    */
-    private final LatLng COORDS_AREA_PHYSIK = new LatLng(52.16709700366869, 9.925726191646199);
-    private final LatLng COORDS_AREA_WIRTSCHAFT = new LatLng(52.16366505298161, 9.928957263538317);
-    private final LatLng COORDS_AREA_SE = new LatLng(52.16674126129023, 9.923187884676636);
-    private final LatLng COORDS_AREA_ETECHNIK = new LatLng(52.16324919644967, 9.92568191389064);
-    private final LatLng COORDS_AREA_SOZIOLOGIE = new LatLng(52.16304574616967, 9.922523656249917);
+
     private final int MARKER_USER = -1;
     private final int MARKER_AREA_BLUE = 0;
     private final int MARKER_AREA_BLUE_1_STAR = 1;
@@ -135,7 +129,6 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     private boolean hasLoaded = false;
     private boolean registerUserIsInArea = true;
     private boolean areaIsAvailable = false;
-    private boolean hasPressedCenteredButton = false;
     private boolean hasPressedFocusOnMeButton = false;
 
     private LocationListener locationListener;
@@ -443,6 +436,8 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
                     loadingBar.setVisibility(View.GONE);
                     btn_cameraOnUser.setVisibility(View.VISIBLE);
                     btn_focusOnUser.setVisibility(View.VISIBLE);
+                    Toast.makeText(getApplicationContext(),"Deinen Standort siehst du als blauen Punkt auf der Karte.", Toast.LENGTH_LONG).show();
+                    setOneTimePosition();
                 }
 
                 current_latLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -498,6 +493,16 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DIST, locationListener);
     }
 
+    private void setOneTimePosition(){
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(current_latLng));
+            }
+        }, 1000);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -522,14 +527,12 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.button_center) {
-            hasPressedCenteredButton = true;
             mMap.moveCamera(CameraUpdateFactory.newLatLng(current_latLng));
             }
         else if(v.getId() == R.id.button_focusOnMe) {
             if(hasPressedFocusOnMeButton == false) {
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(current_latLng));
                 btn_cameraOnUser.setVisibility(View.INVISIBLE);
-                hasPressedCenteredButton = false;
                 hasPressedFocusOnMeButton = true;
                 btn_focusOnUser.setBackgroundResource(R.drawable.button_dont_track_me);
             }

@@ -1,10 +1,8 @@
 package com.voctrainer;
 /*
     Mobile Interaction Design - Group 5
-    VocTrainer 0.1.1
-    BETA vom 15.01.2022
-
-    SetTitel...
+    VocTrainer 1.0
+    von Fabrice S., Sara A., Garros S. und Sara M.
 */
 
 import android.content.Intent;
@@ -22,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import androidx.appcompat.app.AppCompatActivity;
 
 /*
+
  CSV File Format:
 
  [level];[name];[correct];[wrong1][wrong2]
