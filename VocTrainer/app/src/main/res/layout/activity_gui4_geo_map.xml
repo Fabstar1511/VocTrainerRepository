@@ -36,16 +36,6 @@
         tools:context=".MapsActivity" />
 
     <Button
-        android:id="@+id/button_DEBUG_in_Radius"
-        android:layout_width="91dp"
-        android:layout_height="78dp"
-        android:layout_marginTop="440dp"
-        android:layout_marginEnd="8dp"
-        android:text="skip"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
         android:id="@+id/button_areaAcception"
         android:layout_width="175dp"
         android:layout_height="50dp"

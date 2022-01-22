@@ -11,9 +11,7 @@ import android.os.Handler;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 
 public class ViewSteps extends AppCompatActivity {
 

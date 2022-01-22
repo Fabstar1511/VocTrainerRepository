@@ -5,9 +5,9 @@ package com.voctrainer;
     BETA vom 15.01.2022
 
     ***************************
-    *   Release Candidate 1   *
-    *    Last Build: 21:14    *
-    *       20.01.2022        *
+    *   Release Candidate 2   *
+    *    Last Build: 15:19    *
+    *       22.01.2022        *
     ***************************
 
     Conventions:
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_help = (Button) findViewById(R.id.button_help);
         btn_help.setText("?");
         btn_help.setOnClickListener(this);
-        Toast.makeText(getApplicationContext(),"MID Project: Voctrainer\n(Version 0.1)", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"MID Project: Voctrainer\n(Version 0.1.1 RC2)", Toast.LENGTH_LONG).show();
     }
 
     // Permission needed for GPS Location

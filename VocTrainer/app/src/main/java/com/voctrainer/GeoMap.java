@@ -143,7 +143,6 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
     private ConnectivityManager connectivityManager;
     private NetworkInfo activeNetworkInfo;
 
-    private Button btn_DEBUG_Inside_Radius;
     private Button btn_cameraOnUser;
     private Button btn_focusOnUser;
     private Button btn_areaAccepted;
@@ -160,10 +159,6 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
 
         setContentView(R.layout.activity_gui4_geo_map);
         this.setTitle("Fachgebiet finden");
-
-        btn_DEBUG_Inside_Radius = (Button) findViewById(R.id.button_DEBUG_in_Radius);
-        btn_DEBUG_Inside_Radius.setText("Skip");
-        btn_DEBUG_Inside_Radius.setOnClickListener(this);
 
         btn_cameraOnUser = (Button) findViewById(R.id.button_center);
         btn_cameraOnUser.setBackgroundResource(R.drawable.button_center_transparent);
@@ -526,13 +521,7 @@ public class GeoMap extends AppCompatActivity implements OnMapReadyCallback, Vie
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.button_DEBUG_in_Radius) {
-            Intent intent = new Intent(GeoMap.this, LevelSelection.class);
-            intent.putExtra(SELECTED_AREA, 2);
-            startActivity(intent);
-            this.finish();
-        }
-        else if(v.getId() == R.id.button_center) {
+        if(v.getId() == R.id.button_center) {
             hasPressedCenteredButton = true;
             mMap.moveCamera(CameraUpdateFactory.newLatLng(current_latLng));
             }
