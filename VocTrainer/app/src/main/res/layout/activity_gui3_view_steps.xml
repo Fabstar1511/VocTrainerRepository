@@ -15,19 +15,33 @@
         android:text="100 Schritte sind
               geschafft"
         android:textAlignment="center"
-        android:textColor="#103895"
+        android:textColor="#00519F"
         android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="271dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="60dp"
+        android:text="Begib dich in die Nähe des Welfenschlosses"
+        android:textAlignment="center"
+        android:textColor="#00519F"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.885"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
     <ImageView
         android:id="@+id/checkin"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="90dp"
         android:src="@drawable/check"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +53,7 @@
         android:id="@+id/imageschritt"
         android:layout_width="271dp"
         android:layout_height="269dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="140dp"
         android:layout_marginEnd="70dp"
         android:src="@drawable/schritte"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,10 +1,8 @@
 package com.voctrainer;
 /*
     Mobile Interaction Design - Group 5
-    VocTrainer 0.1.1
-    BETA vom 15.01.2022
-
-    SetTitel...
+    VocTrainer 1.0
+    von Fabrice S., Sara A., Garros S. und Sara M.
 */
 
 import android.content.Intent;
@@ -22,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import androidx.appcompat.app.AppCompatActivity;
 
 /*
+
  CSV File Format:
 
  [level];[name];[correct];[wrong1][wrong2]
@@ -56,7 +55,6 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gui6_vocabulary_view);
-        this.setTitle("Voc1-Level1 !!!! LEVEL MUSS HIN");
 
         this.areaID = getIntent().getIntExtra(SELECTED_AREA, 0);
         this.level = getIntent().getIntExtra(SELECTED_LEVEL, 0);
@@ -79,6 +77,8 @@ public class VocabularyView extends AppCompatActivity implements View.OnClickLis
         setAreaIcon();
         createVocabularySet();
         setVocabulary(this.curVocId);
+
+        this.setTitle("Vokabeln lernen - Level " + String.valueOf(this.level));
     }
 
     /*

@@ -1,8 +1,8 @@
 package com.voctrainer;
 /*
     Mobile Interaction Design - Group 5
-    VocTrainer 0.1.1
-    BETA vom 15.01.2022
+    VocTrainer 1.0
+    von Fabrice S., Sara A., Garros S. und Sara M.
 */
 
 import android.content.Context;
@@ -67,7 +67,7 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
     }
 
     private String buildKey(int area, int level){
-        //FORMAT: "userDataKeyFg0L1"
+        //FORMAT for example: "userDataKeyFg0L1"
         String result = "userDataKeyFg";
         return result + area + "L" + level;
     }

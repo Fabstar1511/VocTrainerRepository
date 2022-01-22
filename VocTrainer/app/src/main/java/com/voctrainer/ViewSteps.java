@@ -1,8 +1,8 @@
 package com.voctrainer;
 /*
     Mobile Interaction Design - Group 5
-    VocTrainer 0.1.1
-    BETA vom 15.01.2022
+    VocTrainer 1.0
+    von Fabrice S., Sara A., Garros S. und Sara M.
 */
 
 import android.content.Intent;
@@ -11,9 +11,7 @@ import android.os.Handler;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 
 public class ViewSteps extends AppCompatActivity {
 
@@ -27,7 +25,7 @@ public class ViewSteps extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gui3_view_steps);
-        this.setTitle("Schritte zählen"); //button_findArea
+        this.setTitle("Schritte zählen");
 
         ivCheckin = (ImageView) findViewById(R.id.checkin);
 
@@ -50,7 +48,7 @@ public class ViewSteps extends AppCompatActivity {
             public void run() {
                 jumpToGeoMap();
             }
-        }, 3500);
+        }, 3000);
     }
 
     private void jumpToGeoMap(){

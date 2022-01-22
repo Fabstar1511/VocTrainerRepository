@@ -1,8 +1,8 @@
 package com.voctrainer;
 /*
     Mobile Interaction Design - Group 5
-    VocTrainer 0.1.1
-    BETA vom 15.01.2022
+    VocTrainer 1.0
+    von Fabrice S., Sara A., Garros S. und Sara M.
 */
 
 import static com.voctrainer.R.drawable.*;
@@ -26,7 +26,6 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
     private final int MAXIMUM_OF_STEPS = 100;
 
     private Button btn_help;
-    private Button btn_DEBUG_Skip_to_100;
     private Button btn_backToStart;
     private ImageView iV_go1, iV_go2, iV_go3;
     private TextView tv_steps;
@@ -56,9 +55,6 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        btn_DEBUG_Skip_to_100 = (Button) findViewById(R.id.button_Debug_100Steps);
-        btn_DEBUG_Skip_to_100.setText("Start");
-        btn_DEBUG_Skip_to_100.setOnClickListener(this);
         btn_backToStart = (Button) findViewById(R.id.button_backToStart);
         btn_backToStart.setText("zurück");
         btn_backToStart.setOnClickListener(this);
@@ -74,17 +70,6 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
         iV_go1.setVisibility(View.INVISIBLE);
         iV_go2.setVisibility(View.VISIBLE);
         iV_go3.setVisibility(View.INVISIBLE);
-
-        /*
-        if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null){
-            mStepCounter = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-            isCounterSensorPresent = true;
-        }
-        else {
-            tv_steps.setText("Counter Sensor is not present");
-            isCounterSensorPresent = false;
-        }
-        */
         init();
     }
 
@@ -159,12 +144,6 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        /*
-        if(sensorEvent.sensor == mStepCounter){
-            stepCount = (int) sensorEvent.values[0];
-            tv_steps.setText(String.valueOf(stepCount));
-        }
-         */
         if(this.stepDetect >= MAXIMUM_OF_STEPS) goToGeoMap();
         if(sensorEvent.sensor == mStepDetector){
             stepDetect = (int) (stepDetect + sensorEvent.values[0]);
@@ -180,10 +159,6 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
     @Override
     protected void onResume() {
         super.onResume();
-        /*
-        if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null)
-            sensorManager.registerListener(this, mStepCounter, SensorManager.SENSOR_DELAY_NORMAL);
-         */
         if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR) != null)
             sensorManager.registerListener(this, mStepDetector, SensorManager.SENSOR_DELAY_NORMAL);
     }
@@ -191,9 +166,6 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
     @Override
     protected void onPause() {
         super.onPause();
-        //if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null)
-        //    sensorManager.unregisterListener(this, mStepCounter);
-
         if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR) != null)
             sensorManager.unregisterListener(this, mStepDetector);
     }
@@ -207,23 +179,14 @@ public class MovingCounter extends AppCompatActivity implements SensorEventListe
             startActivity(intent);
         }
         else if(v.getId() == R.id.button_backToStart) {
-            //sensorManager.unregisterListener(this, mStepCounter);
             sensorManager.unregisterListener(this, mStepDetector);
             Intent intent = new Intent(MovingCounter.this, MainActivity.class);
-            startActivity(intent);
-            this.finish();
-            // if you unregister the hardware will stop detecting steps
-            //sensorManager.unregisterListener(this);
-        }
-        else if(v.getId() == R.id.button_Debug_100Steps) {
-            Intent intent = new Intent(MovingCounter.this, ViewSteps.class);
             startActivity(intent);
             this.finish();
         }
     }
 
     private void goToGeoMap(){
-        //sensorManager.unregisterListener(this, mStepCounter);
         sensorManager.unregisterListener(this, mStepDetector);
         Intent intent = new Intent(MovingCounter.this, ViewSteps.class);
         startActivity(intent);

@@ -1,8 +1,8 @@
 package com.voctrainer;
 /*
     Mobile Interaction Design - Group 5
-    VocTrainer 0.1.1
-    BETA vom 15.01.2022
+    VocTrainer 1.0
+    von Fabrice S., Sara A., Garros S. und Sara M.
 */
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,7 +47,6 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
     private RadioButton radioButtonA;
     private RadioButton radioButtonB;
     private RadioButton radioButtonC;
-    private Button btn_DEBUG_skip;
     private Button btn_cancel;
 
     @Override
@@ -66,10 +65,6 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         radioButtonA = (RadioButton) findViewById(R.id.radioButton_a);
         radioButtonB = (RadioButton) findViewById(R.id.radioButton_b);
         radioButtonC= (RadioButton) findViewById(R.id.radioButton_c);
-
-        btn_DEBUG_skip = (Button) findViewById(R.id.button_DEBUG_SkipResult);
-        btn_DEBUG_skip.setText("To result");
-        btn_DEBUG_skip.setOnClickListener(this);
 
         btn_cancel = (Button) findViewById(R.id.button_cancel);
         btn_cancel.setText("Quiz beenden");
@@ -207,8 +202,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.button_DEBUG_SkipResult) goToActivityResult();
-        else if(v.getId() == R.id.button_cancel) {
+        if(v.getId() == R.id.button_cancel) {
             Intent intent = new Intent(Quiz.this, LevelSelection.class);
             intent.putExtra(SELECTED_AREA, areaID);
             startActivity(intent);
